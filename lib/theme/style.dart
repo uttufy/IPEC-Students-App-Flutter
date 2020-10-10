@@ -8,6 +8,7 @@ ThemeData appTheme = new ThemeData(
   fontFamily: 'Averta',
   primaryColor: kPrimaryColor,
   scaffoldBackgroundColor: Colors.white,
+
   // inputDecorationTheme: InputDecorationTheme(
   //   // fillColor: kLighterGrey,
   //   // filled: true,

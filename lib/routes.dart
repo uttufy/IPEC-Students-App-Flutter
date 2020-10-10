@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ipecstudents/screens/loading/loading_screen.dart';
 import 'package:ipecstudents/screens/login/login_screen.dart';
 import 'package:ipecstudents/screens/splash/splash_screen.dart';
 import 'package:ipecstudents/theme/style.dart';
@@ -28,6 +29,8 @@ class Routes {
         return _getMaterialRoute(SplashScreen(), settings);
       case LoginScreen.ROUTE:
         return _getMaterialRoute(LoginScreen(), settings);
+      case LoadingScreen.ROUTE:
+        return _getMaterialRoute(LoadingScreen(), settings);
       // case MainWebView.ROUTE:
       //   Map arg = settings.arguments;
       //   return _getMaterialRoute(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ipecstudents/screens/login/components/background.dart';
+import 'package:ipecstudents/screens/loading/loading_screen.dart';
+import 'package:ipecstudents/widgets/background.dart';
 import 'package:ipecstudents/widgets/rounded_button.dart';
 import 'package:ipecstudents/widgets/rounded_input_field.dart';
 import 'package:ipecstudents/widgets/rounded_password_field.dart';
@@ -38,7 +39,9 @@ class Body extends StatelessWidget {
             ),
             RoundedButton(
               text: "LOGIN",
-              press: () {},
+              press: () {
+                Navigator.pushNamed(context, LoadingScreen.ROUTE);
+              },
             ),
             SizedBox(height: size.height * 0.03),
           ],

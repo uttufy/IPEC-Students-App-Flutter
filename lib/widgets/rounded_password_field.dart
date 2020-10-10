@@ -40,6 +40,10 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
             ),
           ),
           border: InputBorder.none,
+          hintStyle: Theme.of(context)
+              .accentTextTheme
+              .bodyText1
+              .copyWith(color: Colors.black),
         ),
       ),
     );
