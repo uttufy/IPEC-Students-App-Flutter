@@ -4,6 +4,7 @@ import 'package:ipecstudents/screens/login/components/background.dart';
 import 'package:ipecstudents/widgets/rounded_button.dart';
 import 'package:ipecstudents/widgets/rounded_input_field.dart';
 import 'package:ipecstudents/widgets/rounded_password_field.dart';
+import 'package:lottie/lottie.dart';
 
 class Body extends StatelessWidget {
   const Body({
@@ -23,8 +24,8 @@ class Body extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
             ),
             SizedBox(height: size.height * 0.03),
-            SvgPicture.asset(
-              "assets/icons/login.svg",
+            Lottie.asset(
+              "assets/anim/login.json",
               height: size.height * 0.35,
             ),
             SizedBox(height: size.height * 0.03),
