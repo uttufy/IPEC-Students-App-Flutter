@@ -55,9 +55,9 @@ class Body extends StatelessWidget {
               RoundedButton(
                 text: "LOGIN",
                 press: () {
-                  if (validateInput(_username, _password))
+                  if (validateInput(_username, _password)) {
                     Navigator.pushNamed(context, LoadingScreen.ROUTE);
-                  else
+                  } else
                     showInSnackBar('Please check your entries!');
                 },
               ),

@@ -30,16 +30,13 @@ class LoadingScreen extends StatelessWidget {
               child: Container(
                 width: size.width,
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Flexible(
-                  child: Text(
-                    "Mantra : " + mantra,
-                    overflow: TextOverflow.clip,
-                    textAlign: TextAlign.center,
-                    style:
-                        Theme.of(context).primaryTextTheme.bodyText1.copyWith(
-                              color: kGrey,
-                            ),
-                  ),
+                child: Text(
+                  "Mantra : " + mantra,
+                  overflow: TextOverflow.clip,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).primaryTextTheme.bodyText1.copyWith(
+                        color: kGrey,
+                      ),
                 ),
               ),
             )
