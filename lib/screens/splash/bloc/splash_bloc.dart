@@ -10,5 +10,10 @@ class SplashScreenBloc extends BaseBloc {
   BaseState get initialState => SplashInitState();
 
   @override
-  Stream<BaseState> mapBaseEventToBaseState(BaseEvent event) async* {}
+  Stream<BaseState> mapBaseEventToBaseState(BaseEvent event) async* {
+    if (event is CheckUserAuth) {
+      await Future.delayed(Duration(seconds: 3));
+      yield OpenAuthenticationScreen();
+    }
+  }
 }

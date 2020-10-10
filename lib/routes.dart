@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ipecstudents/screens/login/login_screen.dart';
 import 'package:ipecstudents/screens/splash/splash_screen.dart';
 import 'package:ipecstudents/theme/style.dart';
 import 'package:ipecstudents/util/SizeConfig.dart';
@@ -25,6 +26,8 @@ class Routes {
     switch (settings.name) {
       case SplashScreen.ROUTE:
         return _getMaterialRoute(SplashScreen(), settings);
+      case LoginScreen.ROUTE:
+        return _getMaterialRoute(LoginScreen(), settings);
       // case MainWebView.ROUTE:
       //   Map arg = settings.arguments;
       //   return _getMaterialRoute(

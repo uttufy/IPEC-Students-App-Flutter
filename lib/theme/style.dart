@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:ipecstudents/data/const.dart';
 
 import 'colors.dart';
 
 ThemeData appTheme = new ThemeData(
   hintColor: Colors.white,
   fontFamily: 'Averta',
-  primaryColor: kOrange,
-  accentColor: kOrange,
-  scaffoldBackgroundColor: kLightBg,
-  inputDecorationTheme: InputDecorationTheme(
-    fillColor: kLighterGrey,
-    filled: true,
-    border: OutlineInputBorder(
-      borderSide: BorderSide.none,
-      borderRadius: BorderRadius.circular(kLowCircleRadius),
-    ),
-  ),
+  primaryColor: kPrimaryColor,
+  scaffoldBackgroundColor: Colors.white,
+  // inputDecorationTheme: InputDecorationTheme(
+  //   // fillColor: kLighterGrey,
+  //   // filled: true,
+  //   border: OutlineInputBorder(
+  //     borderSide: BorderSide.none,
+  //     borderRadius: BorderRadius.circular(kLowCircleRadius),
+  //   ),
+  // ),
 );
 
 const kLowCircleRadius = 20.0;

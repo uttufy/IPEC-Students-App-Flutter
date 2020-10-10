@@ -4,8 +4,4 @@ class SplashScreenEvent extends BaseEvent {
   SplashScreenEvent([List props = const []]) : super(props);
 }
 
-class CheckUserAuth extends SplashScreenEvent {
-  // final UserRepo userRepo;
-  //
-  // CheckUserAuth(this.userRepo);
-}
+class CheckUserAuth extends SplashScreenEvent {}
