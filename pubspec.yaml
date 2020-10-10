@@ -16,6 +16,7 @@ dependencies:
   flutter_bloc: ^4.0.1
   equatable: ^1.2.3
   dio: ^3.0.10
+  lottie: ^0.6.0
 
 dev_dependencies:
   flutter_test:
@@ -26,6 +27,7 @@ flutter:
   
   assets:
     - assets/images/
+    - assets/anim/
 
   fonts:
     - family: averta

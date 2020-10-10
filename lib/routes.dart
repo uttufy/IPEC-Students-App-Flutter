@@ -1,33 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:ipecstudents/screens/splash/splash_screen.dart';
+import 'package:ipecstudents/theme/style.dart';
 import 'package:ipecstudents/util/SizeConfig.dart';
 import 'package:provider/provider.dart';
 
 class Routes {
   Routes() {
-    runApp(MultiProvider(
-      providers: [
-        // ChangeNotifierProvider<ScoreRepo>(
-        //   create: (context) => ScoreRepo(),
-        // ),
-        // ChangeNotifierProvider<UserRepo>(
-        //   create: (context) => UserRepo(),
-        // )
-      ],
-      child: LayoutBuilder(builder: (context, constraints) {
-        return OrientationBuilder(builder: (context, orientation) {
-          SizeConfig().init(constraints, orientation);
+    runApp(LayoutBuilder(builder: (context, constraints) {
+      return OrientationBuilder(builder: (context, orientation) {
+        SizeConfig().init(constraints, orientation);
 
-          return MaterialApp(
-            title: "IPEC Students App",
-            home: SplashScreen(),
-            // theme: appTheme,
-            onGenerateRoute: onGenerate,
-            debugShowCheckedModeBanner: false,
-          );
-        });
-      }),
-    ));
+        return MaterialApp(
+          title: "IPEC Students App",
+          home: SplashScreen(),
+          theme: appTheme,
+          onGenerateRoute: onGenerate,
+          debugShowCheckedModeBanner: false,
+        );
+      });
+    }));
   }
 
   Route onGenerate(RouteSettings settings) {
@@ -48,10 +39,10 @@ class Routes {
     }
   }
 
-  static Route _getMaterialRoute(Widget widget, RouteSettings settings) {
+  static Route _getMaterialRoute(Widget widge, RouteSettings settings) {
     return MaterialPageRoute(
         builder: (BuildContext context) {
-          return widget;
+          return widge;
         },
         settings: settings);
   }
