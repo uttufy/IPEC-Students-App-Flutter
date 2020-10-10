@@ -5,6 +5,7 @@ import 'package:ipecstudents/widgets/text_field_container.dart';
 
 class RoundedPasswordField extends StatefulWidget {
   final ValueChanged<String> onChanged;
+
   const RoundedPasswordField({
     Key key,
     this.onChanged,
