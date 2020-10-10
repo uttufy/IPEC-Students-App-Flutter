@@ -19,7 +19,7 @@ class Routes {
           SizeConfig().init(constraints, orientation);
 
           return MaterialApp(
-            title: "IPEC Students",
+            title: "IPEC Students App",
             home: SplashScreen(),
             // theme: appTheme,
             onGenerateRoute: onGenerate,
@@ -32,8 +32,8 @@ class Routes {
 
   Route onGenerate(RouteSettings settings) {
     switch (settings.name) {
-      // case HomePage.ROUTE:
-      //   return _getMaterialRoute(HomePage(), settings);
+      case SplashScreen.ROUTE:
+        return _getMaterialRoute(SplashScreen(), settings);
       // case MainWebView.ROUTE:
       //   Map arg = settings.arguments;
       //   return _getMaterialRoute(
@@ -43,8 +43,8 @@ class Routes {
       //       ),
       //       settings);
       // case LiveMatchScoreScreen.ROUTE:
-      // default:
-      // return _getMaterialRoute(SplashScreen(), settings);
+      default:
+        return _getMaterialRoute(SplashScreen(), settings);
     }
   }
 
