@@ -10,11 +10,18 @@ import 'package:ipecstudents/widgets/background.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mantras/mantras.dart';
 
-class LoadingScreen extends StatelessWidget {
+class LoadingScreen extends StatefulWidget {
   static const String ROUTE = "/Loading";
+
+  @override
+  _LoadingScreenState createState() => _LoadingScreenState();
+}
+
+class _LoadingScreenState extends State<LoadingScreen> {
   final LoadingBloc _bloc = LoadingBloc();
-  // Retrieve single mantra
+
   String mantra = Mantras().getMantra();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -23,29 +30,37 @@ class LoadingScreen extends StatelessWidget {
         bloc: _bloc,
         listener: (BuildContext context, BaseState state) {
           print("$runtimeType BlocListener - ${state.toString()}");
+          if (state is CloseLoadingState) {
+            Navigator.pop(context);
+          }
         },
         child: BaseBlocBuilder(
           bloc: _bloc,
           condition: (BaseState previous, BaseState current) {
-            return !(BaseBlocBuilder.isBaseState(current));
+            // return !(BaseBlocBuilder.isBaseState(current));
+            return true;
           },
           builder: (BuildContext context, BaseState state) {
             print("$runtimeType BlocBuilder - ${state.toString()}");
             if (state is LoadingInitState) _bloc.add(CheckCredentials());
-            return _getBody(context, size);
+
+            return _getBody(context, size, state);
           },
         ),
       ),
     );
   }
 
-  Background _getBody(BuildContext context, Size size) {
+  Background _getBody(BuildContext context, Size size, BaseState state) {
     return Background(
       child: Stack(
         alignment: Alignment.center,
         children: [
           Text(
-            'Loading',
+            state is LoginFailState
+                ? 'Wrong ID & Password\nTry Again'
+                : 'Loading',
+            textAlign: TextAlign.center,
             style: Theme.of(context)
                 .primaryTextTheme
                 .headline5

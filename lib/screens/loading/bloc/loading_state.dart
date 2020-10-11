@@ -8,4 +8,6 @@ class LoadingInitState extends LoadingState {}
 
 class CloseLoadingState extends LoadingState {}
 
+class LoginFailState extends LoadingState {}
+
 class AuthenticatedState extends LoadingState {}

@@ -5,3 +5,5 @@ class LoadingEvent extends BaseEvent {
 }
 
 class CheckCredentials extends LoadingEvent {}
+
+class ResetState extends LoadingEvent {}
