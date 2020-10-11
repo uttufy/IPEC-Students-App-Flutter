@@ -16,7 +16,8 @@ class Attendance {
   String getTotalLectures() => this.totalLectures;
   String getPresentLectures() => this.presentLecture;
   String getAttendanceMessage() {
-    double attendance = this.presentPercent;
+    double attendance = percent;
+
     if (attendance == 100) {
       return "God Level! 🙏👑👏";
     }

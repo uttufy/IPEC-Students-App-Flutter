@@ -5,8 +5,8 @@ import 'package:ipecstudents/util/SizeConfig.dart';
 
 class SimpleAppBar extends StatelessWidget {
   final img;
-
-  const SimpleAppBar({Key key, this.img}) : super(key: key);
+  final VoidCallback onPic;
+  const SimpleAppBar({Key key, this.img, this.onPic}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +28,15 @@ class SimpleAppBar extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: CircleAvatar(
-              radius: SizeConfig.widthMultiplier * 5,
-              backgroundImage: MemoryImage(
-                base64Decode(img),
+          GestureDetector(
+            onTap: onPic,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: CircleAvatar(
+                radius: SizeConfig.widthMultiplier * 5,
+                backgroundImage: MemoryImage(
+                  base64Decode(img),
+                ),
               ),
             ),
           ),

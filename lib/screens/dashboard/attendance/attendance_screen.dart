@@ -12,8 +12,10 @@ import 'package:ipecstudents/screens/dashboard/attendance/bloc/attendance_state.
 import 'package:ipecstudents/screens/dashboard/attendance/graph.dart';
 import 'package:ipecstudents/theme/style.dart';
 import 'package:ipecstudents/util/SizeConfig.dart';
+import 'package:ipecstudents/widgets/general_dialog.dart';
 import 'package:ipecstudents/widgets/simple_appbar.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class AttendanceScreen extends StatefulWidget {
   static const String ROUTE = "/Attendance";
@@ -63,7 +65,18 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SimpleAppBar(img: _auth.user.img.toString().split(',')[1]),
+        SimpleAppBar(
+          img: _auth.user.img.toString().split(',')[1],
+          onPic: () {
+            if (state is AttendanceLoaded) {
+              GeneralDialog.show(
+                context,
+                title: "Message",
+                message: session.attendance.getAttendanceMessage(),
+              );
+            }
+          },
+        ),
         kLowPadding,
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -87,17 +100,35 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
               ),
         ),
         kLowPadding,
-        Text(
-          state is AttendanceLoaded
-              ? session.attendance.percent.toString() + "%"
-              : '00.00%',
-          style: Theme.of(context)
-              .textTheme
-              .headline3
-              .copyWith(color: Colors.black, fontWeight: FontWeight.w700),
-        ),
+        state is AttendanceLoaded
+            ? Text(
+                session.attendance.percent.toString() + "%",
+                style: Theme.of(context)
+                    .textTheme
+                    .headline3
+                    .copyWith(color: Colors.black, fontWeight: FontWeight.w700),
+              )
+            : Shimmer.fromColors(
+                baseColor: Colors.grey[400],
+                highlightColor: Colors.grey[200],
+                child: Text(
+                  "00.0%",
+                  style: Theme.of(context).textTheme.headline3.copyWith(
+                      color: Colors.black, fontWeight: FontWeight.w700),
+                )),
         kLowPadding,
-        AttendanceGraph(),
+        state is AttendanceLoaded
+            ? AttendanceGraph()
+            : AspectRatio(
+                aspectRatio: 1.70,
+                child: Shimmer.fromColors(
+                    baseColor: Colors.white,
+                    highlightColor: Colors.grey[200],
+                    child: Container(
+                      width: SizeConfig.screenWidth,
+                      color: Colors.white,
+                    )),
+              ),
       ],
     ));
   }

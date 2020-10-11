@@ -4,6 +4,7 @@ import 'package:ipecstudents/theme/style.dart';
 import 'package:ipecstudents/util/SizeConfig.dart';
 import 'package:ipecstudents/widgets/button.dart';
 import 'package:flutter/material.dart';
+import 'package:ipecstudents/widgets/rounded_button.dart';
 
 class GeneralDialog extends StatefulWidget {
   static Future show(BuildContext context,
@@ -127,8 +128,7 @@ class _GeneralDialogState extends State {
                       Container(
                         decoration: BoxDecoration(
                             color: _themeData.scaffoldBackgroundColor,
-                            borderRadius:
-                                BorderRadius.circular(kMedCircleRadius)),
+                            borderRadius: BorderRadius.circular(30)),
                         child: Container(
                           width: double.maxFinite,
                           margin: EdgeInsets.all(20),
@@ -139,8 +139,14 @@ class _GeneralDialogState extends State {
                               titleWidget ??
                                   Text(
                                     title.toUpperCase(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline6
+                                        .copyWith(
+                                          color: Colors.black,
+                                        ),
                                   ),
-                              kLowPadding,
+                              kMedPadding,
                               child ??
                                   Text(
                                     message,
@@ -171,8 +177,8 @@ class _GeneralDialogState extends State {
                                           )
                                         : Container(),
                                     Expanded(
-                                      child: BasicButton(
-                                        onPress: () {
+                                      child: RoundedButton(
+                                        press: () {
                                           if (onPositiveTap != null) {
                                             if (closeOnAction)
                                               Navigator.pop(context);
@@ -181,7 +187,7 @@ class _GeneralDialogState extends State {
                                             Navigator.pop(context);
                                           }
                                         },
-                                        title: positiveButtonLabel ?? 'OK',
+                                        text: positiveButtonLabel ?? 'OK',
                                       ),
                                     ),
                                   ],
