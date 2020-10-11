@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ipecstudents/data/base_bloc/base_bloc_builder.dart';
 import 'package:ipecstudents/data/base_bloc/base_bloc_listener.dart';
 import 'package:ipecstudents/data/base_bloc/base_state.dart';
+import 'package:ipecstudents/data/model/Cred.dart';
 import 'package:ipecstudents/screens/loading/bloc/loading_bloc.dart';
 import 'package:ipecstudents/screens/loading/bloc/loading_event.dart';
 import 'package:ipecstudents/screens/loading/bloc/loading_state.dart';
@@ -12,6 +13,9 @@ import 'package:mantras/mantras.dart';
 
 class LoadingScreen extends StatefulWidget {
   static const String ROUTE = "/Loading";
+  final Cred cred;
+
+  const LoadingScreen({Key key, this.cred}) : super(key: key);
 
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
@@ -42,7 +46,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
           },
           builder: (BuildContext context, BaseState state) {
             print("$runtimeType BlocBuilder - ${state.toString()}");
-            if (state is LoadingInitState) _bloc.add(CheckCredentials());
+            if (state is LoadingInitState)
+              _bloc.add(CheckCredentials(widget.cred));
 
             return _getBody(context, size, state);
           },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ipecstudents/data/base_bloc/base_event.dart';
 import 'package:ipecstudents/data/base_bloc/base_state.dart';
+import 'package:ipecstudents/data/model/Cred.dart';
 import 'package:ipecstudents/screens/loading/loading_screen.dart';
 import 'package:ipecstudents/widgets/background.dart';
 import 'package:ipecstudents/widgets/general_dialog.dart';
@@ -56,7 +57,10 @@ class Body extends StatelessWidget {
                 text: "LOGIN",
                 press: () {
                   if (validateInput(_username, _password)) {
-                    Navigator.pushNamed(context, LoadingScreen.ROUTE);
+                    Navigator.pushNamed(context, LoadingScreen.ROUTE,
+                        arguments: {
+                          'cred': Cred(username: _username, password: _password)
+                        });
                   } else
                     showInSnackBar('Please check your entries!');
                 },

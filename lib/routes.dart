@@ -30,15 +30,13 @@ class Routes {
       case LoginScreen.ROUTE:
         return _getMaterialRoute(LoginScreen(), settings);
       case LoadingScreen.ROUTE:
-        return _getMaterialRoute(LoadingScreen(), settings);
-      // case MainWebView.ROUTE:
-      //   Map arg = settings.arguments;
-      //   return _getMaterialRoute(
-      //       MainWebView(
-      //         title: arg['title'],
-      //         url: arg['url'],
-      //       ),
-      //       settings);
+        Map arg = settings.arguments;
+
+        return _getMaterialRoute(
+            LoadingScreen(
+              cred: arg['cred'],
+            ),
+            settings);
       // case LiveMatchScoreScreen.ROUTE:
       default:
         return _getMaterialRoute(SplashScreen(), settings);

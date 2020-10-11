@@ -17,7 +17,8 @@ class LoadingBloc extends BaseBloc {
 
     if (event is CheckCredentials) {
       try {
-        GeneralResponse response = await Auth().login('181319', 'umang123');
+        GeneralResponse response =
+            await Auth().login(event.cred.username, event.cred.password);
         if (response.status) {
           yield AuthenticatedState();
         } else {
