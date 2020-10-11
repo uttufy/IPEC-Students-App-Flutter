@@ -3,9 +3,11 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ipecstudents/data/repo/auth.dart';
+import 'package:ipecstudents/screens/dashboard/attendance/attendance_screen.dart';
 import 'package:ipecstudents/theme/colors.dart';
 import 'package:ipecstudents/theme/style.dart';
 import 'package:ipecstudents/util/SizeConfig.dart';
+import 'package:ipecstudents/widgets/background.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
 
@@ -21,56 +23,81 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Consumer<Auth>(
       builder: (context, auth, child) {
         return Scaffold(
-          body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                    radius: SizeConfig.widthMultiplier * 7,
-                    backgroundImage: MemoryImage(
-                      base64Decode(auth.user.img.toString().split(',')[1]),
-                    ),
-                  ),
-                  kHighPadding,
-                  Text(
-                    'Hello,',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5
-                        .copyWith(color: Colors.black),
-                  ),
-                  Text(
-                    auth.user.name,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.headline5.copyWith(
-                        color: Colors.black, fontWeight: FontWeight.bold),
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+          body: Background(
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            optionIcon('assets/icons/Bag.png', 'Attendance'),
-                            optionIcon('assets/icons/Atom.png', 'Notices'),
-                          ],
+                        CircleAvatar(
+                          radius: SizeConfig.widthMultiplier * 7,
+                          backgroundImage: MemoryImage(
+                            base64Decode(
+                                auth.user.img.toString().split(',')[1]),
+                          ),
                         ),
-                        kMedPadding,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            optionIcon(
-                                'assets/icons/Boy-Student.png', 'Learning'),
-                            optionIcon('assets/icons/Compass.png', 'About'),
-                          ],
-                        ),
+                        InkWell(
+                          onTap: () {},
+                          borderRadius: BorderRadius.circular(50),
+                          child: Ink(
+                            padding: const EdgeInsets.all(20),
+                            child: Image.asset(
+                              'assets/icons/menu.png',
+                              width: 20,
+                            ),
+                          ),
+                        )
                       ],
                     ),
-                  ),
-                ],
+                    kHighPadding,
+                    Text(
+                      'Hello,',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline5
+                          .copyWith(color: Colors.black),
+                    ),
+                    Text(
+                      auth.user.name,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.headline5.copyWith(
+                          color: Colors.black, fontWeight: FontWeight.bold),
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              optionIcon(
+                                  'assets/icons/Bag.png',
+                                  'Attendance',
+                                  () => Navigator.pushNamed(
+                                      context, AttendanceScreen.ROUTE)),
+                              optionIcon(
+                                  'assets/icons/Atom.png', 'Notices', () {}),
+                            ],
+                          ),
+                          kMedPadding,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              optionIcon('assets/icons/Boy-Student.png',
+                                  'Learning', () {}),
+                              optionIcon(
+                                  'assets/icons/Compass.png', 'About', () {}),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -79,10 +106,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Widget optionIcon(String img, String title) {
+  Widget optionIcon(String img, String title, Function onPress) {
     return Flexible(
       child: InkWell(
-        onTap: () {},
+        onTap: onPress,
         borderRadius: BorderRadius.circular(30),
         highlightColor: kPrimaryLightColor,
         child: Ink(

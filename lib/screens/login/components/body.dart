@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ipecstudents/data/base_bloc/base_event.dart';
 import 'package:ipecstudents/data/base_bloc/base_state.dart';
 import 'package:ipecstudents/data/model/Cred.dart';
+import 'package:ipecstudents/data/repo/auth.dart';
 import 'package:ipecstudents/screens/loading/loading_screen.dart';
 import 'package:ipecstudents/widgets/background.dart';
 import 'package:ipecstudents/widgets/general_dialog.dart';
@@ -9,6 +10,7 @@ import 'package:ipecstudents/widgets/rounded_button.dart';
 import 'package:ipecstudents/widgets/rounded_input_field.dart';
 import 'package:ipecstudents/widgets/rounded_password_field.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class Body extends StatelessWidget {
   const Body({
@@ -57,10 +59,11 @@ class Body extends StatelessWidget {
                 text: "LOGIN",
                 press: () {
                   if (validateInput(_username, _password)) {
+                    Provider.of<Auth>(context, listen: false).cred =
+                        Cred(username: _username, password: _password);
+
                     Navigator.pushNamed(context, LoadingScreen.ROUTE,
-                        arguments: {
-                          'cred': Cred(username: _username, password: _password)
-                        });
+                        arguments: {'isFirstLogin': true});
                   } else
                     showInSnackBar('Please check your entries!');
                 },

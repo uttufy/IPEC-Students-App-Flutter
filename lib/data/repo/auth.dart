@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
+import 'package:ipecstudents/data/model/Cred.dart';
 import 'package:ipecstudents/data/model/GeneralResponse.dart';
 import 'package:ipecstudents/data/model/TokensModel.dart';
 import 'package:ipecstudents/data/model/User.dart';
@@ -14,9 +15,13 @@ class Auth extends ChangeNotifier {
 
   User _user;
 
-  get user => _user;
+  Cred _cred;
 
+  get user => _user;
   set user(User u) => _user = u;
+
+  get cred => _cred;
+  set cred(Cred u) => _cred = u;
 
   //  Handle Login
   //  Step 1: Get Cookies

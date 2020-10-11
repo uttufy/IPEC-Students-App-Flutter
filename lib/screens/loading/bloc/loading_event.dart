@@ -7,9 +7,8 @@ class LoadingEvent extends BaseEvent {
 }
 
 class CheckCredentials extends LoadingEvent {
-  final Cred cred;
   final Auth auth;
-  CheckCredentials(this.cred, this.auth);
+  CheckCredentials(this.auth);
 }
 
 class ResetState extends LoadingEvent {}

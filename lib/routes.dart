@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ipecstudents/screens/dashboard/attendance/attendance_screen.dart';
 import 'package:ipecstudents/screens/dashboard/dashboard_page.dart';
 import 'package:ipecstudents/screens/loading/loading_screen.dart';
 import 'package:ipecstudents/screens/login/login_screen.dart';
@@ -41,16 +42,15 @@ class Routes {
         return _getMaterialRoute(LoginScreen(), settings);
       case LoadingScreen.ROUTE:
         Map arg = settings.arguments;
-
         return _getMaterialRoute(
             LoadingScreen(
-              cred: arg['cred'],
+              isFirstLogin: arg['isFirstLogin'],
             ),
             settings);
-      // case LiveMatchScoreScreen.ROUTE:
-
       case DashboardScreen.ROUTE:
         return _getMaterialRoute(DashboardScreen(), settings);
+      case AttendanceScreen.ROUTE:
+        return _getMaterialRoute(AttendanceScreen(), settings);
 
       default:
         return _getMaterialRoute(SplashScreen(), settings);
