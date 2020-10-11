@@ -15,7 +15,7 @@ class SplashScreenBloc extends BaseBloc {
   Stream<BaseState> mapBaseEventToBaseState(BaseEvent event) async* {
     LocalData _localData = LocalData();
     if (event is CheckUserAuth) {
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(Duration(seconds: 1));
       bool isLogin = await _localData.getLoginStatus();
 
       if (isLogin != null && isLogin) {

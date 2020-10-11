@@ -8,6 +8,7 @@ import 'package:ipecstudents/screens/dashboard/dashboard_page.dart';
 import 'package:ipecstudents/screens/loading/bloc/loading_bloc.dart';
 import 'package:ipecstudents/screens/loading/bloc/loading_event.dart';
 import 'package:ipecstudents/screens/loading/bloc/loading_state.dart';
+import 'package:ipecstudents/screens/login/login_screen.dart';
 import 'package:ipecstudents/theme/colors.dart';
 import 'package:ipecstudents/widgets/background.dart';
 import 'package:lottie/lottie.dart';
@@ -38,7 +39,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
         listener: (BuildContext context, BaseState state) {
           print("$runtimeType BlocListener - ${state.toString()}");
           if (state is CloseLoadingState) {
-            Navigator.pop(context);
+            if (widget.isFirstLogin)
+              Navigator.pop(context);
+            else
+              Navigator.pushReplacementNamed(context, LoginScreen.ROUTE);
           }
 
           if (state is AuthenticatedState) {
