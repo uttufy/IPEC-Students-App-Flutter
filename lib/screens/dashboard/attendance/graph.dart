@@ -29,6 +29,10 @@ class AttendanceGraph extends StatelessWidget {
 
   LineChartData mainData() {
     return LineChartData(
+      lineTouchData: LineTouchData(
+          enabled: true,
+          fullHeightTouchLine: false,
+          touchTooltipData: LineTouchTooltipData(tooltipBgColor: kLighterGrey)),
       gridData: FlGridData(
         show: false,
       ),

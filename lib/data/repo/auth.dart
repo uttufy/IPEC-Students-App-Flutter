@@ -23,6 +23,8 @@ class Auth extends ChangeNotifier {
   get cred => _cred;
   set cred(Cred u) => _cred = u;
 
+  get token => _tokens;
+
   //  Handle Login
   //  Step 1: Get Cookies
   Future<GeneralResponse> login(String username, String password) async {

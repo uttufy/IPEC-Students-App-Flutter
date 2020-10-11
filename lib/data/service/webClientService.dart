@@ -4,7 +4,9 @@
 import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart';
 import 'package:ipecstudents/data/const.dart';
+import 'package:ipecstudents/data/model/Cred.dart';
 import 'package:ipecstudents/data/model/GeneralResponse.dart';
+import 'package:ipecstudents/data/model/TokensModel.dart';
 
 class WebClientService {
   /// Dio is a networking client that add a lot of features on
@@ -74,6 +76,44 @@ class WebClientService {
         return res;
       } else
         return GeneralResponse(error: "Wrong Credentials", status: false);
+    } catch (error) {
+      return GeneralResponse(error: error.toString(), status: false);
+    }
+  }
+
+  Future<GeneralResponse> getAttendanceToken(Cred cred, Tokens tokens) async {
+    _dio.options.headers['Cookie'] = tokens.cookies;
+    _dio.options.headers['Referer'] = kWebsiteURL + kHomeURL;
+    _dio.options.headers['Connection'] = 'keep-alive';
+
+    try {
+      final response = await _dio.get(
+        kAttendanceURL,
+      );
+      if (response.statusCode == 200)
+        return GeneralResponse(data: response, status: true);
+      else
+        return GeneralResponse(
+            error: "Failed to load attendance. Error at first get.",
+            status: false);
+    } catch (error) {
+      return GeneralResponse(error: error.toString(), status: false);
+    }
+  }
+
+  Future<GeneralResponse> postAttendance(
+      Cred cred, Tokens tokens, Map body) async {
+    _dio.options.headers['Cookie'] = tokens.cookies;
+    _dio.options.headers['Referer'] = kWebsiteURL + kHomeURL;
+    _dio.options.headers['Connection'] = 'keep-alive';
+
+    try {
+      final response = await _dio.post(kAttendanceURL, data: body);
+      if (response.statusCode == 200)
+        return GeneralResponse(data: response, status: true);
+      else
+        return GeneralResponse(
+            error: "Failed to load attendance. Error at post", status: false);
     } catch (error) {
       return GeneralResponse(error: error.toString(), status: false);
     }

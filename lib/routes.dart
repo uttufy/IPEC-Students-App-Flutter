@@ -9,6 +9,7 @@ import 'package:ipecstudents/util/SizeConfig.dart';
 import 'package:provider/provider.dart';
 
 import 'data/repo/auth.dart';
+import 'data/repo/session.dart';
 
 class Routes {
   Routes() {
@@ -16,6 +17,9 @@ class Routes {
       providers: [
         ChangeNotifierProvider<Auth>(
           create: (context) => Auth(),
+        ),
+        ChangeNotifierProvider<Session>(
+          create: (context) => Session(),
         ),
       ],
       child: LayoutBuilder(builder: (context, constraints) {
