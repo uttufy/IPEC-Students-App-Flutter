@@ -6,21 +6,30 @@ import 'package:ipecstudents/theme/style.dart';
 import 'package:ipecstudents/util/SizeConfig.dart';
 import 'package:provider/provider.dart';
 
+import 'data/repo/auth.dart';
+
 class Routes {
   Routes() {
-    runApp(LayoutBuilder(builder: (context, constraints) {
-      return OrientationBuilder(builder: (context, orientation) {
-        SizeConfig().init(constraints, orientation);
+    runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider<Auth>(
+          create: (context) => Auth(),
+        ),
+      ],
+      child: LayoutBuilder(builder: (context, constraints) {
+        return OrientationBuilder(builder: (context, orientation) {
+          SizeConfig().init(constraints, orientation);
 
-        return MaterialApp(
-          title: "IPEC Students App",
-          home: SplashScreen(),
-          theme: appTheme,
-          onGenerateRoute: onGenerate,
-          debugShowCheckedModeBanner: false,
-        );
-      });
-    }));
+          return MaterialApp(
+            title: "IPEC Students App",
+            home: SplashScreen(),
+            theme: appTheme,
+            onGenerateRoute: onGenerate,
+            debugShowCheckedModeBanner: false,
+          );
+        });
+      }),
+    ));
   }
 
   Route onGenerate(RouteSettings settings) {

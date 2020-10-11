@@ -3,6 +3,7 @@ import 'package:ipecstudents/data/base_bloc/base_bloc_builder.dart';
 import 'package:ipecstudents/data/base_bloc/base_bloc_listener.dart';
 import 'package:ipecstudents/data/base_bloc/base_state.dart';
 import 'package:ipecstudents/data/model/Cred.dart';
+import 'package:ipecstudents/data/repo/auth.dart';
 import 'package:ipecstudents/screens/loading/bloc/loading_bloc.dart';
 import 'package:ipecstudents/screens/loading/bloc/loading_event.dart';
 import 'package:ipecstudents/screens/loading/bloc/loading_state.dart';
@@ -10,6 +11,7 @@ import 'package:ipecstudents/theme/colors.dart';
 import 'package:ipecstudents/widgets/background.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mantras/mantras.dart';
+import 'package:provider/provider.dart';
 
 class LoadingScreen extends StatefulWidget {
   static const String ROUTE = "/Loading";
@@ -23,7 +25,6 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen> {
   final LoadingBloc _bloc = LoadingBloc();
-
   String mantra = Mantras().getMantra();
 
   @override
@@ -47,7 +48,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
           builder: (BuildContext context, BaseState state) {
             print("$runtimeType BlocBuilder - ${state.toString()}");
             if (state is LoadingInitState)
-              _bloc.add(CheckCredentials(widget.cred));
+              _bloc.add(CheckCredentials(
+                  widget.cred, Provider.of<Auth>(context, listen: false)));
 
             return _getBody(context, size, state);
           },

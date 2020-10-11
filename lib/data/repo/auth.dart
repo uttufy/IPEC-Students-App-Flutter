@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
 import 'package:ipecstudents/data/model/GeneralResponse.dart';
 import 'package:ipecstudents/data/model/TokensModel.dart';
@@ -5,7 +6,7 @@ import 'package:ipecstudents/data/service/webClientService.dart';
 
 import '../const.dart';
 
-class Auth {
+class Auth extends ChangeNotifier {
   WebClientService _webClient = WebClientService();
 
   Tokens _tokens = Tokens();
