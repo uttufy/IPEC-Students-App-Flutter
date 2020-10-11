@@ -15,6 +15,7 @@ class AttendanceBloc extends BaseBloc {
   @override
   Stream<BaseState> mapBaseEventToBaseState(BaseEvent event) async* {
     if (event is LoadAttendance) {
+      yield AttendanceLoading();
       try {
         GeneralResponse response =
             await event.session.webClientService.getAttendanceToken(
@@ -48,6 +49,9 @@ class AttendanceBloc extends BaseBloc {
                 .postAttendance(event.auth.cred, event.auth.token, body);
             if (postResponse.status) {
               // parse attendance
+
+              event.session.setAttendance(postResponse.data.data);
+              yield AttendanceLoaded();
             } else
               throw Exception(postResponse.error);
           } else

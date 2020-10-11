@@ -17,8 +17,8 @@ class WebClientService {
   final _dio = dio.Dio(
     dio.BaseOptions(
       baseUrl: kWebsiteURL,
-      connectTimeout: 5000,
-      receiveTimeout: 3000,
+      connectTimeout: 300000,
+      receiveTimeout: 30000,
       followRedirects: false,
       validateStatus: (status) {
         return status < 500;
@@ -108,7 +108,10 @@ class WebClientService {
     _dio.options.headers['Connection'] = 'keep-alive';
 
     try {
-      final response = await _dio.post(kAttendanceURL, data: body);
+      final response = await _dio.post(kAttendanceURL,
+          data: body,
+          options:
+              new Options(contentType: "application/x-www-form-urlencoded"));
       if (response.statusCode == 200)
         return GeneralResponse(data: response, status: true);
       else

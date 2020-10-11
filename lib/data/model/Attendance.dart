@@ -1,15 +1,15 @@
 class Attendance {
-  String body;
   double presentPercent;
   String totalLectures;
   String presentLecture;
+
+  double percent;
   Attendance(
-      {this.body,
+      {this.percent,
       this.presentPercent,
       this.presentLecture,
       this.totalLectures});
 
-  String getBody() => this.body;
   double getPresentPercent() => this.presentPercent;
   double getAbsentPercent() =>
       double.parse((100 - this.presentPercent).toStringAsFixed(2));

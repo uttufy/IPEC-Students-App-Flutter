@@ -49,7 +49,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                 print("$runtimeType BlocBuilder - ${state.toString()}");
                 if (state is AttendanceInitState)
                   _bloc.add(LoadAttendance(_auth, session));
-                return _getBody(session, context);
+                return _getBody(session, context, state);
               },
             ),
           ),
@@ -58,7 +58,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     );
   }
 
-  Widget _getBody(Session session, BuildContext context) {
+  Widget _getBody(Session session, BuildContext context, BaseState state) {
     return SafeArea(
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -88,7 +88,9 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
         ),
         kLowPadding,
         Text(
-          '80.10%',
+          state is AttendanceLoaded
+              ? session.attendance.percent.toString() + "%"
+              : '00.00%',
           style: Theme.of(context)
               .textTheme
               .headline3

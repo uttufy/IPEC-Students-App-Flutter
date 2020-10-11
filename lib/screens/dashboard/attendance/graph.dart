@@ -1,6 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:ipecstudents/data/repo/session.dart';
 import 'package:ipecstudents/theme/colors.dart';
+import 'package:provider/provider.dart';
 
 class AttendanceGraph extends StatelessWidget {
   final List<Color> gradientColors = [
@@ -15,19 +17,23 @@ class AttendanceGraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        AspectRatio(
-          aspectRatio: 1.70,
-          child: LineChart(
-            mainData(),
-          ),
-        ),
-      ],
+    return Consumer<Session>(
+      builder: (context, session, child) {
+        return Stack(
+          children: <Widget>[
+            AspectRatio(
+              aspectRatio: 1.70,
+              child: LineChart(
+                mainData(session),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
-  LineChartData mainData() {
+  LineChartData mainData(Session session) {
     return LineChartData(
       lineTouchData: LineTouchData(
           enabled: true,
@@ -44,15 +50,23 @@ class AttendanceGraph extends StatelessWidget {
           getTextStyles: (value) =>
               const TextStyle(color: kGrey, fontFamily: 'Averta'),
           getTitles: (value) {
-            switch (value.toInt()) {
-              case 2:
-                return 'Aug';
-              case 5:
-                return 'Sep';
-              case 8:
-                return 'Oct';
-            }
-            return '';
+            if (value.toInt() != 0 && value.toInt() != 10)
+              return session.graphDays[value.toInt()].split('-')[0] +
+                  "\n" +
+                  session.graphDays[value.toInt()]
+                      .split('(')[1]
+                      .toString()
+                      .substring(0, 3);
+            else
+              return '';
+            // switch (value.toInt()) {
+            //   case 0:
+            //     return ;
+            //   case 5:
+            //     return 'Last 10 Days';
+            //   case 9:
+            //     return '';
+            // }
           },
           margin: 10,
         ),
@@ -64,19 +78,23 @@ class AttendanceGraph extends StatelessWidget {
         show: false,
       ),
       minX: 0,
-      maxX: 11,
+      maxX: 10,
       minY: 0,
-      maxY: 6,
+      maxY: 100,
       lineBarsData: [
         LineChartBarData(
           spots: [
-            FlSpot(0, 3),
-            FlSpot(2.6, 2),
-            FlSpot(4.9, 5),
-            FlSpot(6.8, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 3),
-            FlSpot(11, 4),
+            FlSpot(0, session.graph.elementAt(session.graph.length - 11)),
+            FlSpot(1, session.graph.elementAt(session.graph.length - 10)),
+            FlSpot(2, session.graph.elementAt(session.graph.length - 9)),
+            FlSpot(3, session.graph.elementAt(session.graph.length - 8)),
+            FlSpot(4, session.graph.elementAt(session.graph.length - 7)),
+            FlSpot(5, session.graph.elementAt(session.graph.length - 6)),
+            FlSpot(6, session.graph.elementAt(session.graph.length - 5)),
+            FlSpot(7, session.graph.elementAt(session.graph.length - 4)),
+            FlSpot(8, session.graph.elementAt(session.graph.length - 3)),
+            FlSpot(9, session.graph.elementAt(session.graph.length - 2)),
+            FlSpot(10, session.graph.elementAt(session.graph.length - 1))
           ],
           isCurved: true,
           colors: gradientColorsLine,
