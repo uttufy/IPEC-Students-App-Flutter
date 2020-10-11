@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ipecstudents/screens/dashboard/dashboard_page.dart';
 import 'package:ipecstudents/screens/loading/loading_screen.dart';
 import 'package:ipecstudents/screens/login/login_screen.dart';
 import 'package:ipecstudents/screens/splash/splash_screen.dart';
@@ -47,6 +48,10 @@ class Routes {
             ),
             settings);
       // case LiveMatchScoreScreen.ROUTE:
+
+      case DashboardScreen.ROUTE:
+        return _getMaterialRoute(DashboardScreen(), settings);
+
       default:
         return _getMaterialRoute(SplashScreen(), settings);
     }

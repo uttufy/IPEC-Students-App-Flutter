@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
 import 'package:ipecstudents/data/model/GeneralResponse.dart';
 import 'package:ipecstudents/data/model/TokensModel.dart';
+import 'package:ipecstudents/data/model/User.dart';
 import 'package:ipecstudents/data/service/webClientService.dart';
 
 import '../const.dart';
@@ -11,8 +12,13 @@ class Auth extends ChangeNotifier {
 
   Tokens _tokens = Tokens();
 
-  //  Handle Login
+  User _user;
 
+  get user => _user;
+
+  set user(User u) => _user = u;
+
+  //  Handle Login
   //  Step 1: Get Cookies
   Future<GeneralResponse> login(String username, String password) async {
     GeneralResponse response = await _webClient.getLoginToken();
@@ -21,7 +27,8 @@ class Auth extends ChangeNotifier {
 
     print(response.status);
     if (response.status) {
-      _tokens.cookies = response.data.headers.map['set-cookie'].elementAt(0);
+      _tokens.cookies =
+          response?.data?.headers?.map['set-cookie']?.elementAt(0) ?? "";
 
       //  Step 2: Prepare formData for Login
       var document = parse(response.data.data);

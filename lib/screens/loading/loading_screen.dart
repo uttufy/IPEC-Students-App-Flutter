@@ -4,6 +4,7 @@ import 'package:ipecstudents/data/base_bloc/base_bloc_listener.dart';
 import 'package:ipecstudents/data/base_bloc/base_state.dart';
 import 'package:ipecstudents/data/model/Cred.dart';
 import 'package:ipecstudents/data/repo/auth.dart';
+import 'package:ipecstudents/screens/dashboard/dashboard_page.dart';
 import 'package:ipecstudents/screens/loading/bloc/loading_bloc.dart';
 import 'package:ipecstudents/screens/loading/bloc/loading_event.dart';
 import 'package:ipecstudents/screens/loading/bloc/loading_state.dart';
@@ -38,6 +39,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
           if (state is CloseLoadingState) {
             Navigator.pop(context);
           }
+
+          if (state is AuthenticatedState) {
+            Navigator.pushReplacementNamed(context, DashboardScreen.ROUTE);
+          }
         },
         child: BaseBlocBuilder(
           bloc: _bloc,
@@ -64,9 +69,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
         alignment: Alignment.center,
         children: [
           Text(
-            state is LoginFailState
-                ? 'Wrong ID & Password\nTry Again'
-                : 'Loading',
+            state is LoginFailState ? 'Please Try Again' : 'Loading',
             textAlign: TextAlign.center,
             style: Theme.of(context)
                 .primaryTextTheme
