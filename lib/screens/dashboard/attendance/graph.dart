@@ -5,20 +5,53 @@ import 'package:ipecstudents/theme/colors.dart';
 import 'package:provider/provider.dart';
 
 class AttendanceGraph extends StatelessWidget {
-  final List<Color> gradientColors = [
-    const Color(0xff23b6e6),
-    const Color(0xff02d39a),
-    const Color(0xffFFFFFF),
+  List<Color> gradientColors = [
+    Color(0xff23b6e6),
+    Color(0xff02d39a),
+    Color(0xffFFFFFF),
   ];
-  final List<Color> gradientColorsLine = [
-    const Color(0xff23b6e6),
-    const Color(0xff02d39a),
+  List<Color> gradientColorsLine = [
+    Color(0xff23b6e6),
+    Color(0xff02d39a),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Consumer<Session>(
       builder: (context, session, child) {
+        if (session.attendance.percent != null) {
+          if (session.attendance.percent >= 80) {
+            gradientColors = [
+              Color(0xff23b6e6),
+              Color(0xff02d39a),
+              Color(0xffFFFFFF),
+            ];
+            gradientColorsLine = [
+              Color(0xff23b6e6),
+              Color(0xff02d39a),
+            ];
+          } else if (session.attendance.percent >= 65) {
+            gradientColors = [
+              Colors.orange,
+              Colors.yellow,
+              Color(0xffFFFFFF),
+            ];
+            gradientColorsLine = [
+              Colors.orange,
+              Colors.yellow,
+            ];
+          } else {
+            gradientColors = [
+              Colors.red,
+              Colors.deepOrange,
+              Color(0xffFFFFFF),
+            ];
+            gradientColorsLine = [
+              Colors.red,
+              Colors.deepOrange,
+            ];
+          }
+        }
         return Stack(
           children: <Widget>[
             AspectRatio(
