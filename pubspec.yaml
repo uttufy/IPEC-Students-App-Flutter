@@ -21,6 +21,7 @@ dependencies:
   mantras: ^0.0.3
   html: ^0.14.0+4
   shared_preferences: ^0.5.12
+  fl_chart: ^0.12.0
 
 dev_dependencies:
   flutter_test:
