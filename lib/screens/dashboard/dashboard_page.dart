@@ -8,6 +8,7 @@ import 'package:ipecstudents/theme/colors.dart';
 import 'package:ipecstudents/theme/style.dart';
 import 'package:ipecstudents/util/SizeConfig.dart';
 import 'package:ipecstudents/widgets/background.dart';
+import 'package:ipecstudents/widgets/general_dialog.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
 
@@ -40,17 +41,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 auth.user.img.toString().split(',')[1]),
                           ),
                         ),
-                        InkWell(
-                          onTap: () {},
-                          borderRadius: BorderRadius.circular(50),
-                          child: Ink(
-                            padding: const EdgeInsets.all(20),
-                            child: Image.asset(
+                        PopupMenuButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20.0))),
+                            icon: ImageIcon(AssetImage(
                               'assets/icons/menu.png',
-                              width: 20,
-                            ),
-                          ),
-                        )
+                            )),
+                            onSelected: (value) {},
+                            itemBuilder: _popOptions),
                       ],
                     ),
                     kHighPadding,
@@ -105,6 +104,42 @@ class _DashboardScreenState extends State<DashboardScreen> {
       },
     );
   }
+
+  List<PopupMenuEntry<int>> _popOptions(context) => [
+        PopupMenuItem(
+            value: 1,
+            child: Row(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
+                  child: Icon(Icons.star),
+                ),
+                Text('Rate')
+              ],
+            )),
+        PopupMenuItem(
+            value: 2,
+            child: Row(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
+                  child: Icon(Icons.share),
+                ),
+                Text('Share')
+              ],
+            )),
+        PopupMenuItem(
+            value: 3,
+            child: Row(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
+                  child: Icon(Icons.logout),
+                ),
+                Text('Logout')
+              ],
+            )),
+      ];
 
   Widget optionIcon(String img, String title, Function onPress) {
     return Flexible(

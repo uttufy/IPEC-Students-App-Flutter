@@ -135,7 +135,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             state is AttendanceLoaded
                 ? _bottomSlider(session)
                 : AspectRatio(
-                    aspectRatio: 1.70,
+                    aspectRatio: 3,
                     child: Shimmer.fromColors(
                         baseColor: Colors.white,
                         highlightColor: Colors.grey[200],
@@ -160,6 +160,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             padding: const EdgeInsets.only(left: 20.0),
             child: InkWell(
               onTap: () {},
+              borderRadius: BorderRadius.circular(30),
               child: Ink(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -173,7 +174,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                         width: SizeConfig.widthMultiplier * 20),
                     kMedPadding,
                     Text(
-                      'Predict Attendence',
+                      'Predict Attendance',
                       style: TextStyle(
                           fontWeight: FontWeight.w700, color: Colors.white),
                     ),
