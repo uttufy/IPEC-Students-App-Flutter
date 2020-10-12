@@ -55,7 +55,7 @@ class AttendanceGraph extends StatelessWidget {
         return Stack(
           children: <Widget>[
             AspectRatio(
-              aspectRatio: 1.70,
+              aspectRatio: 2,
               child: LineChart(
                 mainData(session),
               ),

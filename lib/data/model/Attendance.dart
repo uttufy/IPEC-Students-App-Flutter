@@ -10,11 +10,10 @@ class Attendance {
       this.presentLecture,
       this.totalLectures});
 
-  double getPresentPercent() => this.presentPercent;
-  double getAbsentPercent() =>
-      double.parse((100 - this.presentPercent).toStringAsFixed(2));
-  String getTotalLectures() => this.totalLectures;
-  String getPresentLectures() => this.presentLecture;
+  double getPresentPercent() => presentPercent;
+  double getAbsentPercent() => (100 - percent);
+  String getTotalLectures() => totalLectures;
+  String getPresentLectures() => presentLecture;
   String getAttendanceMessage() {
     double attendance = percent;
 
