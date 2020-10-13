@@ -10,6 +10,7 @@ import 'package:ipecstudents/screens/dashboard/attendance/bloc/attendance_bloc.d
 import 'package:ipecstudents/screens/dashboard/attendance/bloc/attendance_event.dart';
 import 'package:ipecstudents/screens/dashboard/attendance/bloc/attendance_state.dart';
 import 'package:ipecstudents/screens/dashboard/attendance/graph.dart';
+import 'package:ipecstudents/screens/dashboard/attendance/prediction_input_screen.dart';
 import 'package:ipecstudents/theme/colors.dart';
 import 'package:ipecstudents/theme/style.dart';
 import 'package:ipecstudents/util/SizeConfig.dart';
@@ -159,7 +160,10 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 20.0),
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, PredictionInputScreen.ROUTE,
+                    arguments: {'attendance': session.attendance});
+              },
               borderRadius: BorderRadius.circular(30),
               child: Ink(
                 padding: const EdgeInsets.all(20),

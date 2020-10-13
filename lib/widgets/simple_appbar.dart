@@ -33,6 +33,7 @@ class SimpleAppBar extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: CircleAvatar(
+                backgroundColor: Colors.white,
                 radius: SizeConfig.widthMultiplier * 5,
                 backgroundImage: MemoryImage(
                   base64Decode(img),

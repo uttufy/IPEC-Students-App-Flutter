@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ipecstudents/screens/dashboard/attendance/attendance_screen.dart';
+import 'package:ipecstudents/screens/dashboard/attendance/prediction_input_screen.dart';
+import 'package:ipecstudents/screens/dashboard/attendance/prediction_result_screen.dart';
 import 'package:ipecstudents/screens/dashboard/dashboard_page.dart';
 import 'package:ipecstudents/screens/loading/loading_screen.dart';
 import 'package:ipecstudents/screens/login/login_screen.dart';
@@ -55,6 +57,22 @@ class Routes {
         return _getMaterialRoute(DashboardScreen(), settings);
       case AttendanceScreen.ROUTE:
         return _getMaterialRoute(AttendanceScreen(), settings);
+      case PredictionInputScreen.ROUTE:
+        Map arg = settings.arguments;
+        return _getMaterialRoute(
+            PredictionInputScreen(
+              attendance: arg['attendance'],
+            ),
+            settings);
+      case PredictionResultScreen.ROUTE:
+        Map arg = settings.arguments;
+        return _getMaterialRoute(
+            PredictionResultScreen(
+                attendance: arg['attendance'],
+                result: arg['result'],
+                attend: arg['attend'],
+                total: arg['total']),
+            settings);
 
       default:
         return _getMaterialRoute(SplashScreen(), settings);
