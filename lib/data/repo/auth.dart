@@ -59,7 +59,7 @@ class Auth extends ChangeNotifier {
         'txtUser': '$username',
         'txtPassword': '$password'
       };
-// Submit login Request
+      // Submit login Request
       GeneralResponse postResponse =
           await _webClient.postLogin(formData, _tokens.cookies);
       if (postResponse.status &&
