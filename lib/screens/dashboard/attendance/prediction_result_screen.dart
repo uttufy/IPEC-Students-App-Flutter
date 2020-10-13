@@ -53,7 +53,7 @@ class _PredictionResultScreenState extends State<PredictionResultScreen> {
                 kLowPadding,
                 Text(
                     'If you attend ${widget.attend} more lecture\n'
-                    'out of ${widget.total} lectures. Your net attendance will be\n',
+                    'out of ${widget.total} lectures.',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyText1.copyWith(
                           color: Colors.black,
