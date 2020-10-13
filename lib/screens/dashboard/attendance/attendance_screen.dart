@@ -191,7 +191,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             padding: const EdgeInsets.all(20),
             margin: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(40),
                 color: kPrimaryLightColor),
             child: Row(
               children: [
@@ -217,14 +217,11 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                         session.attendance.presentLecture.split(": ")[1] ?? "",
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 20.0),
-                  child: _listitem(
-                    iconBg: Colors.blue[200],
-                    img: 'assets/icons/total.png',
-                    main: 'Total Lectures',
-                    title: session.attendance.getTotalLectures().toString(),
-                  ),
+                _listitem(
+                  iconBg: Colors.blue[200],
+                  img: 'assets/icons/total.png',
+                  main: 'Total Lectures',
+                  title: session.attendance.getTotalLectures().toString(),
                 ),
               ],
             ),
