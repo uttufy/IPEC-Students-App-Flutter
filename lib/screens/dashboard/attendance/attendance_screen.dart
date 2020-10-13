@@ -22,6 +22,10 @@ import 'package:shimmer/shimmer.dart';
 
 class AttendanceScreen extends StatefulWidget {
   static const String ROUTE = "/Attendance";
+  final ScrollController scrollController;
+
+  const AttendanceScreen({Key key, this.scrollController}) : super(key: key);
+
   @override
   _AttendanceScreenState createState() => _AttendanceScreenState();
 }
@@ -66,6 +70,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
   Widget _getBody(Session session, BuildContext context, BaseState state) {
     return SafeArea(
       child: SingleChildScrollView(
+        controller: widget.scrollController,
         physics: BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -80,6 +85,9 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                     message: session.attendance.getAttendanceMessage(),
                   );
                 }
+              },
+              onBack: () {
+                Navigator.popUntil(context, (route) => route.isFirst);
               },
             ),
             kLowPadding,
@@ -145,6 +153,10 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                           color: Colors.white,
                         )),
                   ),
+            state is AttendanceLoaded
+                ? Text("↑ Pull up to show table")
+                : SizedBox(),
+            kHighPadding,
           ],
         ),
       ),

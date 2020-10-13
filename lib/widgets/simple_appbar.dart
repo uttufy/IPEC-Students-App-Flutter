@@ -6,7 +6,8 @@ import 'package:ipecstudents/util/SizeConfig.dart';
 class SimpleAppBar extends StatelessWidget {
   final img;
   final VoidCallback onPic;
-  const SimpleAppBar({Key key, this.img, this.onPic}) : super(key: key);
+  final VoidCallback onBack;
+  const SimpleAppBar({Key key, this.img, this.onPic,@required this.onBack}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +17,7 @@ class SimpleAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           InkWell(
-            onTap: () {
-              Navigator.maybePop(context);
-            },
+            onTap: onBack,
             borderRadius: BorderRadius.circular(50),
             child: Ink(
               padding: const EdgeInsets.all(15),

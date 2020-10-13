@@ -4,6 +4,7 @@ import 'package:ipecstudents/data/base_bloc/base_event.dart';
 import 'package:ipecstudents/data/base_bloc/base_state.dart';
 import 'package:ipecstudents/data/model/GeneralResponse.dart';
 import 'package:ipecstudents/data/model/TokensModel.dart';
+import 'package:ipecstudents/data/repo/session.dart';
 import 'package:ipecstudents/screens/dashboard/attendance/bloc/attendance_event.dart';
 
 import 'attendance_state.dart';
@@ -16,6 +17,7 @@ class AttendanceBloc extends BaseBloc {
   Stream<BaseState> mapBaseEventToBaseState(BaseEvent event) async* {
     if (event is LoadAttendance) {
       yield AttendanceLoading();
+      event.session.setStatus(AttendanceStatus.Loading);
       try {
         GeneralResponse response =
             await event.session.webClientService.getAttendanceToken(
@@ -51,6 +53,7 @@ class AttendanceBloc extends BaseBloc {
               // parse attendance
 
               event.session.setAttendance(postResponse.data.data);
+              event.session.setStatus(AttendanceStatus.Loaded);
               yield AttendanceLoaded();
             } else
               throw Exception(postResponse.error);
@@ -61,6 +64,7 @@ class AttendanceBloc extends BaseBloc {
           yield ShowDialogErrorState(response.error);
         }
       } on Exception catch (e) {
+        event.session.setStatus(AttendanceStatus.Error);
         yield ShowDialogErrorState(e.toString());
       }
     }

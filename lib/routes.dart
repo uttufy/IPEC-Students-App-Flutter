@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ipecstudents/screens/dashboard/attendance/attendance_page.dart';
 import 'package:ipecstudents/screens/dashboard/attendance/attendance_screen.dart';
 import 'package:ipecstudents/screens/dashboard/attendance/prediction_input_screen.dart';
 import 'package:ipecstudents/screens/dashboard/attendance/prediction_result_screen.dart';
@@ -57,6 +58,8 @@ class Routes {
         return _getMaterialRoute(DashboardScreen(), settings);
       case AttendanceScreen.ROUTE:
         return _getMaterialRoute(AttendanceScreen(), settings);
+      case AttendancePage.ROUTE:
+        return _getMaterialRoute(AttendancePage(), settings);
       case PredictionInputScreen.ROUTE:
         Map arg = settings.arguments;
         return _getMaterialRoute(

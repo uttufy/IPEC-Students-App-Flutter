@@ -43,6 +43,9 @@ class _PredictionInputScreenState extends State<PredictionInputScreen> {
                 SimpleAppBar(
                   img: img,
                   onPic: () {},
+                  onBack: () {
+                    Navigator.pop(context);
+                  },
                 ),
                 kLowPadding,
                 Text('Total Lectures Tommorow ?',

@@ -10,6 +10,8 @@ import 'package:ipecstudents/widgets/background.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
 
+import 'attendance/attendance_page.dart';
+
 class DashboardScreen extends StatefulWidget {
   static const String ROUTE = '/Dashboard';
   @override
@@ -91,7 +93,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   'assets/icons/Bag.png',
                                   'Attendance',
                                   () => Navigator.pushNamed(
-                                      context, AttendanceScreen.ROUTE)),
+                                      context, AttendancePage.ROUTE)),
                               optionIcon(
                                   'assets/icons/Atom.png', 'Notices', () {}),
                             ],

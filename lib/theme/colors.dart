@@ -12,9 +12,12 @@ const kOffWhite = Color(0xFFF9F9F9);
 
 const kGrey = Color(0xFF444444);
 
-const kOrange = Color(0xFFE70F0B);
+const kOrange = Color(0xFFEE9E77);
 
-const kGreen = Color(0xFF31AE3C);
+const kGreen = Color(0xFF82C890);
 
+const kBlue = Color(0xFF81BEF5);
+
+const kYellow = Color(0xFFF7D58A);
 //medium grey #A6BCD0
 const Color mediumGreyColor1 = Color(0xFFA6BCD0);

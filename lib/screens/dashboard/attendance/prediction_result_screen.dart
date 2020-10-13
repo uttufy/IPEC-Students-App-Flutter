@@ -37,6 +37,9 @@ class _PredictionResultScreenState extends State<PredictionResultScreen> {
                 SimpleAppBar(
                   img: img,
                   onPic: () {},
+                  onBack: () {
+                    Navigator.pop(context);
+                  },
                 ),
                 kLowPadding,
                 Text('Your Result',
