@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
+import 'package:ipecstudents/data/local/shared_pref.dart';
 import 'package:ipecstudents/data/model/Cred.dart';
 import 'package:ipecstudents/data/model/GeneralResponse.dart';
 import 'package:ipecstudents/data/model/TokensModel.dart';
@@ -58,7 +59,7 @@ class Auth extends ChangeNotifier {
         'txtUser': '$username',
         'txtPassword': '$password'
       };
-
+// Submit login Request
       GeneralResponse postResponse =
           await _webClient.postLogin(formData, _tokens.cookies);
       if (postResponse.status &&
@@ -74,5 +75,10 @@ class Auth extends ChangeNotifier {
       }
     } else
       return response;
+  }
+
+  Future<void> logout() async {
+    LocalData _local = LocalData();
+    await _local.setLogout();
   }
 }

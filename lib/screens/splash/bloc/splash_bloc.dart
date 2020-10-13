@@ -21,7 +21,9 @@ class SplashScreenBloc extends BaseBloc {
       if (isLogin != null && isLogin) {
         String username = await _localData.getUsername();
         String password = await _localData.getPassword();
-        if (username != null && password != null) {
+        bool loginStatus = await _localData.getLoginStatus();
+
+        if (username != null && password != null && loginStatus) {
           //  Username and Password Exist
           event.auth.cred = Cred(username: username, password: password);
           yield OpenDashboardScreen();

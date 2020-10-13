@@ -8,14 +8,15 @@ class LocalData {
   final kLoginStatus = 'userImage';
   final kCookie = 'cookie';
   Future<void> saveUserPreference(
-      String username, String password, String name, String userImage) async {
+      String username, String password, String name, String userImage,
+      {bool loginStatus = true}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     prefs.setString(kUsername, username);
     prefs.setString(kPassword, password);
     prefs.setString(kName, name);
     prefs.setString(kImage, userImage);
-    prefs.setBool(kLoginStatus, true);
+    prefs.setBool(kLoginStatus, loginStatus);
   }
 
   Future<String> getUsername() async {

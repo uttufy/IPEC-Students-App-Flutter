@@ -1,14 +1,12 @@
-import 'dart:typed_data';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ipecstudents/data/repo/auth.dart';
 import 'package:ipecstudents/screens/dashboard/attendance/attendance_screen.dart';
+import 'package:ipecstudents/screens/loading/loading_screen.dart';
+import 'package:ipecstudents/screens/splash/splash_screen.dart';
 import 'package:ipecstudents/theme/colors.dart';
 import 'package:ipecstudents/theme/style.dart';
 import 'package:ipecstudents/util/SizeConfig.dart';
 import 'package:ipecstudents/widgets/background.dart';
-import 'package:ipecstudents/widgets/general_dialog.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
 
@@ -48,7 +46,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             icon: ImageIcon(AssetImage(
                               'assets/icons/menu.png',
                             )),
-                            onSelected: (value) {},
+                            onSelected: (value) {
+                              print(value);
+                              switch (value) {
+                                case 1:
+                                  break;
+                                case 2:
+                                  break;
+                                case 3:
+                                  auth.logout().then(
+                                      (value) => Navigator.pushReplacementNamed(
+                                            context,
+                                            SplashScreen.ROUTE,
+                                          ));
+
+                                  break;
+                              }
+                            },
                             itemBuilder: _popOptions),
                       ],
                     ),

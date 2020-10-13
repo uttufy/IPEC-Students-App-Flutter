@@ -72,6 +72,7 @@ class WebClientService {
           options:
               new Options(contentType: "application/x-www-form-urlencoded"));
       if (response.statusCode == 302) {
+        await Future.delayed(Duration(milliseconds: 10));
         GeneralResponse res = await getHome();
         return res;
       } else
