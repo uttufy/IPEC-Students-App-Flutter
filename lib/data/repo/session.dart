@@ -67,8 +67,11 @@ class Session extends ChangeNotifier {
     String changedHtml =
         document.querySelector("#ContentPlaceHolder1_GridView1").outerHtml;
     changedHtml = changedHtml.replaceAll('LightBlue', '#f44336');
-    changedHtml = changedHtml.replaceAll('White', '#1D2C4B');
+    // changedHtml = changedHtml.replaceAll('White', '#1D2C4B');
+    // changedHtml = changedHtml.replaceAll('#333333', 'White');
+    changedHtml = changedHtml.replaceAll('White', 'Black');
     changedHtml = changedHtml.replaceAll('#333333', 'White');
+
     changedHtml = changedHtml.replaceAll('#006699', '#FFFFFF');
     return changedHtml;
   }

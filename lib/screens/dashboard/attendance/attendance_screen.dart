@@ -41,10 +41,10 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Session>(
-      builder: (context, session, child) {
-        return Scaffold(
-          body: BaseBlocListener(
+    return Scaffold(
+      body: Consumer<Session>(
+        builder: (context, session, child) {
+          return BaseBlocListener(
             bloc: _bloc,
             listener: (BuildContext context, BaseState state) {
               print("$runtimeType BlocListener - ${state.toString()}");
@@ -61,104 +61,102 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                 return _getBody(session, context, state);
               },
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
   Widget _getBody(Session session, BuildContext context, BaseState state) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        controller: widget.scrollController,
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SimpleAppBar(
-              img: _auth.user.img.toString().split(',')[1],
-              onPic: () {
-                if (state is AttendanceLoaded) {
-                  GeneralDialog.show(
-                    context,
-                    title: "Message",
-                    message: session.attendance.getAttendanceMessage(),
-                  );
-                }
-              },
-              onBack: () {
-                Navigator.popUntil(context, (route) => route.isFirst);
-              },
+    return SingleChildScrollView(
+      controller: widget.scrollController,
+      physics: BouncingScrollPhysics(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SimpleAppBar(
+            img: _auth.user.img.toString().split(',')[1],
+            onPic: () {
+              if (state is AttendanceLoaded) {
+                GeneralDialog.show(
+                  context,
+                  title: "Message",
+                  message: session.attendance.getAttendanceMessage(),
+                );
+              }
+            },
+            onBack: () {
+              Navigator.popUntil(context, (route) => route.isFirst);
+            },
+          ),
+          kLowPadding,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: Row(
+              children: [
+                Text(
+                  'Overview',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      .copyWith(fontWeight: FontWeight.w700),
+                ),
+              ],
             ),
-            kLowPadding,
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
-              child: Row(
-                children: [
-                  Text(
-                    'Overview',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6
-                        .copyWith(fontWeight: FontWeight.w700),
-                  ),
-                ],
-              ),
-            ),
-            kHighPadding,
-            Text(
-              'Total Attendance',
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    color: Colors.black,
-                  ),
-            ),
-            kLowPadding,
-            state is AttendanceLoaded
-                ? Text(
-                    session.attendance.percent.toString() + "%",
+          ),
+          kHighPadding,
+          Text(
+            'Total Attendance',
+            style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  color: Colors.black,
+                ),
+          ),
+          kLowPadding,
+          state is AttendanceLoaded
+              ? Text(
+                  session.attendance.percent.toString() + "%",
+                  style: Theme.of(context).textTheme.headline3.copyWith(
+                      color: Colors.black, fontWeight: FontWeight.w700),
+                )
+              : Shimmer.fromColors(
+                  baseColor: Colors.grey[400],
+                  highlightColor: Colors.grey[200],
+                  child: Text(
+                    "00.0%",
                     style: Theme.of(context).textTheme.headline3.copyWith(
                         color: Colors.black, fontWeight: FontWeight.w700),
-                  )
-                : Shimmer.fromColors(
-                    baseColor: Colors.grey[400],
-                    highlightColor: Colors.grey[200],
-                    child: Text(
-                      "00.0%",
-                      style: Theme.of(context).textTheme.headline3.copyWith(
-                          color: Colors.black, fontWeight: FontWeight.w700),
-                    )),
-            kLowPadding,
-            state is AttendanceLoaded
-                ? AttendanceGraph()
-                : AspectRatio(
-                    aspectRatio: 1.70,
-                    child: Shimmer.fromColors(
-                        baseColor: Colors.white,
-                        highlightColor: Colors.grey[200],
-                        child: Container(
-                          width: SizeConfig.screenWidth,
-                          color: Colors.white,
-                        )),
-                  ),
-            kMedPadding,
-            state is AttendanceLoaded
-                ? _bottomSlider(session)
-                : AspectRatio(
-                    aspectRatio: 3,
-                    child: Shimmer.fromColors(
-                        baseColor: Colors.white,
-                        highlightColor: Colors.grey[200],
-                        child: Container(
-                          width: SizeConfig.screenWidth,
-                          color: Colors.white,
-                        )),
-                  ),
-            state is AttendanceLoaded
-                ? Text("↑ Pull up to show table")
-                : SizedBox(),
-            kHighPadding,
-          ],
-        ),
+                  )),
+          kLowPadding,
+          state is AttendanceLoaded
+              ? AttendanceGraph()
+              : AspectRatio(
+                  aspectRatio: 1.70,
+                  child: Shimmer.fromColors(
+                      baseColor: Colors.white,
+                      highlightColor: Colors.grey[200],
+                      child: Container(
+                        width: SizeConfig.screenWidth,
+                        color: Colors.white,
+                      )),
+                ),
+          kMedPadding,
+          state is AttendanceLoaded
+              ? _bottomSlider(session)
+              : AspectRatio(
+                  aspectRatio: 3,
+                  child: Shimmer.fromColors(
+                      baseColor: Colors.white,
+                      highlightColor: Colors.grey[200],
+                      child: Container(
+                        width: SizeConfig.screenWidth,
+                        color: Colors.white,
+                      )),
+                ),
+          state is AttendanceLoaded
+              ? Text("↑ Pull up to show table")
+              : SizedBox(),
+          kHighPadding,
+        ],
       ),
     );
   }

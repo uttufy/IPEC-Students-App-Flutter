@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:ipecstudents/data/repo/session.dart';
 import 'package:ipecstudents/widgets/rounded_button.dart';
 import 'package:provider/provider.dart';
@@ -30,18 +31,13 @@ class _MyLocalWebViewState extends State<MyLocalWebView> {
   Widget build(BuildContext context) {
     return Consumer<Session>(
       builder: (context, session, child) {
-        return Scaffold(
-          body: SafeArea(
-            child: _getBody(session),
-          ),
-        );
+        return _getBody(session);
       },
     );
   }
 
   Widget _getBody(Session session) {
-    bool loading = true;
-    if (session.attendanceStatus == AttendanceStatus.Loading || loading) {
+    if (session.attendanceStatus == AttendanceStatus.Loading) {
       return Center(
         child: CircularProgressIndicator(
           strokeWidth: 2,
@@ -49,21 +45,12 @@ class _MyLocalWebViewState extends State<MyLocalWebView> {
       );
     } else if (session.attendanceStatus == AttendanceStatus.Loaded) {
       html = session.getTable();
-      int i = 0;
-      while (i < 10) html += " <br> ";
-      return WebView(
-        initialUrl: Uri.dataFromString(html, mimeType: 'text/html').toString(),
-        gestureNavigationEnabled: false,
-        onPageStarted: (_) {
-          setState(() {
-            loading = true;
-          });
-        },
-        onPageFinished: (_) {
-          setState(() {
-            loading = false;
-          });
-        },
+      return SafeArea(
+        child: WebView(
+          initialUrl:
+              Uri.dataFromString(html, mimeType: 'text/html').toString(),
+          gestureNavigationEnabled: true,
+        ),
       );
     } else if (session.attendanceStatus == AttendanceStatus.Init)
       return Center(child: Text('Intializing'));
