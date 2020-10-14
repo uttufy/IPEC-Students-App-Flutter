@@ -12,8 +12,17 @@ class Attendance {
 
   double getPresentPercent() => presentPercent;
   double getAbsentPercent() => (100 - percent);
-  String getTotalLectures() => totalLectures;
-  String getPresentLectures() => presentLecture;
+  String getTotalLectures() {
+    return totalLectures;
+  }
+
+  String getPresentLectures() {
+    if (presentLecture.toLowerCase().contains('extra'))
+      return presentLecture.split('=')[1].split(':')[1].replaceAll(")", "");
+    else
+      return presentLecture.split(":")[1].replaceAll(")", "");
+  }
+
   String getAttendanceMessage() {
     double attendance = percent;
 
