@@ -1,6 +1,14 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalData {
+  static final LocalData _singleton = LocalData._internal();
+
+  factory LocalData() {
+    return _singleton;
+  }
+
+  LocalData._internal();
+
   final kUsername = 'username';
   final kPassword = 'password';
   final kName = 'name';

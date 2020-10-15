@@ -25,6 +25,10 @@ dependencies:
   shimmer: ^1.1.2
   webview_flutter: ^1.0.1
   flutter_webview_plugin: ^0.3.11
+  firebase_core: ^0.5.0+1
+  firebase_database: ^4.1.1
+  firebase_analytics: ^5.0.2
+  firebase_auth: ^0.18.1+2
 
 dev_dependencies:
   flutter_test:

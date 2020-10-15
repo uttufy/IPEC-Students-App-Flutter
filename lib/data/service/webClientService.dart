@@ -9,6 +9,14 @@ import 'package:ipecstudents/data/model/GeneralResponse.dart';
 import 'package:ipecstudents/data/model/TokensModel.dart';
 
 class WebClientService {
+  static final WebClientService _singleton = WebClientService._internal();
+
+  factory WebClientService() {
+    return _singleton;
+  }
+
+  WebClientService._internal();
+
   /// Dio is a networking client that add a lot of features on
   /// top of the http library.
   /// With features such as common options for all requests,
@@ -120,6 +128,27 @@ class WebClientService {
             error: "Failed to load attendance. Error at post", status: false);
     } catch (error) {
       return GeneralResponse(error: error.toString(), status: false);
+    }
+  }
+
+  Future<GeneralResponse> getNotices(String cookie) async {
+    _dio.options.headers['Cookie'] = cookie;
+    _dio.options.headers['Referer'] = kWebsiteURL + kHomeURL;
+    _dio.options.headers['Connection'] = 'keep-alive';
+
+    try {
+      final response = await _dio.get(
+        kNoticesURL,
+      );
+      if (response.statusCode == 200)
+        return GeneralResponse(data: response, status: true);
+      else
+        return GeneralResponse(
+            error: "Failed to sync notices. Error at first get.",
+            status: false);
+    } catch (error) {
+      return GeneralResponse(
+          error: "Notice Sync : " + error.toString(), status: false);
     }
   }
 }

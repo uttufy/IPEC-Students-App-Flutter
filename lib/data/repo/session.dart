@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:ipecstudents/data/model/Attendance.dart';
+import 'package:ipecstudents/data/model/GeneralResponse.dart';
 import 'package:ipecstudents/data/service/webClientService.dart';
 
 enum AttendanceStatus { Init, Loaded, Loading, Error }
 
 class Session extends ChangeNotifier {
   Attendance _attendance = Attendance();
+
   String _attendanceBody;
   WebClientService webClientService = WebClientService();
   List graph = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -79,5 +81,62 @@ class Session extends ChangeNotifier {
   void setStatus(AttendanceStatus status) {
     attendanceStatus = status;
     notifyListeners();
+  }
+
+  void getNotice({String cookie}) async {
+    GeneralResponse response = await webClientService.getNotices(cookie);
+    if (response.status) {
+      parseSyncNotice(response.data.data);
+    }
+  }
+
+  Future<void> parseSyncNotice(String body) async {
+    var document = parse(body);
+    String element = document
+        .querySelector("#ContentPlaceHolder1_gridViewNotices")
+        .outerHtml;
+    if (element == null) {
+      return;
+    }
+    Document table = parse(element);
+    var rows = table.querySelectorAll('tr');
+    if (rows != null) {
+      var query1 =
+          "#ContentPlaceHolder1_gridViewNotices_gridViewNotices_grdlblHeading_";
+      var query2 =
+          "#ContentPlaceHolder1_gridViewNotices_gridViewNotices_gridlblPostedDate_";
+      var query3 =
+          "#ContentPlaceHolder1_gridViewNotices_gridViewNotices_hlpkView_";
+      String link;
+      var date;
+      bool tp = false;
+
+      // AuthService auth = AuthService();
+      // auth.siginInAnon();
+      // final DatabaseReference db = FirebaseDatabase.instance.reference();
+
+      // String user = await getNamePreference();
+      // DateFormat format = new DateFormat("dd MMM yyyy HH:mm:ss");
+      for (int i = 0; i < 10; i++) {
+        tp = false;
+        element = table.querySelector(query1 + i.toString()).text;
+        date = table.querySelector(query2 + i.toString()).text;
+        link = table.querySelector(query3 + i.toString()).text;
+        if (element.contains('T & P')) {
+          tp = true;
+        }
+        // db
+        //     .child('Notices')
+        //     .child(format.parse(date).year.toString())
+        //     .child(date)
+        //     .set({
+        //   'title': element,
+        //   'date': date,
+        //   'link': link,
+        //   'credit': user,
+        //   'tp': tp
+        // });
+      }
+    }
   }
 }

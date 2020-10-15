@@ -32,7 +32,7 @@ class LoadingBloc extends BaseBloc {
               event.auth.cred.password,
               event.auth.user.name,
               event.auth.user.img);
-
+          await Future.delayed(Duration(milliseconds: 50));
           yield AuthenticatedState();
         } else {
           // Invalid Cred
