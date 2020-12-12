@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:ipecstudents/util/SizeConfig.dart';
+import 'package:ipecstudentsapp/util/SizeConfig.dart';
 
 class SimpleAppBar extends StatelessWidget {
   final img;
   final VoidCallback onPic;
   final VoidCallback onBack;
-  const SimpleAppBar({Key key, this.img, this.onPic,@required this.onBack}) : super(key: key);
+  const SimpleAppBar({Key key, this.img, this.onPic, @required this.onBack})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

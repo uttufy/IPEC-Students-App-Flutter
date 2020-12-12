@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudents/screens/dashboard/attendance/attendance_screen.dart';
-import 'package:ipecstudents/screens/dashboard/attendance/myLocalWebview.dart';
-import 'package:ipecstudents/util/SizeConfig.dart';
+import 'package:ipecstudentsapp/screens/dashboard/attendance/attendance_screen.dart';
+import 'package:ipecstudentsapp/screens/dashboard/attendance/myLocalWebview.dart';
+import 'package:ipecstudentsapp/util/SizeConfig.dart';
 
 class AttendancePage extends StatefulWidget {
   static const String ROUTE = "/AttendancePage";

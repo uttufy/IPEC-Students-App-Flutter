@@ -1,11 +1,11 @@
 import 'package:html/parser.dart';
-import 'package:ipecstudents/data/base_bloc/base_bloc.dart';
-import 'package:ipecstudents/data/base_bloc/base_event.dart';
-import 'package:ipecstudents/data/base_bloc/base_state.dart';
-import 'package:ipecstudents/data/model/GeneralResponse.dart';
-import 'package:ipecstudents/data/model/TokensModel.dart';
-import 'package:ipecstudents/data/repo/session.dart';
-import 'package:ipecstudents/screens/dashboard/attendance/bloc/attendance_event.dart';
+import 'package:ipecstudentsapp/data/base_bloc/base_bloc.dart';
+import 'package:ipecstudentsapp/data/base_bloc/base_event.dart';
+import 'package:ipecstudentsapp/data/base_bloc/base_state.dart';
+import 'package:ipecstudentsapp/data/model/GeneralResponse.dart';
+import 'package:ipecstudentsapp/data/model/TokensModel.dart';
+import 'package:ipecstudentsapp/data/repo/session.dart';
+import 'package:ipecstudentsapp/screens/dashboard/attendance/bloc/attendance_event.dart';
 
 import 'attendance_state.dart';
 

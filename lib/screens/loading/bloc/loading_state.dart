@@ -1,4 +1,4 @@
-import 'package:ipecstudents/data/base_bloc/base_state.dart';
+import 'package:ipecstudentsapp/data/base_bloc/base_state.dart';
 
 class LoadingState extends BaseState {
   LoadingState([List props = const []]) : super(props);

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudents/data/base_bloc/base_bloc_builder.dart';
-import 'package:ipecstudents/data/base_bloc/base_bloc_listener.dart';
-import 'package:ipecstudents/data/base_bloc/base_state.dart';
-import 'package:ipecstudents/data/repo/auth.dart';
-import 'package:ipecstudents/screens/loading/loading_screen.dart';
-import 'package:ipecstudents/screens/login/login_screen.dart';
-import 'package:ipecstudents/screens/splash/bloc/splash_bloc.dart';
-import 'package:ipecstudents/screens/splash/bloc/splash_event.dart';
-import 'package:ipecstudents/util/SizeConfig.dart';
+import 'package:ipecstudentsapp/data/base_bloc/base_bloc_builder.dart';
+import 'package:ipecstudentsapp/data/base_bloc/base_bloc_listener.dart';
+import 'package:ipecstudentsapp/data/base_bloc/base_state.dart';
+import 'package:ipecstudentsapp/data/repo/auth.dart';
+import 'package:ipecstudentsapp/screens/loading/loading_screen.dart';
+import 'package:ipecstudentsapp/screens/login/login_screen.dart';
+import 'package:ipecstudentsapp/screens/splash/bloc/splash_bloc.dart';
+import 'package:ipecstudentsapp/screens/splash/bloc/splash_event.dart';
+import 'package:ipecstudentsapp/util/SizeConfig.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 

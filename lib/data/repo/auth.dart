@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
-import 'package:ipecstudents/data/local/shared_pref.dart';
-import 'package:ipecstudents/data/model/Cred.dart';
-import 'package:ipecstudents/data/model/GeneralResponse.dart';
-import 'package:ipecstudents/data/model/TokensModel.dart';
-import 'package:ipecstudents/data/model/User.dart';
-import 'package:ipecstudents/data/service/webClientService.dart';
+import 'package:ipecstudentsapp/data/local/shared_pref.dart';
+import 'package:ipecstudentsapp/data/model/Cred.dart';
+import 'package:ipecstudentsapp/data/model/GeneralResponse.dart';
+import 'package:ipecstudentsapp/data/model/TokensModel.dart';
+import 'package:ipecstudentsapp/data/model/User.dart';
+import 'package:ipecstudentsapp/data/service/webClientService.dart';
 
 import '../const.dart';
 

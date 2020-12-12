@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ipecstudents/theme/colors.dart';
-import 'package:ipecstudents/theme/style.dart';
+import 'package:ipecstudentsapp/theme/colors.dart';
+import 'package:ipecstudentsapp/theme/style.dart';
 
 class ProgressDialog {
   static final ProgressDialog _instance = ProgressDialog._internal();

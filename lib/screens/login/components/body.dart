@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudents/data/base_bloc/base_event.dart';
-import 'package:ipecstudents/data/base_bloc/base_state.dart';
-import 'package:ipecstudents/data/model/Cred.dart';
-import 'package:ipecstudents/data/repo/auth.dart';
-import 'package:ipecstudents/screens/loading/loading_screen.dart';
-import 'package:ipecstudents/widgets/background.dart';
-import 'package:ipecstudents/widgets/general_dialog.dart';
-import 'package:ipecstudents/widgets/rounded_button.dart';
-import 'package:ipecstudents/widgets/rounded_input_field.dart';
-import 'package:ipecstudents/widgets/rounded_password_field.dart';
+import 'package:ipecstudentsapp/data/base_bloc/base_event.dart';
+import 'package:ipecstudentsapp/data/base_bloc/base_state.dart';
+import 'package:ipecstudentsapp/data/model/Cred.dart';
+import 'package:ipecstudentsapp/data/repo/auth.dart';
+import 'package:ipecstudentsapp/screens/loading/loading_screen.dart';
+import 'package:ipecstudentsapp/widgets/background.dart';
+import 'package:ipecstudentsapp/widgets/general_dialog.dart';
+import 'package:ipecstudentsapp/widgets/rounded_button.dart';
+import 'package:ipecstudentsapp/widgets/rounded_input_field.dart';
+import 'package:ipecstudentsapp/widgets/rounded_password_field.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 

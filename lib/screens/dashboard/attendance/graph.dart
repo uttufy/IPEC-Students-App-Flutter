@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:ipecstudents/data/repo/session.dart';
-import 'package:ipecstudents/theme/colors.dart';
+import 'package:ipecstudentsapp/data/repo/session.dart';
+import 'package:ipecstudentsapp/theme/colors.dart';
 import 'package:provider/provider.dart';
 
 class AttendanceGraph extends StatelessWidget {

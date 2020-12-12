@@ -1,4 +1,4 @@
-package com.example.ipecstudents
+package com.uttu.ipecstudentsapp
 
 import io.flutter.embedding.android.FlutterActivity
 

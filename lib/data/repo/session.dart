@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
-import 'package:ipecstudents/data/model/Attendance.dart';
-import 'package:ipecstudents/data/model/GeneralResponse.dart';
-import 'package:ipecstudents/data/service/webClientService.dart';
+import 'package:ipecstudentsapp/data/model/Attendance.dart';
+import 'package:ipecstudentsapp/data/model/GeneralResponse.dart';
+import 'package:ipecstudentsapp/data/service/webClientService.dart';
 
 enum AttendanceStatus { Init, Loaded, Loading, Error }
 

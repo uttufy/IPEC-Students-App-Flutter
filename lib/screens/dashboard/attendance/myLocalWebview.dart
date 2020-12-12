@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'package:ipecstudents/data/repo/session.dart';
-import 'package:ipecstudents/widgets/rounded_button.dart';
+import 'package:ipecstudentsapp/data/repo/session.dart';
+import 'package:ipecstudentsapp/widgets/rounded_button.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 

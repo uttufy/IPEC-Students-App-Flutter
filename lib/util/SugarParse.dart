@@ -1,6 +1,6 @@
 import 'package:html/parser.dart';
-import 'package:ipecstudents/data/const.dart';
-import 'package:ipecstudents/data/model/User.dart';
+import 'package:ipecstudentsapp/data/const.dart';
+import 'package:ipecstudentsapp/data/model/User.dart';
 
 class SugarParser {
   User user(String body, username) {

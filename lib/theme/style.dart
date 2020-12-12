@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudents/data/const.dart';
+import 'package:ipecstudentsapp/data/const.dart';
 
 import 'colors.dart';
 

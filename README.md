@@ -1,4 +1,4 @@
-# ipecstudents
+# ipecstudentsapp
 
 A new Flutter project.
 

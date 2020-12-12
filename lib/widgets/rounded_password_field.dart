@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudents/data/const.dart';
-import 'package:ipecstudents/theme/colors.dart';
-import 'package:ipecstudents/widgets/text_field_container.dart';
+import 'package:ipecstudentsapp/data/const.dart';
+import 'package:ipecstudentsapp/theme/colors.dart';
+import 'package:ipecstudentsapp/widgets/text_field_container.dart';
 
 class RoundedPasswordField extends StatefulWidget {
   final ValueChanged<String> onChanged;

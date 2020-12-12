@@ -1,9 +1,9 @@
-import 'package:ipecstudents/data/base_bloc/base_bloc.dart';
-import 'package:ipecstudents/data/base_bloc/base_event.dart';
-import 'package:ipecstudents/data/base_bloc/base_state.dart';
-import 'package:ipecstudents/data/local/shared_pref.dart';
-import 'package:ipecstudents/data/model/Cred.dart';
-import 'package:ipecstudents/screens/splash/bloc/splash_state.dart';
+import 'package:ipecstudentsapp/data/base_bloc/base_bloc.dart';
+import 'package:ipecstudentsapp/data/base_bloc/base_event.dart';
+import 'package:ipecstudentsapp/data/base_bloc/base_state.dart';
+import 'package:ipecstudentsapp/data/local/shared_pref.dart';
+import 'package:ipecstudentsapp/data/model/Cred.dart';
+import 'package:ipecstudentsapp/screens/splash/bloc/splash_state.dart';
 
 import 'splash_event.dart';
 

@@ -3,10 +3,10 @@
 
 import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart';
-import 'package:ipecstudents/data/const.dart';
-import 'package:ipecstudents/data/model/Cred.dart';
-import 'package:ipecstudents/data/model/GeneralResponse.dart';
-import 'package:ipecstudents/data/model/TokensModel.dart';
+import 'package:ipecstudentsapp/data/const.dart';
+import 'package:ipecstudentsapp/data/model/Cred.dart';
+import 'package:ipecstudentsapp/data/model/GeneralResponse.dart';
+import 'package:ipecstudentsapp/data/model/TokensModel.dart';
 
 class WebClientService {
   static final WebClientService _singleton = WebClientService._internal();
