@@ -141,7 +141,7 @@ class WebClientService {
         kNoticesURL,
       );
       if (response.statusCode == 200)
-        return GeneralResponse(data: response, status: true);
+        return GeneralResponse(data: response.data, status: true);
       else
         return GeneralResponse(
             error: "Failed to sync notices. Error at first get.",
