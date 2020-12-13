@@ -52,7 +52,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
           }
 
           if (state is AuthenticatedState) {
-            Navigator.pushReplacementNamed(context, DashboardScreen.ROUTE);
+            Navigator.pushNamedAndRemoveUntil(
+                context, DashboardScreen.ROUTE, (route) => false);
           }
         },
         child: BaseBlocBuilder(

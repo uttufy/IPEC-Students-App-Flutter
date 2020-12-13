@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ipecstudentsapp/data/repo/auth.dart';
 import 'package:ipecstudentsapp/screens/dashboard/attendance/attendance_screen.dart';
@@ -20,6 +21,13 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  @override
+  void initState() {
+    super.initState();
+    FirebaseAuth auth = FirebaseAuth.instance;
+    auth.signInAnonymously();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<Auth>(

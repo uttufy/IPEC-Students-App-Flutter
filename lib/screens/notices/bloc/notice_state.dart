@@ -14,9 +14,10 @@ class NoticeLoadedState extends NoticeState {
   NoticeLoadedState(this.notices);
 }
 
-class NoticeSyncedState extends NoticeState {}
-
-class NoticeSyncingState extends NoticeState {}
+class AllNoticeLoadedState extends NoticeState {
+  final List<Notice> notices;
+  AllNoticeLoadedState(this.notices);
+}
 
 class NoticeErrorState extends NoticeState {
   final msg;

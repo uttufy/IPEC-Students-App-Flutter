@@ -37,7 +37,7 @@ class WebClientService {
       request: true,
       requestBody: true,
       requestHeader: true,
-      responseBody: true,
+      responseBody: false,
       responseHeader: true,
     ));
 

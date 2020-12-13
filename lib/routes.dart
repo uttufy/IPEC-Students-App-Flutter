@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:ipecstudentsapp/screens/dashboard/attendance/attendance_page.dart';
 import 'package:ipecstudentsapp/screens/dashboard/attendance/attendance_screen.dart';
@@ -29,7 +30,7 @@ class Routes {
       child: LayoutBuilder(builder: (context, constraints) {
         return OrientationBuilder(builder: (context, orientation) {
           SizeConfig().init(constraints, orientation);
-
+          Firebase.initializeApp();
           return MaterialApp(
             title: "IPEC Students App",
             home: SplashScreen(),

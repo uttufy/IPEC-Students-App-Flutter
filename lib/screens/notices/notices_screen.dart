@@ -24,6 +24,7 @@ class NoticesScreen extends StatefulWidget {
 class _NoticesScreenState extends State<NoticesScreen> {
   final NoticeBloc _bloc = NoticeBloc();
   Auth _auth;
+  List<Notice> _notices = [];
 
   @override
   void initState() {
@@ -38,6 +39,7 @@ class _NoticesScreenState extends State<NoticesScreen> {
   }
 
   _launchURL(String url) async {
+    print(url);
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -64,6 +66,7 @@ class _NoticesScreenState extends State<NoticesScreen> {
                 print("$runtimeType BlocBuilder - ${state.toString()}");
                 if (state is NoticeInitial)
                   _bloc.add(NoticeLoadEvent(session, _auth));
+
                 return SafeArea(
                   child: Column(
                     children: [
@@ -95,13 +98,17 @@ class _NoticesScreenState extends State<NoticesScreen> {
         strokeWidth: 2,
         backgroundColor: Colors.black,
       ));
-    else if (state is NoticeLoadedState)
-      return _noticesListView(state.notices);
-    else if (state is NoticeErrorState)
-      return Center(child: Text(state.msg));
-    else if (state is NoticeInitial)
-      return Center(child: Text("Intializing"));
-    else
+    if (state is NoticeLoadedState) {
+      _notices = state.notices;
+      return _noticesListView(_notices);
+    }
+    if (state is NoticeErrorState) return Center(child: Text(state.msg));
+    if (state is NoticeInitial) return Center(child: Text("Intializing"));
+
+    if (state is AllNoticeLoadedState) {
+      _notices = state.notices;
+      return _noticesListView(_notices);
+    } else
       return Center(child: Text("Something Went Wrong! Try Again"));
   }
 
@@ -128,7 +135,9 @@ class _NoticesScreenState extends State<NoticesScreen> {
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
           depth: 8,
           lightSource: LightSource.top,
-          color: Colors.white),
+          color: notices[index].tp
+              ? Colors.amberAccent.withOpacity(0.5)
+              : Colors.white),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
