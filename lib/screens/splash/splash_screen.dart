@@ -24,6 +24,12 @@ class _SplashScreenState extends State<SplashScreen> {
   final SplashScreenBloc _bloc = SplashScreenBloc();
 
   @override
+  void dispose() {
+    _bloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BaseBlocListener(

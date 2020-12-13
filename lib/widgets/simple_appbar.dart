@@ -7,7 +7,9 @@ class SimpleAppBar extends StatelessWidget {
   final img;
   final VoidCallback onPic;
   final VoidCallback onBack;
-  const SimpleAppBar({Key key, this.img, this.onPic, @required this.onBack})
+  final String title;
+  const SimpleAppBar(
+      {Key key, this.img, this.onPic, @required this.onBack, this.title})
       : super(key: key);
 
   @override
@@ -28,19 +30,28 @@ class SimpleAppBar extends StatelessWidget {
               ),
             ),
           ),
-          GestureDetector(
-            onTap: onPic,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: SizeConfig.widthMultiplier * 5,
-                backgroundImage: MemoryImage(
-                  base64Decode(img),
+          img != null
+              ? GestureDetector(
+                  onTap: onPic,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: SizeConfig.widthMultiplier * 5,
+                      backgroundImage: MemoryImage(
+                        base64Decode(img),
+                      ),
+                    ),
+                  ),
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Text(
+                    title,
+                    style: Theme.of(context).textTheme.headline5.copyWith(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-            ),
-          ),
         ],
       ),
     );

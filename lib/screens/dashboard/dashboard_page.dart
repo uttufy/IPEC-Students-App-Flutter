@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ipecstudentsapp/data/repo/auth.dart';
 import 'package:ipecstudentsapp/screens/dashboard/attendance/attendance_screen.dart';
 import 'package:ipecstudentsapp/screens/loading/loading_screen.dart';
+import 'package:ipecstudentsapp/screens/notices/notices_screen.dart';
 import 'package:ipecstudentsapp/screens/splash/splash_screen.dart';
 import 'package:ipecstudentsapp/theme/colors.dart';
 import 'package:ipecstudentsapp/theme/style.dart';
@@ -95,7 +96,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   () => Navigator.pushNamed(
                                       context, AttendancePage.ROUTE)),
                               optionIcon(
-                                  'assets/icons/Atom.png', 'Notices', () {}),
+                                'assets/icons/Atom.png',
+                                'Notices',
+                                () => Navigator.pushNamed(
+                                    context, NoticesScreen.ROUTE),
+                              ),
                             ],
                           ),
                           kMedPadding,

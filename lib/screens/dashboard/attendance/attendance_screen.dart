@@ -40,6 +40,12 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
   }
 
   @override
+  void dispose() {
+    _bloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Consumer<Session>(

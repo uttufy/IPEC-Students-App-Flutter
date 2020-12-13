@@ -6,6 +6,7 @@ import 'package:ipecstudentsapp/screens/dashboard/attendance/prediction_result_s
 import 'package:ipecstudentsapp/screens/dashboard/dashboard_page.dart';
 import 'package:ipecstudentsapp/screens/loading/loading_screen.dart';
 import 'package:ipecstudentsapp/screens/login/login_screen.dart';
+import 'package:ipecstudentsapp/screens/notices/notices_screen.dart';
 import 'package:ipecstudentsapp/screens/splash/splash_screen.dart';
 import 'package:ipecstudentsapp/theme/style.dart';
 import 'package:ipecstudentsapp/util/SizeConfig.dart';
@@ -60,6 +61,8 @@ class Routes {
         return _getMaterialRoute(AttendanceScreen(), settings);
       case AttendancePage.ROUTE:
         return _getMaterialRoute(AttendancePage(), settings);
+      case NoticesScreen.ROUTE:
+        return _getMaterialRoute(NoticesScreen(), settings);
       case PredictionInputScreen.ROUTE:
         Map arg = settings.arguments;
         return _getMaterialRoute(

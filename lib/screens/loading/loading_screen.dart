@@ -31,6 +31,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
   String mantra = Mantras().getMantra();
 
   @override
+  void dispose() {
+    _bloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
