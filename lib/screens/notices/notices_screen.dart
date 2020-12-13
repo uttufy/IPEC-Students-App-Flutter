@@ -7,9 +7,11 @@ import 'package:ipecstudentsapp/data/model/Notice.dart';
 import 'package:ipecstudentsapp/data/repo/auth.dart';
 import 'package:ipecstudentsapp/data/repo/session.dart';
 import 'package:ipecstudentsapp/screens/notices/bloc/notice_event.dart';
+import 'package:ipecstudentsapp/theme/style.dart';
 import 'package:ipecstudentsapp/widgets/simple_appbar.dart';
 import 'package:provider/provider.dart';
-
+import 'package:ipecstudentsapp/util/string_cap.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'bloc/notice_bloc.dart';
 import 'bloc/notice_state.dart';
 
@@ -33,6 +35,14 @@ class _NoticesScreenState extends State<NoticesScreen> {
   void dispose() {
     _bloc.close();
     super.dispose();
+  }
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -99,6 +109,7 @@ class _NoticesScreenState extends State<NoticesScreen> {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: notices?.length ?? 0,
+      physics: BouncingScrollPhysics(),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       itemBuilder: (BuildContext context, int index) {
         return Padding(
@@ -110,15 +121,65 @@ class _NoticesScreenState extends State<NoticesScreen> {
   }
 
   Widget _noticeItem(List<Notice> notices, int index) {
-    return Neumorphic(
+    return NeumorphicButton(
+      onPressed: () => _launchURL(notices[index].link),
       padding: const EdgeInsets.all(20),
       style: NeumorphicStyle(
-          shape: NeumorphicShape.concave,
-          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
           depth: 8,
-          lightSource: LightSource.topLeft,
-          color: Colors.grey),
-      child: Text(notices[index].title),
+          lightSource: LightSource.top,
+          color: Colors.white),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            notices[index].title,
+            style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          kLowPadding,
+          Row(
+            children: [
+              Expanded(
+                flex: 7,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Date",
+                      style: TextStyle(color: Colors.black26),
+                    ),
+                    Text(
+                      notices[index].date,
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      "Contributed by",
+                      style: TextStyle(color: Colors.black26),
+                    ),
+                    Text(
+                      notices[index].credit.toLowerCase().capitalize(),
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.right,
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
