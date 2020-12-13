@@ -33,10 +33,18 @@ dependencies:
   shimmer: ^1.1.2
   url_launcher: ^5.7.10
   webview_flutter: ^1.0.1
+  firebase_messaging: ^7.0.3
+  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"
+
 
 flutter:
   uses-material-design: true

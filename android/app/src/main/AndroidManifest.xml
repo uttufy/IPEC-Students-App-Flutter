@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.uttu.ipecstudentsapp">
    <application
-        android:label="ipecstudentsapp"
+        android:label="IPEC Student's App"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">
         <activity
