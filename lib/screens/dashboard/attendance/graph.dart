@@ -56,9 +56,15 @@ class AttendanceGraph extends StatelessWidget {
           children: <Widget>[
             AspectRatio(
               aspectRatio: 2,
-              child: LineChart(
-                mainData(session),
-              ),
+              child: session.graph.isEmpty
+                  ? Center(
+                      child: Text(
+                      ':(\nSorry graph is not available at the moment',
+                      textAlign: TextAlign.center,
+                    ))
+                  : LineChart(
+                      mainData(session),
+                    ),
             ),
           ],
         );
