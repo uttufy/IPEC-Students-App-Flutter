@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/data/model/Attendance.dart';
-import 'package:ipecstudentsapp/data/repo/auth.dart';
-import 'package:ipecstudentsapp/theme/colors.dart';
-import 'package:ipecstudentsapp/theme/style.dart';
-import 'package:ipecstudentsapp/widgets/general_dialog.dart';
-import 'package:ipecstudentsapp/widgets/rounded_button.dart';
-import 'package:ipecstudentsapp/widgets/simple_appbar.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+
+import '../../../data/model/Attendance.dart';
+import '../../../data/repo/auth.dart';
+import '../../../theme/style.dart';
+import '../../../widgets/simple_appbar.dart';
 
 class PredictionResultScreen extends StatefulWidget {
   static const String ROUTE = "/PredictionResultScreen";
@@ -73,20 +71,6 @@ class _PredictionResultScreenState extends State<PredictionResultScreen> {
           ),
         );
       },
-    );
-  }
-
-  InkWell _button({
-    Function onPress,
-    Widget child,
-  }) {
-    return InkWell(
-      onTap: onPress,
-      borderRadius: BorderRadius.circular(50),
-      child: Ink(
-        padding: const EdgeInsets.all(10),
-        child: child,
-      ),
     );
   }
 }

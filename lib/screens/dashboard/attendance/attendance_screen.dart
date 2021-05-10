@@ -1,24 +1,23 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_bloc_builder.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_bloc_listener.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_state.dart';
-import 'package:ipecstudentsapp/data/repo/auth.dart';
-import 'package:ipecstudentsapp/data/repo/session.dart';
-import 'package:ipecstudentsapp/screens/dashboard/attendance/bloc/attendance_bloc.dart';
-import 'package:ipecstudentsapp/screens/dashboard/attendance/bloc/attendance_event.dart';
-import 'package:ipecstudentsapp/screens/dashboard/attendance/bloc/attendance_state.dart';
-import 'package:ipecstudentsapp/screens/dashboard/attendance/graph.dart';
-import 'package:ipecstudentsapp/screens/dashboard/attendance/prediction_input_screen.dart';
-import 'package:ipecstudentsapp/theme/colors.dart';
-import 'package:ipecstudentsapp/theme/style.dart';
-import 'package:ipecstudentsapp/util/SizeConfig.dart';
-import 'package:ipecstudentsapp/widgets/general_dialog.dart';
-import 'package:ipecstudentsapp/widgets/simple_appbar.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../../data/base_bloc/base_bloc_builder.dart';
+import '../../../data/base_bloc/base_bloc_listener.dart';
+import '../../../data/base_bloc/base_state.dart';
+import '../../../data/repo/auth.dart';
+import '../../../data/repo/session.dart';
+import '../../../theme/colors.dart';
+import '../../../theme/style.dart';
+import '../../../util/SizeConfig.dart';
+import '../../../widgets/general_dialog.dart';
+import '../../../widgets/simple_appbar.dart';
+import 'bloc/attendance_bloc.dart';
+import 'bloc/attendance_event.dart';
+import 'bloc/attendance_state.dart';
+import 'graph.dart';
+import 'prediction_input_screen.dart';
 
 class AttendanceScreen extends StatefulWidget {
   static const String ROUTE = "/Attendance";

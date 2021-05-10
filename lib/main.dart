@@ -1,4 +1,4 @@
-import 'package:ipecstudentsapp/routes.dart';
+import 'routes.dart';
 
 void main() {
   new Routes();

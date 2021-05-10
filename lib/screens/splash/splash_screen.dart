@@ -1,17 +1,17 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_bloc_builder.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_bloc_listener.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_state.dart';
-import 'package:ipecstudentsapp/data/repo/auth.dart';
-import 'package:ipecstudentsapp/screens/loading/loading_screen.dart';
-import 'package:ipecstudentsapp/screens/login/login_screen.dart';
-import 'package:ipecstudentsapp/screens/splash/bloc/splash_bloc.dart';
-import 'package:ipecstudentsapp/screens/splash/bloc/splash_event.dart';
-import 'package:ipecstudentsapp/util/SizeConfig.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
+import '../../data/base_bloc/base_bloc_builder.dart';
+import '../../data/base_bloc/base_bloc_listener.dart';
+import '../../data/base_bloc/base_state.dart';
+import '../../data/repo/auth.dart';
+import '../../util/SizeConfig.dart';
+import '../loading/loading_screen.dart';
+import '../login/login_screen.dart';
+import 'bloc/splash_bloc.dart';
+import 'bloc/splash_event.dart';
 import 'bloc/splash_state.dart';
 
 class SplashScreen extends StatefulWidget {

@@ -1,7 +1,8 @@
-import 'package:ipecstudentsapp/theme/colors.dart';
-import 'package:ipecstudentsapp/theme/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../theme/colors.dart';
+import '../theme/style.dart';
 
 class BasicButton extends StatefulWidget {
   BasicButton(

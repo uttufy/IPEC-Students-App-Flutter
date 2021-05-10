@@ -1,4 +1,4 @@
-import 'package:ipecstudentsapp/data/base_bloc/base_state.dart';
+import '../../../../data/base_bloc/base_state.dart';
 
 class AttendanceState extends BaseState {
   AttendanceState([List props = const []]) : super(props);

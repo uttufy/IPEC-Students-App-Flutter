@@ -1,5 +1,5 @@
-import 'package:ipecstudentsapp/data/base_bloc/base_event.dart';
-import 'package:ipecstudentsapp/data/repo/auth.dart';
+import '../../../data/base_bloc/base_event.dart';
+import '../../../data/repo/auth.dart';
 
 class SplashScreenEvent extends BaseEvent {
   SplashScreenEvent([List props = const []]) : super(props);

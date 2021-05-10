@@ -1,8 +1,9 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/data/repo/session.dart';
-import 'package:ipecstudentsapp/theme/colors.dart';
 import 'package:provider/provider.dart';
+
+import '../../../data/repo/session.dart';
+import '../../../theme/colors.dart';
 
 class AttendanceGraph extends StatefulWidget {
   @override

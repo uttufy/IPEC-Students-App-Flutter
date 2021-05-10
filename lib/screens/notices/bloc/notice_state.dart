@@ -1,5 +1,5 @@
-import 'package:ipecstudentsapp/data/base_bloc/base_state.dart';
-import 'package:ipecstudentsapp/data/model/Notice.dart';
+import '../../../data/base_bloc/base_state.dart';
+import '../../../data/model/Notice.dart';
 
 class NoticeState extends BaseState {
   NoticeState([List props = const []]) : super(props);

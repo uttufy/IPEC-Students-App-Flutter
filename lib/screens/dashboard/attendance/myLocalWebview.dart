@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
-import 'package:ipecstudentsapp/data/repo/session.dart';
-
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+
+import '../../../data/repo/session.dart';
 
 class MyLocalWebView extends StatefulWidget {
   static const String = "/MyLocalWebview";

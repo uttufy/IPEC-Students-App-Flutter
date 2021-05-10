@@ -1,11 +1,10 @@
-import 'package:ipecstudentsapp/data/base_bloc/base_bloc.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_event.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_state.dart';
-import 'package:ipecstudentsapp/data/local/shared_pref.dart';
-import 'package:ipecstudentsapp/data/model/Cred.dart';
-import 'package:ipecstudentsapp/screens/splash/bloc/splash_state.dart';
-
+import '../../../data/base_bloc/base_bloc.dart';
+import '../../../data/base_bloc/base_event.dart';
+import '../../../data/base_bloc/base_state.dart';
+import '../../../data/local/shared_pref.dart';
+import '../../../data/model/Cred.dart';
 import 'splash_event.dart';
+import 'splash_state.dart';
 
 class SplashScreenBloc extends BaseBloc {
   @override

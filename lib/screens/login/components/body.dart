@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_event.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_state.dart';
-import 'package:ipecstudentsapp/data/model/Cred.dart';
-import 'package:ipecstudentsapp/data/repo/auth.dart';
-import 'package:ipecstudentsapp/screens/loading/loading_screen.dart';
-import 'package:ipecstudentsapp/widgets/background.dart';
-import 'package:ipecstudentsapp/widgets/general_dialog.dart';
-import 'package:ipecstudentsapp/widgets/rounded_button.dart';
-import 'package:ipecstudentsapp/widgets/rounded_input_field.dart';
-import 'package:ipecstudentsapp/widgets/rounded_password_field.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+
+import '../../../data/model/Cred.dart';
+import '../../../data/repo/auth.dart';
+import '../../../widgets/background.dart';
+import '../../../widgets/rounded_button.dart';
+import '../../../widgets/rounded_input_field.dart';
+import '../../../widgets/rounded_password_field.dart';
+import '../../loading/loading_screen.dart';
 
 class Body extends StatelessWidget {
   const Body({
@@ -28,6 +26,7 @@ class Body extends StatelessWidget {
 
     void showInSnackBar(String value) {
       _scaffoldKey.currentState
+          // ignore: deprecated_member_use
           .showSnackBar(new SnackBar(content: new Text(value)));
     }
 

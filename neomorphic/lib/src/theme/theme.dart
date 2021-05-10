@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart' show IconTheme, IconThemeData, TextTheme;
+import 'package:flutter/material.dart' show IconThemeData, TextTheme;
 import 'package:flutter/painting.dart';
 import 'package:flutter_neumorphic/src/theme/app_bar.dart';
 import 'package:flutter_neumorphic/src/widget/container.dart';
@@ -59,7 +59,7 @@ class NeumorphicThemeData {
   final Color borderColor;
   final double borderWidth;
 
-  final Color defaultTextColor; //TODO maybe use TextStyle here
+  final Color defaultTextColor;
   final double _depth;
   final double _intensity;
   final LightSource lightSource;

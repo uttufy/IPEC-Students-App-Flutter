@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/data/model/Attendance.dart';
-import 'package:ipecstudentsapp/data/repo/auth.dart';
-import 'package:ipecstudentsapp/screens/dashboard/attendance/prediction_result_screen.dart';
-import 'package:ipecstudentsapp/theme/colors.dart';
-import 'package:ipecstudentsapp/theme/style.dart';
-import 'package:ipecstudentsapp/widgets/general_dialog.dart';
-import 'package:ipecstudentsapp/widgets/rounded_button.dart';
-import 'package:ipecstudentsapp/widgets/simple_appbar.dart';
+import '../../../data/model/Attendance.dart';
+import '../../../data/repo/auth.dart';
+import 'prediction_result_screen.dart';
+
+import '../../../theme/style.dart';
+import '../../../widgets/general_dialog.dart';
+import '../../../widgets/rounded_button.dart';
+import '../../../widgets/simple_appbar.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 

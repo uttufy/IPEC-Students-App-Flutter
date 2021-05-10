@@ -1,10 +1,10 @@
-import 'package:ipecstudentsapp/widgets/general_dialog.dart';
-import 'package:ipecstudentsapp/widgets/progress_dialog.dart';
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:bloc/bloc.dart';
 
+import '../../widgets/general_dialog.dart';
+import '../../widgets/progress_dialog.dart';
 import 'base_bloc.dart';
 import 'base_event.dart';
 import 'base_state.dart';
@@ -51,6 +51,7 @@ class BaseBlocListener<B extends BaseBloc, S extends BaseState>
             }
 
             if (state is ShowSnackBarErrorState) {
+              // ignore: deprecated_member_use
               Scaffold.of(context).showSnackBar(
                 SnackBar(
                   content: Text(state.error),

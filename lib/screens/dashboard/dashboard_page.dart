@@ -1,17 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/data/repo/auth.dart';
-import 'package:ipecstudentsapp/screens/dashboard/attendance/attendance_screen.dart';
-import 'package:ipecstudentsapp/screens/loading/loading_screen.dart';
-import 'package:ipecstudentsapp/screens/notices/notices_screen.dart';
-import 'package:ipecstudentsapp/screens/splash/splash_screen.dart';
-import 'package:ipecstudentsapp/theme/colors.dart';
-import 'package:ipecstudentsapp/theme/style.dart';
-import 'package:ipecstudentsapp/util/SizeConfig.dart';
-import 'package:ipecstudentsapp/widgets/background.dart';
-import 'package:provider/provider.dart';
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../data/repo/auth.dart';
+import '../../theme/colors.dart';
+import '../../theme/style.dart';
+import '../../util/SizeConfig.dart';
+import '../../widgets/background.dart';
+import '../notices/notices_screen.dart';
+import '../splash/splash_screen.dart';
 import 'attendance/attendance_page.dart';
 
 class DashboardScreen extends StatefulWidget {

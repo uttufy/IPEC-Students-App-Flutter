@@ -1,4 +1,4 @@
-import 'package:ipecstudentsapp/data/base_bloc/base_state.dart';
+import '../../../data/base_bloc/base_state.dart';
 
 class SplashScreenState extends BaseState {
   SplashScreenState([List props = const []]) : super(props);

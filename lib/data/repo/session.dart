@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
-import 'package:ipecstudentsapp/data/model/Attendance.dart';
-import 'package:ipecstudentsapp/data/model/GeneralResponse.dart';
-import 'package:ipecstudentsapp/data/service/webClientService.dart';
+
+import '../model/Attendance.dart';
+import '../service/webClientService.dart';
 
 enum AttendanceStatus { Init, Loaded, Loading, Error }
 
@@ -93,7 +93,6 @@ class Session extends ChangeNotifier {
     try {
       var document = parse(_attendanceBody);
       String changedHtml =
-          //TODO: remov 2
           document.querySelector("#ContentPlaceHolder1_GridView1").outerHtml;
       changedHtml = changedHtml.replaceAll('LightBlue', '#f44336');
       // changedHtml = changedHtml.replaceAll('White', '#1D2C4B');

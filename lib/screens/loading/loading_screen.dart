@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_bloc_builder.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_bloc_listener.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_state.dart';
-
-import 'package:ipecstudentsapp/data/repo/auth.dart';
-import 'package:ipecstudentsapp/screens/dashboard/dashboard_page.dart';
-import 'package:ipecstudentsapp/screens/loading/bloc/loading_bloc.dart';
-import 'package:ipecstudentsapp/screens/loading/bloc/loading_event.dart';
-import 'package:ipecstudentsapp/screens/loading/bloc/loading_state.dart';
-import 'package:ipecstudentsapp/screens/login/login_screen.dart';
-import 'package:ipecstudentsapp/theme/colors.dart';
-import 'package:ipecstudentsapp/widgets/background.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mantras/mantras.dart';
 import 'package:provider/provider.dart';
+
+import '../../data/base_bloc/base_bloc_builder.dart';
+import '../../data/base_bloc/base_bloc_listener.dart';
+import '../../data/base_bloc/base_state.dart';
+import '../../data/repo/auth.dart';
+import '../../theme/colors.dart';
+import '../../widgets/background.dart';
+import '../dashboard/dashboard_page.dart';
+import '../login/login_screen.dart';
+import 'bloc/loading_bloc.dart';
+import 'bloc/loading_event.dart';
+import 'bloc/loading_state.dart';
 
 class LoadingScreen extends StatefulWidget {
   static const String ROUTE = "/Loading";

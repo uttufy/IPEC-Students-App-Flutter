@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
-import 'package:ipecstudentsapp/data/local/shared_pref.dart';
-import 'package:ipecstudentsapp/data/model/Cred.dart';
-import 'package:ipecstudentsapp/data/model/GeneralResponse.dart';
-import 'package:ipecstudentsapp/data/model/TokensModel.dart';
-import 'package:ipecstudentsapp/data/model/User.dart';
-import 'package:ipecstudentsapp/data/service/webClientService.dart';
 
 import '../const.dart';
+import '../local/shared_pref.dart';
+import '../model/Cred.dart';
+import '../model/GeneralResponse.dart';
+import '../model/TokensModel.dart';
+import '../model/User.dart';
+import '../service/webClientService.dart';
 
 class Auth extends ChangeNotifier {
   WebClientService _webClient = WebClientService();
@@ -17,11 +17,13 @@ class Auth extends ChangeNotifier {
   User _user;
 
   Cred _cred;
-
+  // ignore: unnecessary_getters_setters
   get user => _user;
+  // ignore: unnecessary_getters_setters
   set user(User u) => _user = u;
-
+  // ignore: unnecessary_getters_setters
   get cred => _cred;
+  // ignore: unnecessary_getters_setters
   set cred(Cred u) => _cred = u;
 
   get token => _tokens;

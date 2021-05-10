@@ -1,10 +1,9 @@
 import 'dart:ui';
 
-import 'package:ipecstudentsapp/theme/style.dart';
-import 'package:ipecstudentsapp/util/SizeConfig.dart';
-import 'package:ipecstudentsapp/widgets/button.dart';
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/widgets/rounded_button.dart';
+
+import '../theme/style.dart';
+import 'rounded_button.dart';
 
 class GeneralDialog extends StatefulWidget {
   static Future show(BuildContext context,
@@ -161,6 +160,7 @@ class _GeneralDialogState extends State {
                                     negativeButtonLabel != null
                                         ? Expanded(
                                             child: Center(
+                                              // ignore: deprecated_member_use
                                               child: RaisedButton(
                                                 color: Colors.white,
                                                 child:

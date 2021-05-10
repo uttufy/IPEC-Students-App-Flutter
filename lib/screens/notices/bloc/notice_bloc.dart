@@ -2,16 +2,15 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_bloc.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_event.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_state.dart';
-import 'package:ipecstudentsapp/data/const.dart';
-import 'package:ipecstudentsapp/data/model/GeneralResponse.dart';
-import 'package:ipecstudentsapp/data/model/Notice.dart';
 
-import 'package:ipecstudentsapp/screens/notices/bloc/notice_state.dart';
-
+import '../../../data/base_bloc/base_bloc.dart';
+import '../../../data/base_bloc/base_event.dart';
+import '../../../data/base_bloc/base_state.dart';
+import '../../../data/const.dart';
+import '../../../data/model/GeneralResponse.dart';
+import '../../../data/model/Notice.dart';
 import 'notice_event.dart';
+import 'notice_state.dart';
 
 class NoticeBloc extends BaseBloc {
   @override

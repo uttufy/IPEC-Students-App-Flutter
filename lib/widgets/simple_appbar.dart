@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/util/SizeConfig.dart';
+import '../util/SizeConfig.dart';
 
 class SimpleAppBar extends StatelessWidget {
   final img;

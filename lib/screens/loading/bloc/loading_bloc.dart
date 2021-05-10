@@ -1,11 +1,10 @@
-import 'package:ipecstudentsapp/data/base_bloc/base_bloc.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_event.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_state.dart';
-import 'package:ipecstudentsapp/data/local/shared_pref.dart';
-import 'package:ipecstudentsapp/data/model/GeneralResponse.dart';
-import 'package:ipecstudentsapp/data/model/User.dart';
-import 'package:ipecstudentsapp/data/repo/auth.dart';
-import 'package:ipecstudentsapp/util/SugarParse.dart';
+import '../../../data/base_bloc/base_bloc.dart';
+import '../../../data/base_bloc/base_event.dart';
+import '../../../data/base_bloc/base_state.dart';
+import '../../../data/local/shared_pref.dart';
+import '../../../data/model/GeneralResponse.dart';
+
+import '../../../util/SugarParse.dart';
 
 import 'loading_event.dart';
 import 'loading_state.dart';
