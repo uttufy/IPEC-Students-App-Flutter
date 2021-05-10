@@ -91,7 +91,6 @@ class _NoticesScreenState extends State<NoticesScreen> {
   }
 
   Widget _getBody(Session session, BuildContext context, BaseState state) {
-    print(state.toString() + "asdsadsadsa");
     if (state is NoticeLoadingState)
       return Center(
           child: CircularProgressIndicator(

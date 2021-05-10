@@ -34,6 +34,8 @@ dependencies:
   url_launcher: ^5.7.10
   webview_flutter: ^1.0.1
   firebase_messaging: ^7.0.3
+  circular_profile_avatar: ^2.0.0
+  flutter_share: ^2.0.0
   
 
 dev_dependencies:

@@ -76,8 +76,7 @@ class Session extends ChangeNotifier {
 
     try {
       final res = parseTable(body);
-      print(res);
-      print(res.length);
+
       if (res.length > 10) {
         graph = res;
       }

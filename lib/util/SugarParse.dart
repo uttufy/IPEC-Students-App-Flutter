@@ -7,7 +7,7 @@ class SugarParser {
   User user(String body, username) {
     var document = parse(body);
     var name = document.querySelector("#lblname").text;
-    print(name);
+
     var userImage =
         document.querySelector("#UserImage").attributes.values.elementAt(1);
     if (name != null) {

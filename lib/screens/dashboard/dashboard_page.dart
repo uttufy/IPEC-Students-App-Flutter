@@ -2,7 +2,10 @@ import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
+import 'package:ipecstudentsapp/screens/about/about.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../data/repo/auth.dart';
 import '../../theme/colors.dart';
@@ -20,6 +23,19 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
+      new GlobalKey<ScaffoldMessengerState>();
+  static const appLink =
+      "https://play.google.com/store/apps/details?id=com.uttu.ipecstudentsapp&hl=en_IN&gl=US";
+  _launchURL(String url) async {
+    print(url);
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -31,99 +47,116 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Consumer<Auth>(
       builder: (context, auth, child) {
-        return Scaffold(
-          body: Background(
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CircleAvatar(
-                          radius: SizeConfig.widthMultiplier * 7,
-                          backgroundImage: MemoryImage(
-                            base64Decode(
-                                auth.user.img.toString().split(',')[1]),
-                          ),
-                        ),
-                        PopupMenuButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20.0))),
-                            icon: ImageIcon(AssetImage(
-                              'assets/icons/menu.png',
-                            )),
-                            onSelected: (value) {
-                              print(value);
-                              switch (value) {
-                                case 1:
-                                  break;
-                                case 2:
-                                  break;
-                                case 3:
-                                  auth.logout().then(
-                                      (value) => Navigator.pushReplacementNamed(
-                                            context,
-                                            SplashScreen.ROUTE,
-                                          ));
-
-                                  break;
-                              }
-                            },
-                            itemBuilder: _popOptions),
-                      ],
-                    ),
-                    kHighPadding,
-                    Text(
-                      'Hello,',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline5
-                          .copyWith(color: Colors.black),
-                    ),
-                    Text(
-                      auth.user.name,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.headline5.copyWith(
-                          color: Colors.black, fontWeight: FontWeight.bold),
-                    ),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+        return ScaffoldMessenger(
+          key: _scaffoldKey,
+          child: Scaffold(
+            body: Background(
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              optionIcon(
-                                  'assets/icons/Bag.png',
-                                  'Attendance',
-                                  () => Navigator.pushNamed(
-                                      context, AttendancePage.ROUTE)),
-                              optionIcon(
-                                'assets/icons/Atom.png',
-                                'Notices',
-                                () => Navigator.pushNamed(
-                                    context, NoticesScreen.ROUTE),
-                              ),
-                            ],
+                          CircleAvatar(
+                            radius: SizeConfig.widthMultiplier * 7,
+                            backgroundImage: MemoryImage(
+                              base64Decode(
+                                  auth.user.img.toString().split(',')[1]),
+                            ),
                           ),
-                          kMedPadding,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              optionIcon('assets/icons/Boy-Student.png',
-                                  'Learning', () {}),
-                              optionIcon(
-                                  'assets/icons/Compass.png', 'About', () {}),
-                            ],
-                          ),
+                          PopupMenuButton(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20.0))),
+                              icon: ImageIcon(AssetImage(
+                                'assets/icons/menu.png',
+                              )),
+                              onSelected: (value) {
+                                switch (value) {
+                                  case 1:
+                                    _launchURL(appLink);
+
+                                    break;
+                                  case 2:
+                                    FlutterShare.share(
+                                        title: 'IPEC Student\'s App',
+                                        text:
+                                            'Best app for checking attendance and notices.',
+                                        linkUrl: appLink,
+                                        chooserTitle: 'IPEC');
+                                    break;
+                                  case 3:
+                                    auth.logout().then((value) =>
+                                        Navigator.pushReplacementNamed(
+                                          context,
+                                          SplashScreen.ROUTE,
+                                        ));
+
+                                    break;
+                                }
+                              },
+                              itemBuilder: _popOptions),
                         ],
                       ),
-                    ),
-                  ],
+                      kHighPadding,
+                      Text(
+                        'Hello,',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5
+                            .copyWith(color: Colors.black),
+                      ),
+                      Text(
+                        auth.user.name,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.headline5.copyWith(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      ),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                optionIcon(
+                                    'assets/icons/Bag.png',
+                                    'Attendance',
+                                    () => Navigator.pushNamed(
+                                        context, AttendancePage.ROUTE)),
+                                optionIcon(
+                                  'assets/icons/Atom.png',
+                                  'Notices',
+                                  () => Navigator.pushNamed(
+                                      context, NoticesScreen.ROUTE),
+                                ),
+                              ],
+                            ),
+                            kMedPadding,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                optionIcon(
+                                    'assets/icons/Boy-Student.png', 'Learning',
+                                    () {
+                                  _showSnackBar(
+                                      "This is not developed yet!👷‍♂️ Soon be available");
+                                }),
+                                optionIcon('assets/icons/Compass.png', 'About',
+                                    () {
+                                  Navigator.pushNamed(
+                                      context, AboutScreen.ROUTE);
+                                }),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -194,5 +227,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
       ),
     );
+  }
+
+  void _showSnackBar(String s) {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(s)));
   }
 }

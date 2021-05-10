@@ -90,7 +90,6 @@ class NoticeBloc extends BaseBloc {
         var data = snap.value;
         noticeList.clear();
         for (var indivisualKey in keys) {
-          print(indivisualKey);
           Notice noticeItem = new Notice(
             title: data[indivisualKey]['title'],
             date: data[indivisualKey]['date'],

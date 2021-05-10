@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:ipecstudentsapp/screens/about/about.dart';
 import 'package:provider/provider.dart';
 
 import 'data/repo/auth.dart';
@@ -65,6 +66,8 @@ class Routes {
         return _getMaterialRoute(AttendancePage(), settings);
       case NoticesScreen.ROUTE:
         return _getMaterialRoute(NoticesScreen(), settings);
+      case AboutScreen.ROUTE:
+        return _getMaterialRoute(AboutScreen(), settings);
       case PredictionInputScreen.ROUTE:
         Map arg = settings.arguments;
         return _getMaterialRoute(
