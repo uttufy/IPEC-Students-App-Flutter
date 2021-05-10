@@ -33,12 +33,12 @@ class WebClientService {
       },
     ),
   )..interceptors.add(dio.LogInterceptor(
-      error: true,
-      request: true,
-      requestBody: true,
-      requestHeader: true,
+      error: false,
+      request: false,
+      requestBody: false,
+      requestHeader: false,
       responseBody: false,
-      responseHeader: true,
+      responseHeader: false,
     ));
 
   Future<GeneralResponse> getLoginToken() async {

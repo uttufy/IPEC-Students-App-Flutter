@@ -1,9 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+
 import 'package:ipecstudentsapp/data/repo/session.dart';
-import 'package:ipecstudentsapp/widgets/rounded_button.dart';
+
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -19,7 +17,8 @@ class MyLocalWebView extends StatefulWidget {
 }
 
 class _MyLocalWebViewState extends State<MyLocalWebView> {
-  String html = "<h1><strong>Something went wrong</strong></h1>";
+  String html =
+      "<h1 style=\"text-align: center; \"><strong>Something went wrong😞</strong></h1>";
 
   @override
   void initState() {
@@ -44,7 +43,7 @@ class _MyLocalWebViewState extends State<MyLocalWebView> {
         ),
       );
     } else if (session.attendanceStatus == AttendanceStatus.Loaded) {
-      html = session.getTable();
+      _loadTable(session);
       return SafeArea(
         child: WebView(
           initialUrl:
@@ -56,5 +55,15 @@ class _MyLocalWebViewState extends State<MyLocalWebView> {
       return Center(child: Text('Intializing'));
     else
       return Center(child: Text('Something went wrong'));
+  }
+
+  void _loadTable(Session session) {
+    try {
+      html = session.getTable();
+    } catch (e) {
+      print(e.toString());
+      html =
+          "<br><h1 style=\"text-align: center; font-size: 10em;font-family: sans-serif\"><strong>Failed to parse table</strong></h1><h2 style=\"text-align: center; font-size: 5em;font-family: sans-serif\"><strong>${e.toString()}</strong></h2>";
+    }
   }
 }

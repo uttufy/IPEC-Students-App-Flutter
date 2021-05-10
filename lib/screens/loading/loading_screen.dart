@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ipecstudentsapp/data/base_bloc/base_bloc_builder.dart';
 import 'package:ipecstudentsapp/data/base_bloc/base_bloc_listener.dart';
 import 'package:ipecstudentsapp/data/base_bloc/base_state.dart';
-import 'package:ipecstudentsapp/data/model/Cred.dart';
+
 import 'package:ipecstudentsapp/data/repo/auth.dart';
 import 'package:ipecstudentsapp/screens/dashboard/dashboard_page.dart';
 import 'package:ipecstudentsapp/screens/loading/bloc/loading_bloc.dart';

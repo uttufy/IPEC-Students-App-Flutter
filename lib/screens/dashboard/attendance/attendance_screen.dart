@@ -47,28 +47,30 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Consumer<Session>(
-        builder: (context, session, child) {
-          return BaseBlocListener(
-            bloc: _bloc,
-            listener: (BuildContext context, BaseState state) {
-              print("$runtimeType BlocListener - ${state.toString()}");
-            },
-            child: BaseBlocBuilder(
+    return ScaffoldMessenger(
+      child: Scaffold(
+        body: Consumer<Session>(
+          builder: (context, session, child) {
+            return BaseBlocListener(
               bloc: _bloc,
-              condition: (BaseState previous, BaseState current) {
-                return !(BaseBlocBuilder.isBaseState(current));
+              listener: (BuildContext context, BaseState state) {
+                print("$runtimeType BlocListener - ${state.toString()}");
               },
-              builder: (BuildContext context, BaseState state) {
-                print("$runtimeType BlocBuilder - ${state.toString()}");
-                if (state is AttendanceInitState)
-                  _bloc.add(LoadAttendance(_auth, session));
-                return _getBody(session, context, state);
-              },
-            ),
-          );
-        },
+              child: BaseBlocBuilder(
+                bloc: _bloc,
+                condition: (BaseState previous, BaseState current) {
+                  return !(BaseBlocBuilder.isBaseState(current));
+                },
+                builder: (BuildContext context, BaseState state) {
+                  print("$runtimeType BlocBuilder - ${state.toString()}");
+                  if (state is AttendanceInitState)
+                    _bloc.add(LoadAttendance(_auth, session));
+                  return _getBody(session, context, state);
+                },
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -121,7 +123,9 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             kLowPadding,
             state is AttendanceLoaded
                 ? Text(
-                    session.attendance.percent.toString() + "%",
+                    session.attendance.percent < 0
+                        ? "Failed"
+                        : session.attendance.percent.toString() + "%",
                     style: Theme.of(context).textTheme.headline3.copyWith(
                         color: Colors.black, fontWeight: FontWeight.w700),
                   )
@@ -179,8 +183,13 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             padding: const EdgeInsets.only(left: 20.0),
             child: InkWell(
               onTap: () {
-                Navigator.pushNamed(context, PredictionInputScreen.ROUTE,
-                    arguments: {'attendance': session.attendance});
+                if (session.attendance.percent > 0)
+                  Navigator.pushNamed(context, PredictionInputScreen.ROUTE,
+                      arguments: {'attendance': session.attendance});
+                else
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                          "Predict attendance is not available at this moment!")));
               },
               borderRadius: BorderRadius.circular(30),
               child: Ink(
@@ -219,10 +228,12 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                     iconBg: Colors.lightGreen[200],
                     img: 'assets/icons/skip.png',
                     main: 'Lectures Skipped',
-                    title: session.attendance
-                            .getAbsentPercent()
-                            .toStringAsFixed(0) +
-                        "%",
+                    title: session.attendance.percent < 0
+                        ? "Failed"
+                        : session.attendance
+                                .getAbsentPercent()
+                                .toStringAsFixed(0) +
+                            "%",
                   ),
                 ),
                 Padding(

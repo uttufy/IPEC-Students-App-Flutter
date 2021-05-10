@@ -4,12 +4,18 @@ import 'package:ipecstudentsapp/data/repo/session.dart';
 import 'package:ipecstudentsapp/theme/colors.dart';
 import 'package:provider/provider.dart';
 
-class AttendanceGraph extends StatelessWidget {
+class AttendanceGraph extends StatefulWidget {
+  @override
+  _AttendanceGraphState createState() => _AttendanceGraphState();
+}
+
+class _AttendanceGraphState extends State<AttendanceGraph> {
   List<Color> gradientColors = [
     Color(0xff23b6e6),
     Color(0xff02d39a),
     Color(0xffFFFFFF),
   ];
+
   List<Color> gradientColorsLine = [
     Color(0xff23b6e6),
     Color(0xff02d39a),

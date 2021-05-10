@@ -35,14 +35,33 @@ class LoadingBloc extends BaseBloc {
           await Future.delayed(Duration(milliseconds: 50));
           yield AuthenticatedState();
         } else {
-          // Invalid Cred
-          yield LoginFailState();
-          await Future.delayed(Duration(seconds: 2));
-          yield CloseLoadingState();
+          // Invalid Cred probably so trying again
+          await Future.delayed(Duration(seconds: 1));
+          GeneralResponse response = await event.auth
+              .login(event.auth.cred.username, event.auth.cred.password);
+          if (response.status) {
+            event.auth.user = SugarParser()
+                .user(response.data.data, event.auth.cred.username);
+
+            await _localData.saveUserPreference(
+                event.auth.cred.username,
+                event.auth.cred.password,
+                event.auth.user.name,
+                event.auth.user.img);
+            await Future.delayed(Duration(milliseconds: 50));
+            yield AuthenticatedState();
+          } else {
+            // Invalid Cred confirm
+            yield LoginFailState();
+            await Future.delayed(Duration(seconds: 2));
+            yield CloseLoadingState();
+          }
+          // yield LoginFailState();
+          // await Future.delayed(Duration(seconds: 2));
+          // yield CloseLoadingState();
         }
       } on Exception catch (e) {
         yield ShowDialogErrorState(e?.toString() ?? "Fatal Error");
-
         yield CloseLoadingState();
       }
     }
