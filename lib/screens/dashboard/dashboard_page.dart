@@ -121,6 +121,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              kHighPadding,
+                              kHighPadding,
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,

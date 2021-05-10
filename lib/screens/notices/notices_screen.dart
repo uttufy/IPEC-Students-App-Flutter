@@ -172,7 +172,8 @@ class _NoticesScreenState extends State<NoticesScreen> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      "Contributed by",
+                      "Contri. by",
+                      textAlign: TextAlign.right,
                       style: TextStyle(color: Colors.black26),
                     ),
                     Text(
