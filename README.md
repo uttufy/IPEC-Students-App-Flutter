@@ -1,6 +1,6 @@
-# ipecstudentsapp
+# IPEC Student's App
 
-A new Flutter project.
+A Flutter project for IPEC mobile app.
 
 ## Getting Started
 
