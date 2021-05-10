@@ -41,11 +41,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_native_splash: 
+  flutter_launcher_icons:
 
-flutter_icons:
-  android: "launcher_icon"
-  ios: true
-  image_path: "assets/icon/icon.png"
 
 
 flutter:
@@ -62,3 +60,8 @@ flutter:
         - asset: fonts/averta/Averta-Regular.ttf
         - asset: fonts/averta/Averta-Bold.ttf
           weight: 500
+
+flutter_native_splash:
+  image: assets/images/logo.png
+  color: "#FFFFFF"
+

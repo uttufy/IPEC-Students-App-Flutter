@@ -116,43 +116,47 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             color: Colors.black, fontWeight: FontWeight.bold),
                       ),
                       Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                optionIcon(
-                                    'assets/icons/Bag.png',
-                                    'Attendance',
+                        child: SingleChildScrollView(
+                          physics: BouncingScrollPhysics(),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  optionIcon(
+                                      'assets/icons/Bag.png',
+                                      'Attendance',
+                                      () => Navigator.pushNamed(
+                                          context, AttendancePage.ROUTE)),
+                                  optionIcon(
+                                    'assets/icons/Atom.png',
+                                    'Notices',
                                     () => Navigator.pushNamed(
-                                        context, AttendancePage.ROUTE)),
-                                optionIcon(
-                                  'assets/icons/Atom.png',
-                                  'Notices',
-                                  () => Navigator.pushNamed(
-                                      context, NoticesScreen.ROUTE),
-                                ),
-                              ],
-                            ),
-                            kMedPadding,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                optionIcon(
-                                    'assets/icons/Boy-Student.png', 'Learning',
-                                    () {
-                                  _showSnackBar(
-                                      "This is not developed yet!👷‍♂️ Soon be available");
-                                }),
-                                optionIcon('assets/icons/Compass.png', 'About',
-                                    () {
-                                  Navigator.pushNamed(
-                                      context, AboutScreen.ROUTE);
-                                }),
-                              ],
-                            ),
-                          ],
+                                        context, NoticesScreen.ROUTE),
+                                  ),
+                                ],
+                              ),
+                              kMedPadding,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  optionIcon('assets/icons/Boy-Student.png',
+                                      'Learning', () {
+                                    _showSnackBar(
+                                        "This is not developed yet!👷‍♂️ Soon be available");
+                                  }),
+                                  optionIcon(
+                                      'assets/icons/Compass.png', 'About', () {
+                                    Navigator.pushNamed(
+                                        context, AboutScreen.ROUTE);
+                                  }),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
