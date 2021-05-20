@@ -34,7 +34,9 @@ Date : ${widget.notice.date}
 Link [PDF] : ${Uri.parse(widget.url).toString()}
 ----
 Contributed by : ${widget.notice.credit}
-on IPEC Student's app  http://bit.ly/ipecapp 
+on IPEC Student's app 
+Android :  http://bit.ly/ipecapp 
+IOS : http://bit.ly/ipecappios
 """, subject: 'IPEC Notice');
                 },
                 child: Icon(Icons.share)),
