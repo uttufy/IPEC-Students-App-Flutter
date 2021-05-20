@@ -19,7 +19,7 @@ import 'theme/style.dart';
 import 'util/SizeConfig.dart';
 
 class Routes {
-  Routes() {
+  Routes(AdaptiveThemeMode savedThemeMode) {
     runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider<Auth>(
@@ -32,11 +32,11 @@ class Routes {
       child: LayoutBuilder(builder: (context, constraints) {
         return OrientationBuilder(builder: (context, orientation) {
           SizeConfig().init(constraints, orientation);
-          Firebase.initializeApp();
+
           return AdaptiveTheme(
               light: appTheme,
               dark: appdarkTheme,
-              initial: AdaptiveThemeMode.light,
+              initial: savedThemeMode ?? AdaptiveThemeMode.light,
               builder: (theme, darkTheme) => MaterialApp(
                     title: "IPEC Student's App",
                     home: SplashScreen(),

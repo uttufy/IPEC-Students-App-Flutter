@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../theme/colors.dart';
@@ -21,6 +22,7 @@ class RoundedInputField extends StatelessWidget {
       child: TextField(
         onChanged: onChanged,
         cursorColor: kPrimaryColor,
+        style: TextStyle(color: Colors.black),
         decoration: InputDecoration(
           icon: Icon(
             icon,

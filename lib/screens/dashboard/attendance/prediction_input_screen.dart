@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import '../../../data/model/Attendance.dart';
 import '../../../data/repo/auth.dart';
@@ -34,6 +35,7 @@ class _PredictionInputScreenState extends State<PredictionInputScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
     return Consumer<Auth>(
       builder: (context, _auth, child) {
         final img = _auth.user.img.toString().split(',')[1];
@@ -51,7 +53,7 @@ class _PredictionInputScreenState extends State<PredictionInputScreen> {
                 kLowPadding,
                 Text('Total Lectures Tommorow ?',
                     style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          color: Colors.black,
+                          color: isDark ? Colors.white : Colors.black,
                         )),
                 kLowPadding,
                 Row(
@@ -71,7 +73,8 @@ class _PredictionInputScreenState extends State<PredictionInputScreen> {
                     Text(
                       total.toString(),
                       style: Theme.of(context).textTheme.headline3.copyWith(
-                          color: Colors.black, fontWeight: FontWeight.w700),
+                          color: isDark ? Colors.white : Colors.black,
+                          fontWeight: FontWeight.w700),
                     ),
                     kMedWidthPadding,
                     _button(
@@ -90,7 +93,7 @@ class _PredictionInputScreenState extends State<PredictionInputScreen> {
                 kHighPadding,
                 Text('How many are you going to attend ?',
                     style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          color: Colors.black,
+                          color: isDark ? Colors.white : Colors.black,
                         )),
                 kLowPadding,
                 Row(
@@ -112,7 +115,8 @@ class _PredictionInputScreenState extends State<PredictionInputScreen> {
                     Text(
                       attend.toString(),
                       style: Theme.of(context).textTheme.headline3.copyWith(
-                          color: Colors.black, fontWeight: FontWeight.w700),
+                          color: isDark ? Colors.white : Colors.black,
+                          fontWeight: FontWeight.w700),
                     ),
                     kMedWidthPadding,
                     _button(

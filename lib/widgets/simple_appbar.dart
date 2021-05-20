@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../util/SizeConfig.dart';
@@ -15,6 +16,7 @@ class SimpleAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Row(
@@ -50,7 +52,8 @@ class SimpleAppBar extends StatelessWidget {
                   child: Text(
                     title,
                     style: Theme.of(context).textTheme.headline5.copyWith(
-                        color: Colors.black, fontWeight: FontWeight.bold),
+                        color: isDark ? Colors.white : Colors.black,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
         ],

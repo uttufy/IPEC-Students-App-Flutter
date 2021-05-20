@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mantras/mantras.dart';
@@ -76,6 +77,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   Background _getBody(BuildContext context, Size size, BaseState state) {
+    final isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
     return Background(
       child: Stack(
         alignment: Alignment.center,
@@ -83,10 +85,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
           Text(
             state is LoginFailState ? 'Please Try Again' : 'Loading',
             textAlign: TextAlign.center,
-            style: Theme.of(context)
-                .primaryTextTheme
-                .headline5
-                .copyWith(color: Colors.black, fontWeight: FontWeight.w700),
+            style: Theme.of(context).primaryTextTheme.headline5.copyWith(
+                color: isDark ? Colors.white : Colors.black,
+                fontWeight: FontWeight.w700),
           ),
           Lottie.asset('assets/anim/loading2.json'),
           Positioned(

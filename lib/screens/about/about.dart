@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import '../../theme/style.dart';
@@ -18,6 +19,7 @@ class AboutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -40,7 +42,7 @@ class AboutScreen extends StatelessWidget {
                         "Team",
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.headline6.copyWith(
-                              color: Colors.black,
+                              color: isDark ? Colors.white : Colors.black,
                             ),
                       ),
                       kMedPadding,
@@ -52,7 +54,7 @@ class AboutScreen extends StatelessWidget {
                         _launchURL('https://www.instagram.com/uttufy');
                       }, () {
                         _launchURL('https://github.com/uttusharma');
-                      }),
+                      }, isDark),
                       kMedPadding,
                       _aboutWidget(
                           context,
@@ -63,7 +65,7 @@ class AboutScreen extends StatelessWidget {
                             'https://www.instagram.com/rakshit.raj.singh/');
                       }, () {
                         _launchURL('https://github.com/RakshitRajSingh17');
-                      }),
+                      }, isDark),
                       kMedPadding,
                       _aboutWidget(
                           context,
@@ -73,13 +75,14 @@ class AboutScreen extends StatelessWidget {
                         _launchURL('https://www.instagram.com/ri_aina2411');
                       }, () {
                         _launchURL('https://github.com/ridhi-7029hash');
-                      }),
+                      }, isDark),
                       kHighPadding,
                       Text(
                         "Message for future students",
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.headline6.copyWith(
-                            color: Colors.black, fontWeight: FontWeight.bold),
+                            color: isDark ? Colors.white : Colors.black,
+                            fontWeight: FontWeight.bold),
                       ),
                       kMedPadding,
                       Text("""
@@ -127,6 +130,7 @@ On an island full of engineers you'll have light, whereas on an island full of b
     String name,
     Function ontap,
     Function onTap2,
+    bool isDark,
   ) {
     return Row(
       children: [
@@ -143,23 +147,22 @@ On an island full of engineers you'll have light, whereas on an island full of b
               Text(
                 name,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6
-                    .copyWith(color: Colors.black, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.headline6.copyWith(
+                    color: isDark ? Colors.white : Colors.black,
+                    fontWeight: FontWeight.bold),
               ),
               Text(
                 "Batch\n2019-2022",
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyText1.copyWith(
-                      color: Colors.black,
+                      color: isDark ? Colors.white : Colors.black,
                     ),
               ),
               Text(
                 "I.T",
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyText1.copyWith(
-                      color: Colors.black,
+                      color: isDark ? Colors.white : Colors.black,
                     ),
               ),
             ],

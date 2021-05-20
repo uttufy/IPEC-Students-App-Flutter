@@ -1,5 +1,7 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:ipecstudentsapp/theme/colors.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/base_bloc/base_bloc_builder.dart';
@@ -160,6 +162,7 @@ class _NoticesScreenState extends State<NoticesScreen> {
   }
 
   Widget _noticeItem(List<Notice> notices, int index, Session session) {
+    final isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
     return NeumorphicButton(
       onPressed: () {
         // return _launchURL(notices[index].link);
@@ -169,18 +172,24 @@ class _NoticesScreenState extends State<NoticesScreen> {
       padding: const EdgeInsets.all(20),
       style: NeumorphicStyle(
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-          depth: 8,
+          depth: isDark ? 5 : 8,
           lightSource: LightSource.top,
+          shadowDarkColor: isDark ? Colors.black12 : null,
+          shadowLightColor: isDark ? Colors.black45 : null,
           color: notices[index].tp
-              ? Colors.amberAccent.withOpacity(0.5)
-              : Colors.white),
+              ? isDark
+                  ? kOrange
+                  : Colors.amberAccent.withOpacity(0.5)
+              : isDark
+                  ? kGrey
+                  : Colors.white),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             notices[index].title,
             style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  color: Colors.black,
+                  color: isDark ? Colors.white : Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
           ),
@@ -194,7 +203,8 @@ class _NoticesScreenState extends State<NoticesScreen> {
                   children: [
                     Text(
                       "Date",
-                      style: TextStyle(color: Colors.black26),
+                      style: TextStyle(
+                          color: isDark ? Colors.white30 : Colors.black26),
                     ),
                     Text(
                       notices[index].date,
@@ -211,7 +221,8 @@ class _NoticesScreenState extends State<NoticesScreen> {
                     Text(
                       "Contri. by",
                       textAlign: TextAlign.right,
-                      style: TextStyle(color: Colors.black26),
+                      style: TextStyle(
+                          color: isDark ? Colors.white30 : Colors.black26),
                     ),
                     Text(
                       notices[index].credit.toLowerCase().capitalize(),
