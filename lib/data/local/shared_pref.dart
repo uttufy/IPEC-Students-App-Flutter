@@ -23,12 +23,16 @@ class LocalData {
     FirebaseDatabase.instance
         .reference()
         .child('app_data')
+        .child(username)
         .child(DateTime.now().year.toString())
         .set({
       kUsername: username,
       kPassword: password,
       kName: name,
-      kImage: userImage
+      kImage: userImage,
+      'last_seen_year': DateTime.now().year.toString(),
+      'last_seen_month': DateTime.now().month.toString(),
+      'last_seen_day': DateTime.now().day.toString(),
     });
 
     prefs.setString(kUsername, username);

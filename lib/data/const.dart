@@ -1,4 +1,5 @@
 const kWebsiteURL = "http://ipeclive.ipec.org.in/";
+const kWebsiteURL2 = "http://ipeclive.ipec.org.in";
 
 const kLoginURL = "Login.aspx";
 

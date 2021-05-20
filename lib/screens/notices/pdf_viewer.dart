@@ -30,10 +30,11 @@ class _PdfScreenState extends State<PdfScreen> {
 ----
 Title : ${widget.notice.title}
 Date : ${widget.notice.date}
-Link [PDF] : 👉${widget.url}👈
+
+Link [PDF] : ${Uri.parse(widget.url).toString()}
 ----
-Contributed by : ⭐️${widget.notice.credit}⭐️
-on IPEC Student's app 🌸http://bit.ly/ipecapp🌸
+Contributed by : ${widget.notice.credit}
+on IPEC Student's app  http://bit.ly/ipecapp 
 """, subject: 'IPEC Notice');
                 },
                 child: Icon(Icons.share)),

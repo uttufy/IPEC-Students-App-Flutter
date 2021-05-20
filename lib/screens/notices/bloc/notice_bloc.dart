@@ -118,7 +118,7 @@ class NoticeBloc extends BaseBloc {
           var document = parse(response.data);
           var element = document.getElementById("hyperLinkAttachment");
           String dwnld = element.attributes['href'].substring(2);
-          dwnld = kWebsiteURL + dwnld;
+          dwnld = kWebsiteURL2 + dwnld;
           yield NoticeOpeningLoaded(dwnld, event.notice);
         } catch (e) {
           yield NoticeOpenFailedState(
