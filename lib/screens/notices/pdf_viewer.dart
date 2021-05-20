@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/data/model/Notice.dart';
-import 'package:ipecstudentsapp/theme/colors.dart';
 import 'package:share/share.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+
+import '../../data/model/Notice.dart';
 
 class PdfScreen extends StatefulWidget {
   final String url;

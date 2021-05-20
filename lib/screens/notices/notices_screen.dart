@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:ipecstudentsapp/screens/notices/pdf_viewer.dart';
+import 'package:provider/provider.dart';
+
 import '../../data/base_bloc/base_bloc_builder.dart';
 import '../../data/base_bloc/base_bloc_listener.dart';
 import '../../data/base_bloc/base_state.dart';
 import '../../data/model/Notice.dart';
 import '../../data/repo/auth.dart';
 import '../../data/repo/session.dart';
-import 'bloc/notice_event.dart';
 import '../../theme/style.dart';
-import '../../widgets/simple_appbar.dart';
-import 'package:provider/provider.dart';
 import '../../util/string_cap.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '../../widgets/simple_appbar.dart';
 import 'bloc/notice_bloc.dart';
+import 'bloc/notice_event.dart';
 import 'bloc/notice_state.dart';
+import 'pdf_viewer.dart';
 
 class NoticesScreen extends StatefulWidget {
   static const String ROUTE = "/notices";

@@ -83,7 +83,6 @@ class _AttendanceGraphState extends State<AttendanceGraph> {
     return LineChartData(
       lineTouchData: LineTouchData(
           enabled: true,
-          fullHeightTouchLine: false,
           touchTooltipData: LineTouchTooltipData(tooltipBgColor: kLighterGrey)),
       gridData: FlGridData(
         show: false,
