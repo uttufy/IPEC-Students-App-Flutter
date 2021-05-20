@@ -27,14 +27,14 @@ class _PdfScreenState extends State<PdfScreen> {
             child: GestureDetector(
                 onTap: () {
                   Share.share("""IPEC Notice
-                  ----
-                  Title : ${widget.notice.title}
-                  Date : ${widget.notice.date}
-                  Link [PDF] : 👉${widget.url}👈
-                  ----
-                  Contributed by : ⭐️${widget.notice.credit}⭐️
-                  on IPEC Student's app 🌸http://bit.ly/ipecapp🌸
-                  """, subject: 'IPEC Notice');
+----
+Title : ${widget.notice.title}
+Date : ${widget.notice.date}
+Link [PDF] : 👉${widget.url}👈
+----
+Contributed by : ⭐️${widget.notice.credit}⭐️
+on IPEC Student's app 🌸http://bit.ly/ipecapp🌸
+""", subject: 'IPEC Notice');
                 },
                 child: Icon(Icons.share)),
           ),
