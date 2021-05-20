@@ -144,6 +144,27 @@ class WebClientService {
         return GeneralResponse(data: response.data, status: true);
       else
         return GeneralResponse(
+            error: "Failed to open notices. Error at first get.",
+            status: false);
+    } catch (error) {
+      return GeneralResponse(
+          error: "Failed to open notice : " + error.toString(), status: false);
+    }
+  }
+
+  Future<GeneralResponse> openNotices(String cookie, String url) async {
+    _dio.options.headers['Cookie'] = cookie;
+    _dio.options.headers['Referer'] = kWebsiteURL + kHomeURL;
+    _dio.options.headers['Connection'] = 'keep-alive';
+
+    try {
+      final response = await _dio.get(
+        url,
+      );
+      if (response.statusCode == 200)
+        return GeneralResponse(data: response.data, status: true);
+      else
+        return GeneralResponse(
             error: "Failed to sync notices. Error at first get.",
             status: false);
     } catch (error) {

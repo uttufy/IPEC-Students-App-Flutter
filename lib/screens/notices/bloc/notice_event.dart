@@ -12,3 +12,11 @@ class NoticeLoadEvent extends NoticeEvent {
 
   NoticeLoadEvent(this.session, this.auth);
 }
+
+class NoticeOpenEvent extends NoticeEvent {
+  final Session session;
+  final Auth auth;
+  final String url;
+
+  NoticeOpenEvent(this.session, this.auth, this.url);
+}

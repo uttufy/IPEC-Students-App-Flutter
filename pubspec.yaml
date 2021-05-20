@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 2.5.2+11
+version: 2.5.3+14
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -31,11 +31,12 @@ dependencies:
   provider: ^4.3.2
   shared_preferences: ^0.5.12
   shimmer: ^1.1.2
-  url_launcher: ^5.7.10
+  url_launcher: ^6.0.4
   webview_flutter: ^1.0.1
   firebase_messaging: ^7.0.3
   circular_profile_avatar: ^2.0.0
   flutter_share: ^2.0.0
+  syncfusion_flutter_pdfviewer: 
   
 
 dev_dependencies:

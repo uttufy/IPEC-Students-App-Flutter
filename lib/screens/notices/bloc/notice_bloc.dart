@@ -106,5 +106,26 @@ class NoticeBloc extends BaseBloc {
 
       yield AllNoticeLoadedState(noticeList);
     }
+
+    if (event is NoticeOpenEvent) {
+      yield NoticeOpeningLoading();
+
+      GeneralResponse response = await event.session.webClientService
+          .getNotices(event.auth.token.cookies);
+
+      if (response.status) {
+        try {
+          var document = parse(response.data);
+          var element = document.getElementById("hyperLinkAttachment");
+          print(element);
+          print(element.attributes['href']);
+        } catch (e) {
+          yield NoticeOpenFailedState(
+              "Something went wrong when parsing notice");
+        }
+      } else {
+        yield NoticeOpenFailedState(response.error);
+      }
+    }
   }
 }
