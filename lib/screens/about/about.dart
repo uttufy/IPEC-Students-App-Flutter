@@ -1,7 +1,7 @@
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/theme/style.dart';
-import 'package:ipecstudentsapp/widgets/simple_appbar.dart';
+import '../../theme/style.dart';
+import '../../widgets/simple_appbar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatelessWidget {

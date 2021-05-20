@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+
 import '../util/SizeConfig.dart';
 
 class SimpleAppBar extends StatelessWidget {

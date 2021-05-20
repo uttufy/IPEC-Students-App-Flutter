@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+
+import '../../../util/SizeConfig.dart';
 import 'attendance_screen.dart';
 import 'myLocalWebview.dart';
-import '../../../util/SizeConfig.dart';
 
 class AttendancePage extends StatefulWidget {
   static const String ROUTE = "/AttendancePage";

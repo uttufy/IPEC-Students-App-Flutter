@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/screens/about/about.dart';
 import 'package:provider/provider.dart';
 
 import 'data/repo/auth.dart';
 import 'data/repo/session.dart';
+import 'screens/about/about.dart';
 import 'screens/dashboard/attendance/attendance_page.dart';
 import 'screens/dashboard/attendance/attendance_screen.dart';
 import 'screens/dashboard/attendance/prediction_input_screen.dart';

@@ -1,6 +1,5 @@
-import 'package:ipecstudentsapp/data/model/Notice.dart';
-
 import '../../../data/base_bloc/base_event.dart';
+import '../../../data/model/Notice.dart';
 import '../../../data/repo/auth.dart';
 import '../../../data/repo/session.dart';
 

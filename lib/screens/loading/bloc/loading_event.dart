@@ -1,5 +1,4 @@
 import '../../../data/base_bloc/base_event.dart';
-
 import '../../../data/repo/auth.dart';
 
 class LoadingEvent extends BaseEvent {
