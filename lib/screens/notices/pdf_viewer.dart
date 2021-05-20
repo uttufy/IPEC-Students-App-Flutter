@@ -1,37 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:ipecstudentsapp/data/model/Notice.dart';
+import 'package:ipecstudentsapp/theme/colors.dart';
+import 'package:share/share.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class PdfScreen extends StatefulWidget {
   final String url;
+  final Notice notice;
 
-  const PdfScreen({Key key, this.url}) : super(key: key);
+  const PdfScreen({Key key, @required this.url, @required this.notice})
+      : super(key: key);
   @override
   _PdfScreenState createState() => _PdfScreenState();
 }
 
 class _PdfScreenState extends State<PdfScreen> {
-  final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Syncfusion Flutter PDF Viewer'),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(
-              Icons.bookmark,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              _pdfViewerKey.currentState?.openBookmarkView();
-            },
+        title: Text(widget.notice.title),
+        elevation: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: GestureDetector(
+                onTap: () {
+                  Share.share("""IPEC Notice
+                  ----
+                  Title : ${widget.notice.title}
+                  Date : ${widget.notice.date}
+                  Link [PDF] : 👉${widget.url}👈
+                  ----
+                  Contributed by : ⭐️${widget.notice.credit}⭐️
+                  on IPEC Student's app 🌸http://bit.ly/ipecapp🌸
+                  """, subject: 'IPEC Notice');
+                },
+                child: Icon(Icons.share)),
           ),
         ],
       ),
       body: SfPdfViewer.network(
-        'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
-        key: _pdfViewerKey,
+        widget.url,
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'package:ipecstudentsapp/data/model/Notice.dart';
+
 import '../../../data/base_bloc/base_event.dart';
 import '../../../data/repo/auth.dart';
 import '../../../data/repo/session.dart';
@@ -16,7 +18,11 @@ class NoticeLoadEvent extends NoticeEvent {
 class NoticeOpenEvent extends NoticeEvent {
   final Session session;
   final Auth auth;
-  final String url;
+  final Notice notice;
 
-  NoticeOpenEvent(this.session, this.auth, this.url);
+  NoticeOpenEvent(
+    this.session,
+    this.auth,
+    this.notice,
+  );
 }

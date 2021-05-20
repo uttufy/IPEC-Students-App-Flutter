@@ -111,14 +111,15 @@ class NoticeBloc extends BaseBloc {
       yield NoticeOpeningLoading();
 
       GeneralResponse response = await event.session.webClientService
-          .getNotices(event.auth.token.cookies);
+          .openNotices(event.auth.token.cookies, event.notice.link);
 
       if (response.status) {
         try {
           var document = parse(response.data);
           var element = document.getElementById("hyperLinkAttachment");
-          print(element);
-          print(element.attributes['href']);
+          String dwnld = element.attributes['href'].substring(2);
+          dwnld = kWebsiteURL + dwnld;
+          yield NoticeOpeningLoaded(dwnld, event.notice);
         } catch (e) {
           yield NoticeOpenFailedState(
               "Something went wrong when parsing notice");
