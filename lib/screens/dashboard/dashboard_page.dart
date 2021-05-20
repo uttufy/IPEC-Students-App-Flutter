@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +26,9 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
       new GlobalKey<ScaffoldMessengerState>();
-  static const appLink =
-      "https://play.google.com/store/apps/details?id=com.uttu.ipecstudentsapp&hl=en_IN&gl=US";
+  final appLink = Platform.isIOS
+      ? "https://apps.apple.com/us/app/ipec-students-app/id1568495067"
+      : "https://play.google.com/store/apps/details?id=com.uttu.ipecstudentsapp&hl=en_IN&gl=US";
   _launchURL(String url) async {
     print(url);
     if (await canLaunch(url)) {

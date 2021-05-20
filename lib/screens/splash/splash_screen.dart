@@ -27,6 +27,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    initFirebase();
+  }
+
+  void initFirebase() {
     final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
@@ -42,6 +46,8 @@ class _SplashScreenState extends State<SplashScreen> {
         // _navigateToItemDetail(message);
       },
     );
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
 
     _firebaseMessaging.subscribeToTopic("GeneralNotices");
   }
