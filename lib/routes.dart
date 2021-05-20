@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -32,14 +33,17 @@ class Routes {
         return OrientationBuilder(builder: (context, orientation) {
           SizeConfig().init(constraints, orientation);
           Firebase.initializeApp();
-
-          return MaterialApp(
-            title: "IPEC Students App",
-            home: SplashScreen(),
-            theme: appTheme,
-            onGenerateRoute: onGenerate,
-            debugShowCheckedModeBanner: false,
-          );
+          return AdaptiveTheme(
+              light: appTheme,
+              dark: appdarkTheme,
+              initial: AdaptiveThemeMode.light,
+              builder: (theme, darkTheme) => MaterialApp(
+                    title: "IPEC Student's App",
+                    home: SplashScreen(),
+                    theme: theme,
+                    onGenerateRoute: onGenerate,
+                    debugShowCheckedModeBanner: false,
+                  ));
         });
       }),
     ));

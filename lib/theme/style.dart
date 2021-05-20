@@ -4,9 +4,25 @@ import 'colors.dart';
 
 ThemeData appTheme = new ThemeData(
   hintColor: Colors.white,
+  brightness: Brightness.light,
   fontFamily: 'Averta',
   primaryColor: kPrimaryColor,
   scaffoldBackgroundColor: Colors.white,
+
+  // inputDecorationTheme: InputDecorationTheme(
+  //   // fillColor: kLighterGrey,
+  //   // filled: true,
+  //   border: OutlineInputBorder(
+  //     borderSide: BorderSide.none,
+  //     borderRadius: BorderRadius.circular(kLowCircleRadius),
+  //   ),
+  // ),
+);
+ThemeData appdarkTheme = new ThemeData(
+  brightness: Brightness.dark,
+  fontFamily: 'Averta',
+  primaryColor: kPrimaryColor,
+  scaffoldBackgroundColor: kDarkBg,
 
   // inputDecorationTheme: InputDecorationTheme(
   //   // fillColor: kLighterGrey,

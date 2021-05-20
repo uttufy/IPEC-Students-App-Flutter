@@ -11,13 +11,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_neumorphic:
-    path: ./neomorphic
+  flutter_neumorphic: ^3.1.0
+  adaptive_theme: ^2.2.0
   circular_profile_avatar: ^2.0.0
   cupertino_icons: ^1.0.3
   dio: ^4.0.0
   equatable: ^2.0.2
-  firebase_analytics: ^8.1.0
+  # firebase_analytics: ^8.1.0
   firebase_auth: ^1.2.0
   firebase_core: ^1.2.0
   firebase_database: ^6.1.2

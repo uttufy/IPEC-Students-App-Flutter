@@ -12,6 +12,8 @@ const kOffWhite = Color(0xFFF9F9F9);
 
 const kGrey = Color(0xFF444444);
 
+const kDarkBg = Color(0xFF151515);
+
 const kOrange = Color(0xFFEE9E77);
 
 const kGreen = Color(0xFF82C890);

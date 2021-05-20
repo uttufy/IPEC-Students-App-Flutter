@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_share/flutter_share.dart';
@@ -47,6 +48,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
     return Consumer<Auth>(
       builder: (context, auth, child) {
         return ScaffoldMessenger(
@@ -78,6 +80,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               )),
                               onSelected: (value) {
                                 switch (value) {
+                                  case 0:
+                                    if (isDark) {
+                                      AdaptiveTheme.of(context).setLight();
+                                    } else {
+                                      AdaptiveTheme.of(context).setDark();
+                                    }
+                                    break;
                                   case 1:
                                     _launchURL(appLink);
 
@@ -174,41 +183,55 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  List<PopupMenuEntry<int>> _popOptions(context) => [
-        PopupMenuItem(
-            value: 1,
-            child: Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
-                  child: Icon(Icons.star),
-                ),
-                Text('Rate')
-              ],
-            )),
-        PopupMenuItem(
-            value: 2,
-            child: Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
-                  child: Icon(Icons.share),
-                ),
-                Text('Share')
-              ],
-            )),
-        PopupMenuItem(
-            value: 3,
-            child: Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
-                  child: Icon(Icons.logout),
-                ),
-                Text('Logout')
-              ],
-            )),
-      ];
+  List<PopupMenuEntry<int>> _popOptions(context) {
+    var isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
+    return [
+      PopupMenuItem(
+          value: 0,
+          child: Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
+                child: Icon(Icons.star),
+              ),
+              Text(isDark ? 'Switch to light mode' : 'Switch to dark mode')
+            ],
+          )),
+      PopupMenuItem(
+          value: 1,
+          child: Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
+                child: Icon(Icons.star),
+              ),
+              Text('Rate')
+            ],
+          )),
+      PopupMenuItem(
+          value: 2,
+          child: Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
+                child: Icon(Icons.share),
+              ),
+              Text('Share')
+            ],
+          )),
+      PopupMenuItem(
+          value: 3,
+          child: Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
+                child: Icon(Icons.logout),
+              ),
+              Text('Logout')
+            ],
+          )),
+    ];
+  }
 
   Widget optionIcon(String img, String title, Function onPress) {
     return Flexible(
