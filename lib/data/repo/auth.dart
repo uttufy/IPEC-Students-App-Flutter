@@ -64,8 +64,8 @@ class Auth extends ChangeNotifier {
       // Submit login Request
       GeneralResponse postResponse =
           await _webClient.postLogin(formData, _tokens.cookies);
-      if (postResponse.status &&
-          postResponse.data.request.uri.toString() == kWebsiteURL + kHomeURL) {
+      print(postResponse.data);
+      if (postResponse.status) {
         //  Login Success
         return postResponse;
       } else {
