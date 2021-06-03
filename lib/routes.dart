@@ -9,6 +9,7 @@ import 'screens/dashboard/attendance/attendance_screen.dart';
 import 'screens/dashboard/attendance/prediction_input_screen.dart';
 import 'screens/dashboard/attendance/prediction_result_screen.dart';
 import 'screens/dashboard/dashboard_page.dart';
+import 'screens/hangout/hangout_screen.dart';
 import 'screens/loading/loading_screen.dart';
 import 'screens/login/login_screen.dart';
 import 'screens/notices/notices_screen.dart';
@@ -70,6 +71,8 @@ class Routes {
         return _getMaterialRoute(NoticesScreen(), settings);
       case AboutScreen.ROUTE:
         return _getMaterialRoute(AboutScreen(), settings);
+      case HangoutScreen.ROUTE:
+        return _getMaterialRoute(HangoutScreen(), settings);
       case PredictionInputScreen.ROUTE:
         Map arg = settings.arguments;
         return _getMaterialRoute(

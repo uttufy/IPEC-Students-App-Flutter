@@ -5,6 +5,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_share/flutter_share.dart';
+import 'package:ipecstudentsapp/screens/hangout/hangout_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -157,10 +158,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  optionIcon('assets/icons/Boy-Student.png',
-                                      'Learning', () {
-                                    _showSnackBar(
-                                        "This is not developed yet!👷‍♂️ Soon be available");
+                                  optionIcon('assets/icons/conversation.png',
+                                      'Cafeteria\nTalks', () {
+                                    _showSnackBar("Indevelopment!");
+                                    // Navigator.pushNamed(
+                                    //     context, HangoutScreen.ROUTE);
                                   }),
                                   optionIcon(
                                       'assets/icons/Compass.png', 'About', () {
@@ -252,6 +254,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               kLowPadding,
               Text(
                 title,
+                textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
               ),
             ],
