@@ -172,4 +172,26 @@ class WebClientService {
           error: "Notice Sync : " + error.toString(), status: false);
     }
   }
+
+  Future<GeneralResponse> getMyProfile(String cookie) async {
+    _dio.options.headers['Cookie'] = cookie;
+    _dio.options.headers['Referer'] = kWebsiteURL + kHomeURL;
+    _dio.options.headers['Connection'] = 'keep-alive';
+
+    try {
+      final response = await _dio.get(
+        kMyPorfileURL,
+      );
+      if (response.statusCode == 200)
+        return GeneralResponse(data: response.data, status: true);
+      else
+        return GeneralResponse(
+            error: "Failed to open notices. Error at first get.",
+            status: false);
+    } catch (error) {
+      return GeneralResponse(
+          error: "Failed to open load profile : " + error.toString(),
+          status: false);
+    }
+  }
 }
