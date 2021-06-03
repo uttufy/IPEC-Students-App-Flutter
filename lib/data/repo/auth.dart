@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
-
-import '../const.dart';
 import '../local/shared_pref.dart';
 import '../model/Cred.dart';
 import '../model/GeneralResponse.dart';

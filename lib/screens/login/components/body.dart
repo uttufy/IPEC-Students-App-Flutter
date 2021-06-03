@@ -27,8 +27,8 @@ class _BodyState extends State<Body> {
     final GlobalKey<ScaffoldState> _scaffoldKey =
         new GlobalKey<ScaffoldState>();
 
-    String _username;
-    String _password;
+    String _username = "";
+    String _password = "";
     Size size = MediaQuery.of(context).size;
 
     void showInSnackBar(String value) {

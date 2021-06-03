@@ -37,6 +37,7 @@ dependencies:
   shimmer: ^2.0.0
   syncfusion_flutter_pdfviewer: 
   url_launcher: ^6.0.4
+  string_validator: ^0.3.0
   webview_flutter: ^2.0.7
 
 dev_dependencies:

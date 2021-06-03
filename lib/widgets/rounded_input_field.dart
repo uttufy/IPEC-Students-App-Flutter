@@ -1,6 +1,4 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-
 import '../theme/colors.dart';
 import 'text_field_container.dart';
 
