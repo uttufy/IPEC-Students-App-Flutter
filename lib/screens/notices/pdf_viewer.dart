@@ -17,16 +17,10 @@ class PdfScreen extends StatefulWidget {
 class _PdfScreenState extends State<PdfScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.notice.title),
-        elevation: 0,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: GestureDetector(
-                onTap: () {
-                  Share.share("""IPEC Notice
+    ///
+    ///     Share Message
+    ///
+    final msg = """IPEC Notice
 ----
 Title : ${widget.notice.title}
 Date : ${widget.notice.date}
@@ -37,14 +31,31 @@ Contributed by : ${widget.notice.credit}
 on IPEC Student's app 
 Android :  http://bit.ly/ipecapp 
 IOS : http://bit.ly/ipecappios
-""", subject: 'IPEC Notice');
+""";
+
+    // Widgets
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.notice.title),
+        elevation: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: GestureDetector(
+                onTap: () {
+                  Share.share(msg, subject: 'IPEC Notice');
                 },
                 child: Icon(Icons.share)),
           ),
         ],
       ),
-      body: SfPdfViewer.network(
-        widget.url,
+      body: SafeArea(
+        child: Expanded(
+          child: SfPdfViewer.network(
+            widget.url,
+          ),
+        ),
       ),
     );
   }

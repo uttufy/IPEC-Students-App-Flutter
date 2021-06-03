@@ -20,13 +20,13 @@ dependencies:
   # firebase_analytics: ^8.1.0
   firebase_auth: ^1.2.0
   firebase_core: ^1.2.0
-  firebase_database: ^6.1.2
+  firebase_database: ^7.0.0
   firebase_messaging: ^10.0.0
   fl_chart: ^0.36.1
   flutter_bloc: ^4.0.1
   flutter_share: ^2.0.0
   flutter_svg: ^0.22.0
-  flutter_webview_plugin: ^0.3.11
+  flutter_webview_plugin: ^0.4.0
   html: ^0.15.0
   intl: ^0.17.0
   lottie: ^1.0.1
