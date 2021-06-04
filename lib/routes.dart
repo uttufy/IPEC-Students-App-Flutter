@@ -76,7 +76,12 @@ class Routes {
       case HangoutScreen.ROUTE:
         return _getMaterialRoute(HangoutScreen(), settings);
       case CreatePing.ROUTE:
-        return _getMaterialRoute(CreatePing(), settings);
+        Map arg = settings.arguments;
+        return _getMaterialRoute(
+            CreatePing(
+              user: arg['user'],
+            ),
+            settings);
       case PredictionInputScreen.ROUTE:
         Map arg = settings.arguments;
         return _getMaterialRoute(

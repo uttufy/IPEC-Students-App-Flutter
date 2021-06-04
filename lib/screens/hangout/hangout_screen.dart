@@ -58,8 +58,11 @@ class _HangoutScreenState extends State<HangoutScreen> {
                     if (state is HangoutLoading) return LoadingWidget();
                     if (state is UserNotExistState)
                       return _getOnboardingBody(auth);
-                    if (state is UserExistState)
+                    if (state is UserExistState) {
+                      Provider.of<Auth>(context, listen: false).hUser =
+                          state.huser;
                       return Expanded(child: HangoutFeedScreen());
+                    }
                     return Center(
                       child: Text("Something went wrong try again!"),
                     );

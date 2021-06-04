@@ -1,13 +1,16 @@
 import 'dart:io';
-
+import 'dart:math';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:giphy_picker/giphy_picker.dart';
 import 'package:ipecstudentsapp/data/model/hangout/PollModel.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ipecstudentsapp/data/model/hangout/hangUser.dart';
+import 'package:ipecstudentsapp/data/model/hangout/post.dart';
 import 'package:ipecstudentsapp/screens/hangout/widget/basic_ping.dart';
 import 'package:ipecstudentsapp/screens/hangout/widget/pollsWidget.dart';
+import 'package:ipecstudentsapp/widgets/loading_widget.dart';
 import '../../theme/colors.dart';
 import '../../theme/style.dart';
 import 'widget/bottomCompose.dart';
@@ -15,7 +18,7 @@ import 'widget/bottomCompose.dart';
 class CreatePing extends StatefulWidget {
   static const String ROUTE = "/createPing";
   final Huser user;
-  const CreatePing({key, this.user}) : super(key: key);
+  const CreatePing({key, @required this.user}) : super(key: key);
 
   @override
   _CreatePingState createState() => _CreatePingState();
@@ -29,8 +32,17 @@ class _CreatePingState extends State<CreatePing> {
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
       new GlobalKey<ScaffoldMessengerState>();
 
-  bool isImage, isLink, isPoll = false;
-  String imageUrl, link, option1, option2;
+  bool isImage = false;
+  bool isLink = false;
+  bool isPoll = false;
+  bool isGif = false;
+  String imageUrl = "";
+  String gifUrl = "";
+  String link = "";
+  String option1 = "";
+  String option2 = "";
+
+  bool isLoading = false;
 
   File _image;
   final picker = ImagePicker();
@@ -70,131 +82,160 @@ class _CreatePingState extends State<CreatePing> {
       key: _scaffoldKey,
       child: Scaffold(
         body: SafeArea(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: isLoading
+              ? Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      InkWell(
+                        onTap: () => setState(() {
+                          isLoading = false;
+                        }),
+                        borderRadius: BorderRadius.circular(50),
+                        child: Ink(
+                          padding: const EdgeInsets.all(5),
+                          child: Icon(
+                            Icons.close,
+                            size: 30,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Center(child: LoadingWidget()),
+                      ),
+                    ],
+                  ),
+                )
+              : Column(
                   children: [
-                    InkWell(
-                      onTap: () => Navigator.pop(context),
-                      borderRadius: BorderRadius.circular(50),
-                      child: Ink(
-                        padding: const EdgeInsets.all(5),
-                        child: Icon(
-                          Icons.close,
-                          size: 30,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () => Navigator.pop(context),
+                            borderRadius: BorderRadius.circular(50),
+                            child: Ink(
+                              padding: const EdgeInsets.all(5),
+                              child: Icon(
+                                Icons.close,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                          FloatingActionButton.extended(
+                            onPressed: () {
+                              _onSubmit();
+                            },
+                            label: Text(
+                              'Post',
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            icon: Icon(
+                              Icons.send,
+                              color: Colors.black,
+                            ),
+                            backgroundColor: kPurple,
+                          )
+                        ],
+                      ),
+                    ),
+                    Divider(),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        physics: BouncingScrollPhysics(),
+                        child: Column(
+                          children: [
+                            composeArea(),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: addtionalChildren,
+                              ),
+                            )
+                          ],
                         ),
                       ),
                     ),
-                    FloatingActionButton.extended(
-                      onPressed: () {
-                        _onSubmit();
-                      },
-                      label: Text(
-                        'Post',
-                        style: TextStyle(color: Colors.black),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      physics: BouncingScrollPhysics(),
+                      child: Row(
+                        children: [
+                          kMedWidthPadding,
+                          BottomCompose(
+                              title: 'Image',
+                              icon: Icons.image,
+                              onPress: () {
+                                setState(() {
+                                  if (addtionalChildren.length <= 0) {
+                                    getImage();
+
+                                    imageUrl = 'hello';
+                                    addtionalChildren.add(Stack(
+                                      children: [
+                                        Image.file(_image),
+                                        removeWidget(),
+                                      ],
+                                    ));
+                                  } else {
+                                    print("Remove older attachmnet");
+                                    _scaffoldKey.currentState
+                                        .showSnackBar(SnackBar(
+                                      content: Text(
+                                          'You have already attached something. Remove the older attachment first'),
+                                    ));
+                                  }
+                                });
+                              }),
+                          BottomCompose(
+                              title: 'Gif',
+                              icon: Icons.animation,
+                              onPress: () {
+                                addGif(context);
+                              }),
+                          BottomCompose(
+                              title: 'Link',
+                              icon: Icons.link,
+                              onPress: () {
+                                if (addtionalChildren.length <= 0) {
+                                  _showLinkDialog();
+                                } else {
+                                  print("Remove older attachmnet");
+                                  _scaffoldKey.currentState
+                                      .showSnackBar(SnackBar(
+                                    content: Text(
+                                        'You have already attached something. Remove the older attachment first'),
+                                  ));
+                                }
+                              }),
+                          BottomCompose(
+                              title: 'Poll',
+                              icon: Icons.poll,
+                              onPress: () {
+                                setState(() {
+                                  if (addtionalChildren.length <= 0) {
+                                    _showPollDialog();
+                                  } else {
+                                    print("Remove older attachmnet");
+                                    _scaffoldKey.currentState
+                                        .showSnackBar(SnackBar(
+                                      content: Text(
+                                          'You have already attached something. Remove the older attachment first'),
+                                    ));
+                                  }
+                                });
+                              }),
+                          kMedWidthPadding,
+                        ],
                       ),
-                      icon: Icon(
-                        Icons.send,
-                        color: Colors.black,
-                      ),
-                      backgroundColor: kPurple,
                     )
                   ],
                 ),
-              ),
-              Divider(),
-              Expanded(
-                child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  child: Column(
-                    children: [
-                      composeArea(),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: addtionalChildren,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                physics: BouncingScrollPhysics(),
-                child: Row(
-                  children: [
-                    kMedWidthPadding,
-                    BottomCompose(
-                        title: 'Image',
-                        icon: Icons.image,
-                        onPress: () {
-                          setState(() {
-                            if (addtionalChildren.length <= 0) {
-                              getImage();
-
-                              imageUrl = 'hello';
-                              addtionalChildren.add(Stack(
-                                children: [
-                                  Image.file(_image),
-                                  removeWidget(),
-                                ],
-                              ));
-                            } else {
-                              print("Remove older attachmnet");
-                              _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                content: Text(
-                                    'You have already attached something. Remove the older attachment first'),
-                              ));
-                            }
-                          });
-                        }),
-                    BottomCompose(
-                        title: 'Gif',
-                        icon: Icons.animation,
-                        onPress: () {
-                          addGif(context);
-                        }),
-                    BottomCompose(
-                        title: 'Link',
-                        icon: Icons.link,
-                        onPress: () {
-                          if (addtionalChildren.length <= 0) {
-                            _showLinkDialog();
-                          } else {
-                            print("Remove older attachmnet");
-                            _scaffoldKey.currentState.showSnackBar(SnackBar(
-                              content: Text(
-                                  'You have already attached something. Remove the older attachment first'),
-                            ));
-                          }
-                        }),
-                    BottomCompose(
-                        title: 'Poll',
-                        icon: Icons.poll,
-                        onPress: () {
-                          setState(() {
-                            if (addtionalChildren.length <= 0) {
-                              _showPollDialog();
-                            } else {
-                              print("Remove older attachmnet");
-                              _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                content: Text(
-                                    'You have already attached something. Remove the older attachment first'),
-                              ));
-                            }
-                          });
-                        }),
-                    kMedWidthPadding,
-                  ],
-                ),
-              )
-            ],
-          ),
         ),
       ),
     );
@@ -204,16 +245,18 @@ class _CreatePingState extends State<CreatePing> {
     if (addtionalChildren.length <= 0) {
       final gif = await GiphyPicker.pickGif(
           context: context, apiKey: 'cXIAL2LDuPM9W8HaqDItOQm3i3guL0bt');
-      imageUrl = gif.images.original.url;
-
-      addtionalChildren.add(Stack(
-        children: [
-          Image.network(
-            imageUrl,
-          ),
-          removeWidget(),
-        ],
-      ));
+      if (gif!=null&&gif.images != null) {
+        gifUrl = gif.images.original.url;
+        isGif = true;
+        addtionalChildren.add(Stack(
+          children: [
+            Image.network(
+              gifUrl,
+            ),
+            removeWidget(),
+          ],
+        ));
+      }
     } else {
       print("Remove older attachmnet");
       _scaffoldKey.currentState.showSnackBar(SnackBar(
@@ -239,6 +282,8 @@ class _CreatePingState extends State<CreatePing> {
         isImage = false;
         isLink = false;
         isPoll = false;
+        isGif = true;
+        gifUrl = "";
         link = '';
         imageUrl = '';
         setState(() {});
@@ -401,10 +446,59 @@ class _CreatePingState extends State<CreatePing> {
   }
 
   Future<void> _onSubmit() async {
-    if (isImage) {
-      var snapshot =
-          await FirebaseStorage.instance.ref().child('images/').putFile(_image);
-      var downloadUrl = await snapshot.ref.getDownloadURL();
+    isLoading = true;
+    setState(() {});
+    String _imageUrl = "";
+    int epoch = DateTime.now().millisecondsSinceEpoch;
+    print(widget.user.id);
+    PollModel _poll =
+        PollModel(creator: widget.user.id, optionLabel: [option1, option2]);
+    try {
+      if (isImage) {
+        var snapshot = await FirebaseStorage.instance
+            .ref()
+            .child('images/${widget.user.id + "_" + generateRandomString(5)}')
+            .putFile(_image);
+        _imageUrl = await snapshot.ref.getDownloadURL();
+      }
+      final res = Post(
+          id: widget.user.id + "_" + epoch.toString(),
+          author: widget.user,
+          authorImage: "https://robohash.org/${widget.user.id}",
+          postedOn: epoch,
+          text: textEditingController.text,
+          link: link,
+          imageUrl: _imageUrl,
+          isImage: isImage,
+          isLinkAttached: isLink,
+          isPoll: isPoll,
+          pollData: _poll,
+          gifUrl: gifUrl,
+          isGif: true);
+      print(res.toString());
+      FirebaseDatabase.instance
+          .reference()
+          .child('hangout')
+          .child('pings')
+          .child('${widget.user.id + "_" + epoch.toString()}')
+          .set(res.toMap());
+      _scaffoldKey.currentState
+          .showSnackBar(SnackBar(content: Text("Pinged!!!")));
+
+      Future.delayed(Duration(seconds: 2))
+          .then((value) => Navigator.pop(context));
+    } catch (e) {
+      isLoading = false;
+      setState(() {});
+      print(e.toString());
+      _scaffoldKey.currentState
+          .showSnackBar(SnackBar(content: Text("Retry: ${e.toString()}")));
     }
+  }
+
+  String generateRandomString(int len) {
+    var r = Random();
+    return String.fromCharCodes(
+        List.generate(len, (index) => r.nextInt(33) + 89));
   }
 }
