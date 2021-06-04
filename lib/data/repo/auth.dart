@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
+import 'package:ipecstudentsapp/data/model/hangout/hangUser.dart';
 
 import '../local/shared_pref.dart';
 import '../model/Cred.dart';
@@ -15,11 +16,17 @@ class Auth extends ChangeNotifier {
 
   User _user;
 
+  Huser _hUser;
+
   Cred _cred;
   // ignore: unnecessary_getters_setters
   get user => _user;
   // ignore: unnecessary_getters_setters
+  get hUser => _hUser;
+  // ignore: unnecessary_getters_setters
   set user(User u) => _user = u;
+  // ignore: unnecessary_getters_setters
+  set hUser(Huser u) => _hUser = u;
   // ignore: unnecessary_getters_setters
   get cred => _cred;
   // ignore: unnecessary_getters_setters

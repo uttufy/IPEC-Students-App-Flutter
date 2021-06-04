@@ -1,3 +1,5 @@
+import 'package:ipecstudentsapp/data/model/hangout/hangUser.dart';
+
 import '../../../../../data/base_bloc/base_bloc.dart';
 import '../../../../../data/base_bloc/base_event.dart';
 import '../../../../../data/base_bloc/base_state.dart';
@@ -14,16 +16,17 @@ class HangoutBloc extends BaseBloc {
     if (event is CheckUserEvent) {
       yield HangoutLoading();
 
-      final isExist = await checkUserExist(event.user.id);
+      final res = await checkUserExist(event.user.id);
 
-      if (isExist) {
-        yield UserExistState();
+      if (res['exists']) {
+        final huser = Huser.fromMap(res['data']);
+        yield UserExistState(huser);
       } else {
         yield UserNotExistState();
       }
     }
     if (event is OnboardFinishEvent) {
-      yield UserExistState();
+      yield UserExistState(event.huser);
     }
   }
 }

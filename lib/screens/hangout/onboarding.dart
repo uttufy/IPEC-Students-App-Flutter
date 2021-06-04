@@ -62,8 +62,10 @@ class _OnboardingState extends State<Onboarding> {
                 }
                 if (state is OnboardingLoading)
                   return Center(child: LoadingWidget());
-                if (state is OnboardingLoaded)
+                if (state is OnboardingLoaded) {
+                  Provider.of<Auth>(context, listen: false).hUser = state.user;
                   return _getbody(context, isDark, state.user);
+                }
                 if (state is SavedUserState) {
                   return _getIntro();
                 }

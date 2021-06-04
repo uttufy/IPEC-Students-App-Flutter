@@ -168,7 +168,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       // Navigator.pushNamed(
                                       //     context, HangoutScreen.ROUTE);
                                       Navigator.pushNamed(
-                                          context, CreatePing.ROUTE);
+                                          context, HangoutScreen.ROUTE);
                                   }),
                                   optionIcon(
                                       'assets/icons/Compass.png', 'About', () {

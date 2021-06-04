@@ -40,7 +40,7 @@ class Routes {
               initial: savedThemeMode ?? AdaptiveThemeMode.light,
               builder: (theme, darkTheme) => MaterialApp(
                     title: "IPEC Student's App",
-                    home: CreatePing(),
+                    home: SplashScreen(),
                     theme: theme,
                     onGenerateRoute: onGenerate,
                     debugShowCheckedModeBanner: false,

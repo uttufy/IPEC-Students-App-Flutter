@@ -78,7 +78,7 @@ class _HangoutScreenState extends State<HangoutScreen> {
         child: Onboarding(
       auth: auth,
       onDone: () {
-        _bloc.add(OnboardFinishEvent());
+        _bloc.add(OnboardFinishEvent(auth.hUser));
       },
     ));
   }

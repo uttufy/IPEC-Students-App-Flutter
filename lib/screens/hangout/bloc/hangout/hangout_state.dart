@@ -21,6 +21,10 @@ class SavedUserState extends HangoutState {
   SavedUserState(this.user);
 }
 
-class UserExistState extends HangoutState {}
+class UserExistState extends HangoutState {
+  final Huser huser;
+
+  UserExistState(this.huser);
+}
 
 class UserNotExistState extends HangoutState {}

@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:giphy_picker/giphy_picker.dart';
 import 'package:ipecstudentsapp/data/model/hangout/PollModel.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ipecstudentsapp/data/model/hangout/hangUser.dart';
 import 'package:ipecstudentsapp/screens/hangout/widget/basic_ping.dart';
 import 'package:ipecstudentsapp/screens/hangout/widget/pollsWidget.dart';
 import '../../theme/colors.dart';
@@ -12,7 +14,8 @@ import 'widget/bottomCompose.dart';
 
 class CreatePing extends StatefulWidget {
   static const String ROUTE = "/createPing";
-  const CreatePing({key}) : super(key: key);
+  final Huser user;
+  const CreatePing({key, this.user}) : super(key: key);
 
   @override
   _CreatePingState createState() => _CreatePingState();
@@ -397,10 +400,11 @@ class _CreatePingState extends State<CreatePing> {
     );
   }
 
-  void _onSubmit() {
-    //                     var snapshot = await _firebaseStorage.ref()
-    // .child('images/imageName')
-    // .putFile(file).onComplete;
-    // var downloadUrl = await snapshot.ref.getDownloadURL();
+  Future<void> _onSubmit() async {
+    if (isImage) {
+      var snapshot =
+          await FirebaseStorage.instance.ref().child('images/').putFile(_image);
+      var downloadUrl = await snapshot.ref.getDownloadURL();
+    }
   }
 }

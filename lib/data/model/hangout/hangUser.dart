@@ -37,7 +37,7 @@ class Huser {
     };
   }
 
-  factory Huser.fromMap(Map<String, dynamic> map) {
+  factory Huser.fromMap(Map<dynamic, dynamic> map) {
     return Huser(
         id: map['id'],
         name: map['name'],
