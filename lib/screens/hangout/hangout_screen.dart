@@ -8,7 +8,6 @@ import 'bloc/hangout/hangout_event.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/simple_appbar.dart';
 import 'package:provider/provider.dart';
-
 import 'bloc/hangout/hangout_state.dart';
 import 'feed.dart';
 import 'onboarding.dart';
@@ -58,7 +57,8 @@ class _HangoutScreenState extends State<HangoutScreen> {
                     if (state is HangoutLoading) return LoadingWidget();
                     if (state is UserNotExistState)
                       return _getOnboardingBody(auth);
-                    if (state is UserExistState) return HangoutFeedScreen();
+                    if (state is UserExistState)
+                      return Expanded(child: HangoutFeedScreen());
                     return Center(
                       child: Text("Something went wrong try again!"),
                     );

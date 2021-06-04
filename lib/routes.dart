@@ -1,5 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:ipecstudentsapp/screens/hangout/create_ping.dart';
 import 'package:provider/provider.dart';
 
 import 'data/repo/auth.dart';
@@ -74,6 +75,8 @@ class Routes {
         return _getMaterialRoute(AboutScreen(), settings);
       case HangoutScreen.ROUTE:
         return _getMaterialRoute(HangoutScreen(), settings);
+      case CreatePing.ROUTE:
+        return _getMaterialRoute(CreatePing(), settings);
       case PredictionInputScreen.ROUTE:
         Map arg = settings.arguments;
         return _getMaterialRoute(

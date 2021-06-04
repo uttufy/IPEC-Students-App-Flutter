@@ -18,6 +18,7 @@ dependencies:
   dio: ^4.0.0
   equatable: ^2.0.2
   # firebase_analytics: ^8.1.0
+  polls: ^1.0.1
   introduction_screen: ^2.1.0
   firebase_auth: ^1.2.0
   firebase_core: ^1.2.0
