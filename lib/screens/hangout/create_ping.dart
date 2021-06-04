@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:giphy_picker/giphy_picker.dart';
 import 'package:ipecstudentsapp/data/model/hangout/PollModel.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ipecstudentsapp/screens/hangout/widget/basic_ping.dart';
 import 'package:ipecstudentsapp/screens/hangout/widget/pollsWidget.dart';
 import '../../theme/colors.dart';
 import '../../theme/style.dart';
@@ -26,10 +27,12 @@ class _CreatePingState extends State<CreatePing> {
       new GlobalKey<ScaffoldMessengerState>();
 
   bool isImage, isLink, isPoll = false;
-  String imageUrl, link;
+  String imageUrl, link, option1, option2;
 
   File _image;
   final picker = ImagePicker();
+
+  PollModel pollModel;
 
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
@@ -154,26 +157,26 @@ class _CreatePingState extends State<CreatePing> {
                           addGif(context);
                         }),
                     BottomCompose(
-                        title: 'Link', icon: Icons.link, onPress: () {}),
+                        title: 'Link',
+                        icon: Icons.link,
+                        onPress: () {
+                          if (addtionalChildren.length <= 0) {
+                            _showLinkDialog();
+                          } else {
+                            print("Remove older attachmnet");
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content: Text(
+                                  'You have already attached something. Remove the older attachment first'),
+                            ));
+                          }
+                        }),
                     BottomCompose(
                         title: 'Poll',
                         icon: Icons.poll,
                         onPress: () {
                           setState(() {
                             if (addtionalChildren.length <= 0) {
-                              addtionalChildren.add(Stack(
-                                children: [
-                                  PollView(
-                                    poll: PollModel(
-                                        creator: '', optionLabel: ["1", "2"]),
-                                    user: '',
-                                    isCreate: true,
-                                  ),
-                                  Align(
-                                      alignment: Alignment.centerRight,
-                                      child: removeWidget()),
-                                ],
-                              ));
+                              _showPollDialog();
                             } else {
                               print("Remove older attachmnet");
                               _scaffoldKey.currentState.showSnackBar(SnackBar(
@@ -199,7 +202,7 @@ class _CreatePingState extends State<CreatePing> {
       final gif = await GiphyPicker.pickGif(
           context: context, apiKey: 'cXIAL2LDuPM9W8HaqDItOQm3i3guL0bt');
       imageUrl = gif.images.original.url;
-      print(">>>>>" + imageUrl);
+
       addtionalChildren.add(Stack(
         children: [
           Image.network(
@@ -259,6 +262,138 @@ class _CreatePingState extends State<CreatePing> {
             hintText: 'Write here...',
             hintStyle: TextStyle(fontSize: 20, color: kLightGrey)),
       ),
+    );
+  }
+
+  _showLinkDialog() async {
+    await showDialog<String>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: const EdgeInsets.all(16.0),
+          content: new Row(
+            children: <Widget>[
+              new Expanded(
+                child: new TextField(
+                  autofocus: true,
+                  onChanged: (v) {
+                    link = v;
+                  },
+                  decoration: new InputDecoration(
+                      labelText: 'Link', hintText: 'eg. https://google.com/'),
+                ),
+              )
+            ],
+          ),
+          actions: <Widget>[
+            new FlatButton(
+                child: const Text('CANCEL'),
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
+            new FlatButton(
+                child: const Text('SAVE'),
+                onPressed: () {
+                  if (link != null && link.isNotEmpty) {
+                    isLink = true;
+                    Navigator.pop(context);
+                    addtionalChildren.add(Stack(
+                      children: [
+                        LinkWidget(link),
+                        Align(
+                            alignment: Alignment.centerRight,
+                            child: removeWidget()),
+                      ],
+                    ));
+                    setState(() {});
+                  }
+                })
+          ],
+        );
+      },
+    );
+  }
+
+  _showPollDialog() async {
+    await showDialog<String>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: const EdgeInsets.all(16.0),
+          content: SizedBox(
+            height: 200,
+            child: Column(
+              children: [
+                new Row(
+                  children: <Widget>[
+                    new Expanded(
+                      child: new TextField(
+                        autofocus: true,
+                        onChanged: (v) {
+                          option1 = v;
+                        },
+                        decoration: new InputDecoration(
+                            labelText: 'Option 1', hintText: 'eg. Pizza'),
+                      ),
+                    )
+                  ],
+                ),
+                new Row(
+                  children: <Widget>[
+                    new Expanded(
+                      child: new TextField(
+                        autofocus: true,
+                        onChanged: (v) {
+                          option2 = v;
+                        },
+                        decoration: new InputDecoration(
+                            labelText: 'Option 2', hintText: 'eg. Burger'),
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            new FlatButton(
+                child: const Text('CANCEL'),
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
+            new FlatButton(
+                child: const Text('SAVE'),
+                onPressed: () {
+                  if (option1 != null &&
+                      option1.isNotEmpty &&
+                      option2 != null &&
+                      option2.isNotEmpty) {
+                    isPoll = true;
+                    pollModel = PollModel(
+                        //TODO: User info
+                        creator: '',
+                        optionLabel: [option1, option2]);
+                    addtionalChildren.add(Stack(
+                      children: [
+                        PollView(
+                          poll: pollModel,
+                          //TODO:USer
+                          user: '',
+                          isCreate: true,
+                        ),
+                        Align(
+                            alignment: Alignment.centerRight,
+                            child: removeWidget()),
+                      ],
+                    ));
+
+                    Navigator.pop(context);
+                    setState(() {});
+                  }
+                })
+          ],
+        );
+      },
     );
   }
 
