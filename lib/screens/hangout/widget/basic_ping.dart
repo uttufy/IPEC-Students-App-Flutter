@@ -1,11 +1,12 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:ipecstudentsapp/data/model/hangout/PollModel.dart';
-import 'package:ipecstudentsapp/screens/hangout/widget/pollsWidget.dart';
-import 'package:ipecstudentsapp/screens/hangout/widget/userStrip.dart';
-import 'package:ipecstudentsapp/theme/style.dart';
+
+import '../../../data/model/hangout/PollModel.dart';
+import '../../../theme/style.dart';
 import 'bottomStrip.dart';
+import 'pollsWidget.dart';
+import 'userStrip.dart';
 
 class PingBasicWidget extends StatelessWidget {
   final bool havePhoto;

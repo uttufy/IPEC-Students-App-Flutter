@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/theme/style.dart';
-import 'package:ipecstudentsapp/util/SizeConfig.dart';
+
+import '../../../theme/style.dart';
+import '../../../util/SizeConfig.dart';
 
 class UserStripWidget extends StatelessWidget {
   const UserStripWidget({

@@ -10,8 +10,8 @@ class PollModel {
 
   PollModel(
       {@required this.creator,
-      @required this.userWhoVoted,
-      @required this.numberOfVotes,
+      this.userWhoVoted = const {},
+      this.numberOfVotes = const [0, 0],
       @required this.optionLabel});
 
   Map<String, dynamic> toMap() {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/screens/hangout/widget/userStrip.dart';
-import 'package:ipecstudentsapp/theme/colors.dart';
-import 'package:ipecstudentsapp/theme/style.dart';
+import 'userStrip.dart';
+import '../../../theme/colors.dart';
+import '../../../theme/style.dart';
 
 class BasicWidget extends StatelessWidget {
   const BasicWidget({

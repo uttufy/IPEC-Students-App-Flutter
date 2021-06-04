@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/theme/colors.dart';
-import 'package:ipecstudentsapp/theme/style.dart';
+import 'package:ipecstudentsapp/data/model/hangout/PollModel.dart';
+import 'package:ipecstudentsapp/screens/hangout/widget/basic_ping.dart';
+import 'package:ipecstudentsapp/screens/hangout/widget/pollsWidget.dart';
+import '../../theme/colors.dart';
+import '../../theme/style.dart';
+import 'widget/bottomCompose.dart';
 
 class CreatePing extends StatefulWidget {
   static const String ROUTE = "/createPing";
@@ -13,9 +17,13 @@ class CreatePing extends StatefulWidget {
 class _CreatePingState extends State<CreatePing> {
   final textEditingController = TextEditingController();
   final focusNode = FocusNode();
+
   List<Widget> addtionalChildren = [];
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
       new GlobalKey<ScaffoldMessengerState>();
+
+  bool isImage, isLink, isPoll = false;
+  String imageUrl, link;
   @override
   void initState() {
     super.initState();
@@ -57,8 +65,14 @@ class _CreatePingState extends State<CreatePing> {
                     ),
                     FloatingActionButton.extended(
                       onPressed: () {},
-                      label: Text('Post Ping'),
-                      icon: Icon(Icons.send),
+                      label: Text(
+                        'Post',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      icon: Icon(
+                        Icons.send,
+                        color: Colors.black,
+                      ),
                       backgroundColor: kPurple,
                     )
                   ],
@@ -71,8 +85,12 @@ class _CreatePingState extends State<CreatePing> {
                   child: Column(
                     children: [
                       composeArea(),
-                      Column(
-                        children: addtionalChildren,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: addtionalChildren,
+                        ),
                       )
                     ],
                   ),
@@ -88,16 +106,16 @@ class _CreatePingState extends State<CreatePing> {
                         title: 'Image',
                         icon: Icons.image,
                         onPress: () {
-                          print(addtionalChildren.length);
                           setState(() {
-                            if (addtionalChildren.length <= 0)
+                            if (addtionalChildren.length <= 0) {
+                              imageUrl = 'hello';
                               addtionalChildren.add(Stack(
                                 children: [
-                                  Image.asset('assets/images/coworker.png'),
-                                  Icon(Icons.remove_circle)
+                                  Image.asset('assets/images/coworkers.png'),
+                                  removeWidget(),
                                 ],
                               ));
-                            else {
+                            } else {
                               print("Remove older attachmnet");
                               _scaffoldKey.currentState.showSnackBar(SnackBar(
                                 content: Text(
@@ -107,11 +125,57 @@ class _CreatePingState extends State<CreatePing> {
                           });
                         }),
                     BottomCompose(
-                        title: 'Gif', icon: Icons.animation, onPress: () {}),
+                        title: 'Gif',
+                        icon: Icons.animation,
+                        onPress: () {
+                          setState(() {
+                            if (addtionalChildren.length <= 0) {
+                              imageUrl = 'hello';
+                              addtionalChildren.add(Stack(
+                                children: [
+                                  Image.asset('assets/images/coworkers.png'),
+                                  removeWidget(),
+                                ],
+                              ));
+                            } else {
+                              print("Remove older attachmnet");
+                              _scaffoldKey.currentState.showSnackBar(SnackBar(
+                                content: Text(
+                                    'You have already attached something. Remove the older attachment first'),
+                              ));
+                            }
+                          });
+                        }),
                     BottomCompose(
                         title: 'Link', icon: Icons.link, onPress: () {}),
                     BottomCompose(
-                        title: 'Poll', icon: Icons.poll, onPress: () {}),
+                        title: 'Poll',
+                        icon: Icons.poll,
+                        onPress: () {
+                          setState(() {
+                            if (addtionalChildren.length <= 0) {
+                              addtionalChildren.add(Stack(
+                                children: [
+                                  PollView(
+                                    poll: PollModel(
+                                        creator: '', optionLabel: ["1", "2"]),
+                                    user: '',
+                                    isCreate: true,
+                                  ),
+                                  Align(
+                                      alignment: Alignment.centerRight,
+                                      child: removeWidget()),
+                                ],
+                              ));
+                            } else {
+                              print("Remove older attachmnet");
+                              _scaffoldKey.currentState.showSnackBar(SnackBar(
+                                content: Text(
+                                    'You have already attached something. Remove the older attachment first'),
+                              ));
+                            }
+                          });
+                        }),
                     kMedWidthPadding,
                   ],
                 ),
@@ -120,6 +184,28 @@ class _CreatePingState extends State<CreatePing> {
           ),
         ),
       ),
+    );
+  }
+
+  IconButton removeWidget() {
+    return IconButton(
+      color: Colors.red,
+      icon: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Icon(
+          Icons.remove_circle,
+          size: 30,
+        ),
+      ),
+      onPressed: () {
+        addtionalChildren = [];
+        isImage = false;
+        isLink = false;
+        isPoll = false;
+        link = '';
+        imageUrl = '';
+        setState(() {});
+      },
     );
   }
 
@@ -141,51 +227,6 @@ class _CreatePingState extends State<CreatePing> {
             border: InputBorder.none,
             hintText: 'Write here...',
             hintStyle: TextStyle(fontSize: 20, color: kLightGrey)),
-      ),
-    );
-  }
-}
-
-class BottomCompose extends StatelessWidget {
-  final String title;
-  final IconData icon;
-  final VoidCallback onPress;
-
-  const BottomCompose({
-    Key key,
-    this.title,
-    this.icon,
-    this.onPress,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        onPress();
-      },
-      borderRadius: BorderRadius.circular(20),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        margin: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          color: kPurple,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              color: Colors.white,
-            ),
-            kLowWidthPadding,
-            Text(
-              title,
-              style: TextStyle(color: Colors.white),
-            ),
-          ],
-        ),
       ),
     );
   }

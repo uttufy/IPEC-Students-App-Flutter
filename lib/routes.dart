@@ -1,6 +1,5 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/screens/hangout/create_ping.dart';
 import 'package:provider/provider.dart';
 
 import 'data/repo/auth.dart';
@@ -11,6 +10,7 @@ import 'screens/dashboard/attendance/attendance_screen.dart';
 import 'screens/dashboard/attendance/prediction_input_screen.dart';
 import 'screens/dashboard/attendance/prediction_result_screen.dart';
 import 'screens/dashboard/dashboard_page.dart';
+import 'screens/hangout/create_ping.dart';
 import 'screens/hangout/hangout_screen.dart';
 import 'screens/loading/loading_screen.dart';
 import 'screens/login/login_screen.dart';
@@ -40,7 +40,7 @@ class Routes {
               initial: savedThemeMode ?? AdaptiveThemeMode.light,
               builder: (theme, darkTheme) => MaterialApp(
                     title: "IPEC Student's App",
-                    home: SplashScreen(),
+                    home: CreatePing(),
                     theme: theme,
                     onGenerateRoute: onGenerate,
                     debugShowCheckedModeBanner: false,

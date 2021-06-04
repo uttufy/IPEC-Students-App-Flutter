@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/theme/colors.dart';
-import 'package:ipecstudentsapp/theme/style.dart';
+
+import '../../../theme/colors.dart';
+import '../../../theme/style.dart';
 
 class BottomStrip extends StatefulWidget {
   final bool isLiked;

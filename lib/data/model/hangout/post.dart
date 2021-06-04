@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-import 'package:ipecstudentsapp/data/model/hangout/PollModel.dart';
+import 'PollModel.dart';
 
 class Post {
   final String id;
@@ -31,14 +31,14 @@ class Post {
     @required this.authorSection,
     @required this.postedOn,
     @required this.text,
-    @required this.likes,
-    @required this.comments,
-    @required this.reports,
-    @required this.isLinkAttached,
+    this.likes = 0,
+    this.comments = 0,
+    this.reports = 0,
+    this.isLinkAttached = false,
     @required this.link,
-    @required this.isImage,
+    this.isImage = false,
     @required this.imageUrl,
-    @required this.isPoll,
+    this.isPoll = false,
     @required this.pollData,
   });
 

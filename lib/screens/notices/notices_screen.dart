@@ -1,7 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:ipecstudentsapp/widgets/loading_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/base_bloc/base_bloc_builder.dart';
@@ -13,6 +12,7 @@ import '../../data/repo/session.dart';
 import '../../theme/colors.dart';
 import '../../theme/style.dart';
 import '../../util/string_cap.dart';
+import '../../widgets/loading_widget.dart';
 import '../../widgets/simple_appbar.dart';
 import 'bloc/notice_bloc.dart';
 import 'bloc/notice_event.dart';

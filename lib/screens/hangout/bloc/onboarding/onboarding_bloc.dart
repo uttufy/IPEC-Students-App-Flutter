@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:html/parser.dart';
-import '../../../../data/model/GeneralResponse.dart';
-import '../../../../data/model/hangout/hangUser.dart';
-import 'onboarding_event.dart';
 
 import '../../../../../data/base_bloc/base_bloc.dart';
 import '../../../../../data/base_bloc/base_event.dart';
 import '../../../../../data/base_bloc/base_state.dart';
+import '../../../../data/model/GeneralResponse.dart';
+import '../../../../data/model/hangout/hangUser.dart';
+import 'onboarding_event.dart';
 import 'onboarding_state.dart';
 
 class OnboardingBloc extends BaseBloc {

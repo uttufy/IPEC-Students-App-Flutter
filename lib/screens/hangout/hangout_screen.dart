@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import '../../data/base_bloc/base_bloc_builder.dart';
 import '../../data/base_bloc/base_bloc_listener.dart';
 import '../../data/base_bloc/base_state.dart';
 import '../../data/repo/auth.dart';
-import 'bloc/hangout/hangout_bloc.dart';
-import 'bloc/hangout/hangout_event.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/simple_appbar.dart';
-import 'package:provider/provider.dart';
+import 'bloc/hangout/hangout_bloc.dart';
+import 'bloc/hangout/hangout_event.dart';
 import 'bloc/hangout/hangout_state.dart';
 import 'feed.dart';
 import 'onboarding.dart';

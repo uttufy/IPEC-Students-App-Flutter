@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/screens/hangout/create_ping.dart';
-import 'package:ipecstudentsapp/screens/hangout/widget/basic_ping.dart';
-import 'package:ipecstudentsapp/theme/colors.dart';
+
+import 'create_ping.dart';
+import 'widget/basic_ping.dart';
 
 class HangoutFeedScreen extends StatefulWidget {
   static const String ROUTE = "/feed";

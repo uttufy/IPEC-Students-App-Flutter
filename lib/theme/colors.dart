@@ -22,7 +22,7 @@ const kOrange = Color(0xFFEE9E77);
 
 const kGreen = Color(0xFF82C890);
 
-const kPurple = Color(0xFFf72585);
+const kPurple = Color(0xFFffbe0b);
 
 const kBlue = Color(0xFF81BEF5);
 
