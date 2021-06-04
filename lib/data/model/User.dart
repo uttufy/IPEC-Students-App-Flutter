@@ -1,12 +1,10 @@
-import 'package:string_validator/string_validator.dart';
-
 class User {
   final String name;
   final String id;
   String img;
   bool isFirstYear;
   User({this.name, this.id, this.img}) {
-    if (isBase64((img) ?? ""))
+    if (img.contains("base64"))
       this.isFirstYear = false;
     else {
       this.isFirstYear = true;

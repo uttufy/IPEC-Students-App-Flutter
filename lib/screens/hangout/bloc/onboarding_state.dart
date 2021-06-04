@@ -14,3 +14,9 @@ class OnboardingLoaded extends OnboardingState {
 
   OnboardingLoaded(this.user);
 }
+
+class SavedUserState extends OnboardingState {
+  final Huser user;
+
+  SavedUserState(this.user);
+}

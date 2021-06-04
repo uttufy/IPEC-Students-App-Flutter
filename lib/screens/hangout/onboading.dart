@@ -72,7 +72,9 @@ class _OnboardingState extends State<Onboarding> {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {},
-        label: Text('Next'),
+        label: Text(
+          'NEXT',
+        ),
         icon: Icon(Icons.arrow_forward_ios),
       ),
       body: SingleChildScrollView(
@@ -85,7 +87,7 @@ class _OnboardingState extends State<Onboarding> {
               'Let\'s get you setup,',
               style: Theme.of(context)
                   .textTheme
-                  .headline5
+                  .bodyText1
                   .copyWith(color: isDark ? Colors.white : Colors.black),
             ),
             Row(

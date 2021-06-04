@@ -160,9 +160,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 children: [
                                   optionIcon('assets/icons/conversation.png',
                                       'Cafeteria\nTalks', () {
-                                    // _showSnackBar("Indevelopment!");
-                                    Navigator.pushNamed(
-                                        context, HangoutScreen.ROUTE);
+                                    if (auth.user.isFirstYear)
+                                      _showSnackBar(
+                                          "Sorry, First year students not allowed!");
+                                    else
+                                      Navigator.pushNamed(
+                                          context, HangoutScreen.ROUTE);
                                   }),
                                   optionIcon(
                                       'assets/icons/Compass.png', 'About', () {

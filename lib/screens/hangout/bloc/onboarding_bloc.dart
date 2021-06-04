@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:html/parser.dart';
 import 'package:ipecstudentsapp/data/model/GeneralResponse.dart';
 import 'package:ipecstudentsapp/data/model/hangUser.dart';
@@ -58,6 +60,23 @@ class OnboardingBloc extends BaseBloc {
         yield OnboardingLoaded(user);
       } else {
         yield ShowDialogErrorState(response.error.toString());
+      }
+    }
+    if (event is SaveStudentData) {
+      try {
+        FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: event.user.email, password: event.user.id);
+
+        FirebaseDatabase.instance
+            .reference()
+            .child('hangout')
+            .child('user')
+            .child(event.user.id)
+            .set(event.user.toMap());
+
+        yield SavedUserState(event.user);
+      } catch (e) {
+        yield ShowDialogErrorState(e.toString());
       }
     }
   }
