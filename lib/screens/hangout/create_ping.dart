@@ -36,7 +36,7 @@ class _CreatePingState extends State<CreatePing> {
   bool isLink = false;
   bool isPoll = false;
   bool isGif = false;
-  String imageUrl = "";
+  // String imageUrl = "";
   String gifUrl = "";
   String link = "";
   String option1 = "";
@@ -50,7 +50,11 @@ class _CreatePingState extends State<CreatePing> {
   PollModel pollModel;
 
   Future getImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    final pickedFile = await picker.getImage(
+        source: ImageSource.gallery,
+        maxWidth: 800,
+        maxHeight: 800,
+        imageQuality: 80);
 
     setState(() {
       if (pickedFile != null) {
@@ -173,15 +177,16 @@ class _CreatePingState extends State<CreatePing> {
                               onPress: () {
                                 setState(() {
                                   if (addtionalChildren.length <= 0) {
-                                    getImage();
-
-                                    imageUrl = 'hello';
-                                    addtionalChildren.add(Stack(
-                                      children: [
-                                        Image.file(_image),
-                                        removeWidget(),
-                                      ],
-                                    ));
+                                    getImage().then((value) {
+                                      setState(() {
+                                        addtionalChildren.add(Stack(
+                                          children: [
+                                            Image.file(_image),
+                                            removeWidget(),
+                                          ],
+                                        ));
+                                      });
+                                    });
                                   } else {
                                     print("Remove older attachmnet");
                                     _scaffoldKey.currentState
@@ -245,7 +250,7 @@ class _CreatePingState extends State<CreatePing> {
     if (addtionalChildren.length <= 0) {
       final gif = await GiphyPicker.pickGif(
           context: context, apiKey: 'cXIAL2LDuPM9W8HaqDItOQm3i3guL0bt');
-      if (gif!=null&&gif.images != null) {
+      if (gif != null && gif.images != null) {
         gifUrl = gif.images.original.url;
         isGif = true;
         addtionalChildren.add(Stack(
@@ -285,7 +290,8 @@ class _CreatePingState extends State<CreatePing> {
         isGif = true;
         gifUrl = "";
         link = '';
-        imageUrl = '';
+
+        // imageUrl = '';
         setState(() {});
       },
     );
