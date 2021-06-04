@@ -1,6 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:ipecstudentsapp/data/model/hangout/post.dart';
 
 import '../../../data/model/hangout/PollModel.dart';
 import '../../../theme/style.dart';
@@ -9,24 +10,12 @@ import 'pollsWidget.dart';
 import 'userStrip.dart';
 
 class PingBasicWidget extends StatelessWidget {
-  final bool havePhoto;
-  final String imageURl;
-  final String url;
-  final bool isLinkAttached;
-  final String pingTxt;
-  final bool isPool;
-  final PollModel pollModel;
+  final Post item;
 
   const PingBasicWidget({
     Key key,
     @required this.name,
-    this.havePhoto = false,
-    this.imageURl,
-    this.url,
-    this.isLinkAttached,
-    this.pingTxt = "",
-    this.isPool = false,
-    this.pollModel,
+    @required this.item,
   }) : super(key: key);
   final String name;
   @override
@@ -36,15 +25,15 @@ class PingBasicWidget extends StatelessWidget {
       children: [
         kLowPadding,
         UserStripWidget(
-          name: name,
-          section: 'IT - B',
-          yr: '3',
+          name: item.author.name,
+          section: item.author.section,
+          yr: item.author.yr,
         ),
         kLowPadding,
         InkWell(onTap: () {}, child: buildMainBody(context)),
         BottomStrip(
-          likes: 2,
-          // comments: 4,
+          likes: item.likes,
+          comments: item.comments,
         ),
         Divider()
       ],
@@ -53,31 +42,46 @@ class PingBasicWidget extends StatelessWidget {
 
   Column buildMainBody(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          pingTxt,
+          item.text,
+          textAlign: TextAlign.start,
           style: Theme.of(context)
               .textTheme
               .headline6
               .copyWith(fontWeight: FontWeight.normal),
         ),
-        // if (isPool && pollModel != null)
-        PollView(
-          poll: PollModel(
-              creator: 'asd',
-              numberOfVotes: [1.0, 0.0],
-              optionLabel: ["Backend", "Frontend"],
-              userWhoVoted: {'cme': 1}),
-          user: 'Utkarsh',
-        ),
-        if (isLinkAttached && url != null) LinkWidget(url),
-        if (havePhoto && imageURl != null)
+        if (item.isPoll && item.pollData != null)
+          PollView(
+            poll: PollModel(
+                creator: item.author.name,
+                numberOfVotes: item.pollData.numberOfVotes,
+                optionLabel: item.pollData.optionLabel,
+                userWhoVoted: item.pollData.userWhoVoted),
+            user: name,
+          ),
+        if (item.isLinkAttached && item.link != null) LinkWidget(item.link),
+        if (item.isImage && item.imageUrl != null)
           Padding(
             padding: const EdgeInsets.only(top: 10.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(kLowCircleRadius),
               child: Image.network(
-                imageURl,
+                item.imageUrl,
+                height: 180,
+                width: double.maxFinite,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        if (item.isGif && item.gifUrl != null)
+          Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(kLowCircleRadius),
+              child: Image.network(
+                item.gifUrl,
                 height: 180,
                 width: double.maxFinite,
                 fit: BoxFit.cover,

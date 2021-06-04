@@ -63,7 +63,7 @@ class Post {
     };
   }
 
-  factory Post.fromMap(Map<String, dynamic> map) {
+  factory Post.fromMap(Map<dynamic, dynamic> map) {
     return Post(
         id: map['id'],
         author: Huser.fromMap(map['author']),
@@ -86,4 +86,31 @@ class Post {
   String toJson() => json.encode(toMap());
 
   factory Post.fromJson(String source) => Post.fromMap(json.decode(source));
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Post && other.id == id;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        author.hashCode ^
+        authorImage.hashCode ^
+        postedOn.hashCode ^
+        text.hashCode ^
+        likes.hashCode ^
+        comments.hashCode ^
+        reports.hashCode ^
+        isLinkAttached.hashCode ^
+        link.hashCode ^
+        isImage.hashCode ^
+        imageUrl.hashCode ^
+        isPoll.hashCode ^
+        pollData.hashCode ^
+        isGif.hashCode ^
+        gifUrl.hashCode;
+  }
 }

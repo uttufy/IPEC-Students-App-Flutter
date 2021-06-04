@@ -178,6 +178,7 @@ class _CreatePingState extends State<CreatePing> {
                                 setState(() {
                                   if (addtionalChildren.length <= 0) {
                                     getImage().then((value) {
+                                      isImage = true;
                                       setState(() {
                                         addtionalChildren.add(Stack(
                                           children: [
@@ -287,7 +288,7 @@ class _CreatePingState extends State<CreatePing> {
         isImage = false;
         isLink = false;
         isPoll = false;
-        isGif = true;
+        isGif = false;
         gifUrl = "";
         link = '';
 
@@ -486,7 +487,8 @@ class _CreatePingState extends State<CreatePing> {
           .reference()
           .child('hangout')
           .child('pings')
-          .child('${widget.user.id + "_" + epoch.toString()}')
+          .push()
+          // .child('${widget.user.id + "_" + epoch.toString()}')
           .set(res.toMap());
       _scaffoldKey.currentState
           .showSnackBar(SnackBar(content: Text("Pinged!!!")));

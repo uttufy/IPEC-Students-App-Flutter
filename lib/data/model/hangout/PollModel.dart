@@ -11,7 +11,7 @@ class PollModel {
   PollModel(
       {@required this.creator,
       this.userWhoVoted = const {},
-      this.numberOfVotes = const [0, 0],
+      this.numberOfVotes = const [0.0, 0.0],
       @required this.optionLabel});
 
   Map<String, dynamic> toMap() {
@@ -23,11 +23,15 @@ class PollModel {
     };
   }
 
-  factory PollModel.fromMap(Map<String, dynamic> map) {
+  factory PollModel.fromMap(Map<dynamic, dynamic> map) {
+    List<double> temp = [];
+    (map['numberOfVotes'] as List).forEach((element) {
+      temp.add(element.toDouble());
+    });
     return PollModel(
       creator: map['creator'],
       userWhoVoted: map['userWhoVoted'],
-      numberOfVotes: List<double>.from(map['numberOfVotes']),
+      numberOfVotes: temp,
       optionLabel: List<String>.from(map['optionLabel']),
     );
   }
