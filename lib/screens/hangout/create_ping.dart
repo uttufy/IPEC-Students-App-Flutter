@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:giphy_picker/giphy_picker.dart';
 import 'package:ipecstudentsapp/data/model/hangout/PollModel.dart';
-import 'package:ipecstudentsapp/screens/hangout/widget/basic_ping.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ipecstudentsapp/screens/hangout/widget/pollsWidget.dart';
 import '../../theme/colors.dart';
 import '../../theme/style.dart';
@@ -24,6 +27,22 @@ class _CreatePingState extends State<CreatePing> {
 
   bool isImage, isLink, isPoll = false;
   String imageUrl, link;
+
+  File _image;
+  final picker = ImagePicker();
+
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -64,7 +83,9 @@ class _CreatePingState extends State<CreatePing> {
                       ),
                     ),
                     FloatingActionButton.extended(
-                      onPressed: () {},
+                      onPressed: () {
+                        _onSubmit();
+                      },
                       label: Text(
                         'Post',
                         style: TextStyle(color: Colors.black),
@@ -108,10 +129,12 @@ class _CreatePingState extends State<CreatePing> {
                         onPress: () {
                           setState(() {
                             if (addtionalChildren.length <= 0) {
+                              getImage();
+
                               imageUrl = 'hello';
                               addtionalChildren.add(Stack(
                                 children: [
-                                  Image.asset('assets/images/coworkers.png'),
+                                  Image.file(_image),
                                   removeWidget(),
                                 ],
                               ));
@@ -128,23 +151,7 @@ class _CreatePingState extends State<CreatePing> {
                         title: 'Gif',
                         icon: Icons.animation,
                         onPress: () {
-                          setState(() {
-                            if (addtionalChildren.length <= 0) {
-                              imageUrl = 'hello';
-                              addtionalChildren.add(Stack(
-                                children: [
-                                  Image.asset('assets/images/coworkers.png'),
-                                  removeWidget(),
-                                ],
-                              ));
-                            } else {
-                              print("Remove older attachmnet");
-                              _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                content: Text(
-                                    'You have already attached something. Remove the older attachment first'),
-                              ));
-                            }
-                          });
+                          addGif(context);
                         }),
                     BottomCompose(
                         title: 'Link', icon: Icons.link, onPress: () {}),
@@ -185,6 +192,30 @@ class _CreatePingState extends State<CreatePing> {
         ),
       ),
     );
+  }
+
+  Future<void> addGif(BuildContext context) async {
+    if (addtionalChildren.length <= 0) {
+      final gif = await GiphyPicker.pickGif(
+          context: context, apiKey: 'cXIAL2LDuPM9W8HaqDItOQm3i3guL0bt');
+      imageUrl = gif.images.original.url;
+      print(">>>>>" + imageUrl);
+      addtionalChildren.add(Stack(
+        children: [
+          Image.network(
+            imageUrl,
+          ),
+          removeWidget(),
+        ],
+      ));
+    } else {
+      print("Remove older attachmnet");
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text(
+            'You have already attached something. Remove the older attachment first'),
+      ));
+    }
+    setState(() {});
   }
 
   IconButton removeWidget() {
@@ -229,5 +260,12 @@ class _CreatePingState extends State<CreatePing> {
             hintStyle: TextStyle(fontSize: 20, color: kLightGrey)),
       ),
     );
+  }
+
+  void _onSubmit() {
+    //                     var snapshot = await _firebaseStorage.ref()
+    // .child('images/imageName')
+    // .putFile(file).onComplete;
+    // var downloadUrl = await snapshot.ref.getDownloadURL();
   }
 }

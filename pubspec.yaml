@@ -40,7 +40,10 @@ dependencies:
   syncfusion_flutter_pdfviewer: 
   url_launcher: ^6.0.4
   string_validator: ^0.3.0
+  image_picker: ^0.8.0+1
   webview_flutter: ^2.0.7
+  firebase_storage: ^8.1.1
+  giphy_picker: ^2.0.0
 
 dev_dependencies:
   flutter_test:
