@@ -5,6 +5,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_share/flutter_share.dart';
+import 'package:ipecstudentsapp/screens/hangout/create_ping.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -164,8 +165,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       _showSnackBar(
                                           "Sorry, First year students not allowed!");
                                     else
+                                      // Navigator.pushNamed(
+                                      //     context, HangoutScreen.ROUTE);
                                       Navigator.pushNamed(
-                                          context, HangoutScreen.ROUTE);
+                                          context, CreatePing.ROUTE);
                                   }),
                                   optionIcon(
                                       'assets/icons/Compass.png', 'About', () {

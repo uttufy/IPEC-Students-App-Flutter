@@ -1,5 +1,5 @@
 import '../../../../data/base_bloc/base_state.dart';
-import '../../../../data/model/hangUser.dart';
+import '../../../../data/model/hangout/hangUser.dart';
 
 class HangoutState extends BaseState {
   HangoutState([List props = const []]) : super(props);

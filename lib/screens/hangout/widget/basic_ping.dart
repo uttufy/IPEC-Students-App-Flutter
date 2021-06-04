@@ -1,6 +1,7 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:ipecstudentsapp/data/model/PollModel.dart';
+import 'package:ipecstudentsapp/data/model/hangout/PollModel.dart';
 import 'package:ipecstudentsapp/screens/hangout/widget/pollsWidget.dart';
 import 'package:ipecstudentsapp/screens/hangout/widget/userStrip.dart';
 import 'package:ipecstudentsapp/theme/style.dart';
@@ -59,15 +60,15 @@ class PingBasicWidget extends StatelessWidget {
               .headline6
               .copyWith(fontWeight: FontWeight.normal),
         ),
-        if (isPool && pollModel != null)
-          PollView(
-            poll: PollModel(
-                creator: 'asd',
-                numberOfVotes: [1.0, 0.0],
-                optionLabel: ["Backend", "Frontend"],
-                userWhoVoted: {'cme': 1}),
-            user: 'Utkarsh',
-          ),
+        // if (isPool && pollModel != null)
+        PollView(
+          poll: PollModel(
+              creator: 'asd',
+              numberOfVotes: [1.0, 0.0],
+              optionLabel: ["Backend", "Frontend"],
+              userWhoVoted: {'cme': 1}),
+          user: 'Utkarsh',
+        ),
         if (isLinkAttached && url != null) LinkWidget(url),
         if (havePhoto && imageURl != null)
           Padding(
@@ -97,6 +98,8 @@ class LinkWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: InkWell(
@@ -104,7 +107,7 @@ class LinkWidget extends StatelessWidget {
         child: Ink(
           padding: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
-              color: Colors.grey.shade200,
+              color: isDark ? Colors.black45 : Colors.grey.shade200,
               borderRadius: BorderRadius.circular(10)),
           child: Row(
             children: [

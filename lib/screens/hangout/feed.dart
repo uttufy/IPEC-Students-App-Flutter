@@ -25,6 +25,7 @@ class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
         icon: Icon(Icons.send),
       ),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
         child: Column(
           children: [

@@ -19,20 +19,35 @@ class BottomStrip extends StatefulWidget {
 }
 
 class _BottomStripState extends State<BottomStrip> {
+  bool isSamosa = false;
+  int likes = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    isSamosa = widget.isLiked;
+    likes = widget.likes;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         InkWell(
-          onTap: () {},
+          onTap: () {
+            setState(() {
+              likes = isSamosa ? likes - 1 : likes + 1;
+              isSamosa = !isSamosa;
+            });
+          },
           borderRadius: BorderRadius.circular(20),
           child: Ink(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
             child: Row(
               children: [
-                widget.isLiked
+                isSamosa
                     ? Image.asset(
                         'assets/icons/sam2.png',
                         width: 22,
@@ -43,7 +58,7 @@ class _BottomStripState extends State<BottomStrip> {
                       ),
                 kLowWidthPadding,
                 Text(
-                  widget.likes == 0 ? 'Samosa' : widget.likes.toString(),
+                  likes == 0 ? 'Samosa' : likes.toString(),
                   style: Theme.of(context).textTheme.bodyText2.copyWith(
                         color: kLightGrey,
                       ),
@@ -66,10 +81,27 @@ class _BottomStripState extends State<BottomStrip> {
                 ),
                 kLowWidthPadding,
                 Text(
-                  widget.comments == 0 ? 'Gossip' : widget.comments.toString(),
+                  widget.comments == 0 ? 'Chatter' : widget.comments.toString(),
                   style: Theme.of(context).textTheme.bodyText2.copyWith(
                         color: kLightGrey,
                       ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Spacer(),
+        InkWell(
+          onTap: () {},
+          borderRadius: BorderRadius.circular(20),
+          child: Ink(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.report,
+                  color: kLightGrey,
                 ),
               ],
             ),

@@ -1,5 +1,7 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/data/model/PollModel.dart';
+import 'package:ipecstudentsapp/data/model/hangout/PollModel.dart';
+import 'package:ipecstudentsapp/theme/colors.dart';
 import 'package:polls/polls.dart';
 
 class PollView extends StatefulWidget {
@@ -22,6 +24,8 @@ class _PollViewState extends State<PollView> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
+
     return Container(
       child: Polls(
         children: [
@@ -38,7 +42,8 @@ class _PollViewState extends State<PollView> {
         userChoice: poll.userWhoVoted[widget.user],
         onVoteBackgroundColor: Colors.blue,
         leadingBackgroundColor: Colors.blue,
-        backgroundColor: Colors.white,
+        outlineColor: kBlue,
+        backgroundColor: isDark ? Colors.black54 : Colors.white,
         onVote: (choice) {
           print(choice);
           setState(() {
