@@ -1,6 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'data/repo/auth.dart';
 import 'data/repo/session.dart';
 import 'screens/about/about.dart';

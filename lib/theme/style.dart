@@ -8,7 +8,13 @@ ThemeData appTheme = new ThemeData(
   fontFamily: 'Averta',
   primaryColor: kPrimaryColor,
   scaffoldBackgroundColor: Colors.white,
-
+  textTheme: TextTheme(
+    headline1: TextStyle(fontWeight: FontWeight.w500, color: Colors.black),
+    headline4: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+    headline5: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+    headline6: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+    // bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+  ),
   // inputDecorationTheme: InputDecorationTheme(
   //   // fillColor: kLighterGrey,
   //   // filled: true,
@@ -23,7 +29,13 @@ ThemeData appdarkTheme = new ThemeData(
   fontFamily: 'Averta',
   primaryColor: kPrimaryColor,
   scaffoldBackgroundColor: kDarkBg,
-
+  textTheme: TextTheme(
+    headline1: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
+    headline4: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+    headline5: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+    headline6: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+    // bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+  ),
   // inputDecorationTheme: InputDecorationTheme(
   //   // fillColor: kLighterGrey,
   //   // filled: true,

@@ -5,7 +5,6 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_share/flutter_share.dart';
-import 'package:ipecstudentsapp/screens/hangout/hangout_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -15,6 +14,7 @@ import '../../theme/style.dart';
 import '../../util/SizeConfig.dart';
 import '../../widgets/background.dart';
 import '../about/about.dart';
+import '../hangout/hangout_screen.dart';
 import '../notices/notices_screen.dart';
 import '../splash/splash_screen.dart';
 import 'attendance/attendance_page.dart';

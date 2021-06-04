@@ -1,7 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:ipecstudentsapp/theme/colors.dart';
+import 'package:ipecstudentsapp/widgets/loading_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/base_bloc/base_bloc_builder.dart';
@@ -10,6 +10,7 @@ import '../../data/base_bloc/base_state.dart';
 import '../../data/model/Notice.dart';
 import '../../data/repo/auth.dart';
 import '../../data/repo/session.dart';
+import '../../theme/colors.dart';
 import '../../theme/style.dart';
 import '../../util/string_cap.dart';
 import '../../widgets/simple_appbar.dart';
@@ -120,12 +121,7 @@ class _NoticesScreenState extends State<NoticesScreen> {
   }
 
   Widget _getBody(Session session, BuildContext context, BaseState state) {
-    if (state is NoticeLoadingState)
-      return Center(
-          child: CircularProgressIndicator(
-        strokeWidth: 2,
-        backgroundColor: Colors.black,
-      ));
+    if (state is NoticeLoadingState) return LoadingWidget();
     if (state is NoticeLoadedState) {
       _notices = state.notices;
       return _noticesListView(_notices, session);

@@ -1,23 +1,28 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_bloc_builder.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_bloc_listener.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_state.dart';
-import 'package:ipecstudentsapp/data/model/hangUser.dart';
-import 'package:ipecstudentsapp/data/repo/auth.dart';
-import 'package:ipecstudentsapp/data/repo/session.dart';
-import 'package:ipecstudentsapp/screens/hangout/bloc/onboarding_event.dart';
-import 'package:ipecstudentsapp/screens/hangout/bloc/onboarding_state.dart';
-import 'package:ipecstudentsapp/theme/style.dart';
+import 'package:introduction_screen/introduction_screen.dart';
 import 'package:provider/provider.dart';
 
-import 'bloc/onboarding_bloc.dart';
+import '../../data/base_bloc/base_bloc_builder.dart';
+import '../../data/base_bloc/base_bloc_listener.dart';
+import '../../data/base_bloc/base_state.dart';
+import '../../data/model/hangUser.dart';
+import '../../data/repo/auth.dart';
+import '../../data/repo/session.dart';
+import '../../theme/style.dart';
+import '../../widgets/loading_widget.dart';
+import 'bloc/onboarding/onboarding_bloc.dart';
+import 'bloc/onboarding/onboarding_event.dart';
+import 'bloc/onboarding/onboarding_state.dart';
 
 class Onboarding extends StatefulWidget {
   final Auth auth;
+  final VoidCallback onDone;
   const Onboarding({
     Key key,
     this.auth,
+    this.onDone,
   }) : super(key: key);
 
   @override
@@ -35,7 +40,8 @@ class _OnboardingState extends State<Onboarding> {
 
   @override
   Widget build(BuildContext context) {
-    bool isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
+    final bool isDark =
+        AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
 
     return Consumer<Session>(builder: (context, session, child) {
       return BaseBlocListener(
@@ -55,9 +61,12 @@ class _OnboardingState extends State<Onboarding> {
                   _bloc.add(LoadStudentData(widget.auth, session));
                 }
                 if (state is OnboardingLoading)
-                  return Center(child: CircularProgressIndicator());
+                  return Center(child: LoadingWidget());
                 if (state is OnboardingLoaded)
                   return _getbody(context, isDark, state.user);
+                if (state is SavedUserState) {
+                  return _getIntro();
+                }
                 return Center(
                   child: Text("Something went wrong try again!"),
                 );
@@ -71,7 +80,9 @@ class _OnboardingState extends State<Onboarding> {
         : user.gender;
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          _bloc.add(SaveStudentDataEvent(user));
+        },
         label: Text(
           'NEXT',
         ),
@@ -140,5 +151,49 @@ class _OnboardingState extends State<Onboarding> {
         ],
       ),
     );
+  }
+
+  Widget _getIntro() {
+    return IntroductionScreen(
+        pages: [
+          PageViewModel(
+            title: "College Exclusive\nCommunity",
+            body: "Help us grow! Invite your classmates",
+            image: Center(
+              child: Image.network(
+                  "https://i.postimg.cc/RCk7DQ0c/pngaaa-com-2557797.png",
+                  height: 175.0),
+            ),
+          ),
+          PageViewModel(
+            title: "Connect, Share & Enjoy",
+            body: "The best way to connect with your college peers",
+            image: Center(
+              child: Image.network(
+                  "https://i.postimg.cc/Qtp8x3pN/Pin-Clipart-com-mafia-clip-art-5375273.png",
+                  height: 175.0),
+            ),
+          ),
+          PageViewModel(
+            title: "Keep It Clean",
+            body:
+                "Any bad activity or use of bad language will lead to straight up ban",
+            image: Center(
+              child: Image.network(
+                  "https://i.postimg.cc/8zhtHXBJ/Pin-Clipart-com-bboy-clipart-3526409.png",
+                  height: 175.0),
+            ),
+          ),
+        ],
+        done: const Text("Done", style: TextStyle(fontWeight: FontWeight.w600)),
+        onDone: () {
+          // When done button is press
+
+          widget.onDone();
+        },
+        next: Text(
+          'Next',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        )); //Material App
   }
 }

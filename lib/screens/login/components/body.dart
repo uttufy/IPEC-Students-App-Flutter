@@ -1,11 +1,11 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/theme/colors.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data/model/Cred.dart';
 import '../../../data/repo/auth.dart';
+import '../../../theme/colors.dart';
 import '../../../widgets/background.dart';
 import '../../../widgets/rounded_button.dart';
 import '../../../widgets/rounded_input_field.dart';

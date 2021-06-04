@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:html/parser.dart';
-import 'package:ipecstudentsapp/data/model/GeneralResponse.dart';
-import 'package:ipecstudentsapp/data/model/hangUser.dart';
-import 'package:ipecstudentsapp/screens/hangout/bloc/onboarding_event.dart';
+import '../../../../data/model/GeneralResponse.dart';
+import '../../../../data/model/hangUser.dart';
+import 'onboarding_event.dart';
 
-import '../../../../data/base_bloc/base_bloc.dart';
-import '../../../../data/base_bloc/base_event.dart';
-import '../../../../data/base_bloc/base_state.dart';
+import '../../../../../data/base_bloc/base_bloc.dart';
+import '../../../../../data/base_bloc/base_event.dart';
+import '../../../../../data/base_bloc/base_state.dart';
 import 'onboarding_state.dart';
 
 class OnboardingBloc extends BaseBloc {
@@ -62,7 +62,7 @@ class OnboardingBloc extends BaseBloc {
         yield ShowDialogErrorState(response.error.toString());
       }
     }
-    if (event is SaveStudentData) {
+    if (event is SaveStudentDataEvent) {
       try {
         FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: event.user.email, password: event.user.id);

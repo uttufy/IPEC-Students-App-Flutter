@@ -186,12 +186,23 @@ class WebClientService {
         return GeneralResponse(data: response.data, status: true);
       else
         return GeneralResponse(
-            error: "Failed to open notices. Error at first get.",
+            error: "Failed to load profile. Please reopen app and try again",
             status: false);
     } catch (error) {
-      return GeneralResponse(
-          error: "Failed to open load profile : " + error.toString(),
-          status: false);
+      if (error is DioError) {
+        //handle DioError here by error type or by error code
+        if (error.response.statusCode == 500) {
+          return GeneralResponse(
+              error: "IPEC Session Expired! Please Restart the app to fix it",
+              status: false);
+        } else
+          return GeneralResponse(
+              error: "Failed to  load profile : " + error.message,
+              status: false);
+      } else
+        return GeneralResponse(
+            error: "Failed to  load profile : " + error.toString(),
+            status: false);
     }
   }
 }
