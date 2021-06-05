@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
 import '../../data/repo/auth.dart';
 import '../../data/repo/pings.dart';
 import 'create_ping.dart';
@@ -41,9 +40,7 @@ class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
   @override
   void initState() {
     super.initState();
-
     widget.pings.loadPings(pageSize);
-
     _firebaseListeners();
   }
 

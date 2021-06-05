@@ -11,12 +11,13 @@ class BottomStrip extends StatefulWidget {
   final String currentUserId;
   final String postId;
   final String authorId;
-
+  final VoidCallback onChatter;
   const BottomStrip({
     Key key,
     @required this.currentUserId,
     @required this.authorId,
     @required this.postId,
+    @required this.onChatter,
   }) : super(key: key);
 
   @override
@@ -37,7 +38,7 @@ class _BottomStripState extends State<BottomStrip> {
     return Consumer<Auth>(
       builder: (context, authProvider, child) {
         isSamosa = authProvider.hUser.likes.contains(widget.postId);
-        print(isSamosa);
+
         return Consumer<Pings>(
           builder: (context, pingProvider, child) {
             final item = pingProvider.postItemsList
@@ -86,7 +87,9 @@ class _BottomStripState extends State<BottomStrip> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    widget.onChatter();
+                  },
                   borderRadius: BorderRadius.circular(20),
                   child: Ink(
                     padding: const EdgeInsets.all(10),

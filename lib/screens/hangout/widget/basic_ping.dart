@@ -1,23 +1,23 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:sweetsheet/sweetsheet.dart';
-import 'package:url_launcher/url_launcher.dart';
-
+import 'package:ipecstudentsapp/screens/hangout/chatter_screen.dart';
 import '../../../data/model/hangout/PollModel.dart';
 import '../../../data/model/hangout/post.dart';
 import '../../../theme/style.dart';
 import 'bottomStrip.dart';
+import 'linked_widget.dart';
 import 'pollsWidget.dart';
 import 'userStrip.dart';
 
 class PingBasicWidget extends StatelessWidget {
   final Post item;
   final String userId;
+  final bool detailedView;
   const PingBasicWidget({
     Key key,
     @required this.userId,
     @required this.item,
+    this.detailedView = false,
   }) : super(key: key);
 
   @override
@@ -37,6 +37,9 @@ class PingBasicWidget extends StatelessWidget {
           postId: item.id,
           currentUserId: userId,
           authorId: item.author.id,
+          onChatter: () {
+            _openDetailed(context);
+          },
         ),
         Divider()
       ],
@@ -47,13 +50,18 @@ class PingBasicWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          item.text,
-          textAlign: TextAlign.start,
-          style: Theme.of(context)
-              .textTheme
-              .headline6
-              .copyWith(fontWeight: FontWeight.normal),
+        InkWell(
+          onTap: () {
+            _openDetailed(context);
+          },
+          child: Text(
+            item.text,
+            textAlign: TextAlign.start,
+            style: Theme.of(context)
+                .textTheme
+                .headline6
+                .copyWith(fontWeight: FontWeight.normal),
+          ),
         ),
         if (item.isPoll && item.pollData != null)
           PollView(
@@ -67,102 +75,54 @@ class PingBasicWidget extends StatelessWidget {
           ),
         if (item.isLinkAttached && item.link != null) LinkWidget(item.link),
         if (item.isImage && item.imageUrl != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 10.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(kLowCircleRadius),
-              child: Image.network(
-                item.imageUrl,
-                height: 180,
-                width: double.maxFinite,
-                fit: BoxFit.cover,
+          GestureDetector(
+            onTap: () {
+              _openDetailed(context);
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(kLowCircleRadius),
+                child: Image.network(
+                  item.imageUrl,
+                  height: 180,
+                  width: double.maxFinite,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
         if (item.isGif && item.gifUrl != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 10.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(kLowCircleRadius),
-              child: Image.network(
-                item.gifUrl,
-                height: 180,
-                width: double.maxFinite,
-                fit: BoxFit.cover,
+          GestureDetector(
+            onTap: () {
+              _openDetailed(context);
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(kLowCircleRadius),
+                child: Image.network(
+                  item.gifUrl,
+                  height: 180,
+                  width: double.maxFinite,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
       ],
     );
   }
-}
 
-class LinkWidget extends StatelessWidget {
-  final String url;
-
-  LinkWidget(
-    this.url, {
-    Key key,
-  }) : super(key: key);
-
-  _launchURL(String url) async {
-    print(url);
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  final SweetSheet _sweetSheet = SweetSheet();
-
-  @override
-  Widget build(BuildContext context) {
-    final isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: InkWell(
-        onTap: () {
-          _sweetSheet.show(
-            context: context,
-            title: Text("Warning!"),
-            description: Text('Do you really want open link ? '),
-            color: SweetSheetColor.NICE,
-            icon: Icons.link,
-            positive: SweetSheetAction(
-              onPressed: () {
-                _launchURL(url);
-                Navigator.of(context).pop();
-              },
-              title: 'OPEN IN BROWSER',
-              icon: Icons.open_in_browser,
-            ),
-            negative: SweetSheetAction(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              title: 'CANCEL',
-            ),
+  void _openDetailed(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return ChatterScreen(
+            post: item,
           );
         },
-        child: Ink(
-          padding: const EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-              color: isDark ? Colors.black45 : Colors.grey.shade200,
-              borderRadius: BorderRadius.circular(10)),
-          child: Row(
-            children: [
-              Icon(Icons.link),
-              kMedWidthPadding,
-              Expanded(
-                  child: Text(
-                url,
-                overflow: TextOverflow.ellipsis,
-              )),
-            ],
-          ),
-        ),
       ),
     );
   }

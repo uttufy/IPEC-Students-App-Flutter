@@ -1,8 +1,8 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'data/repo/auth.dart';
+import 'data/repo/pings.dart';
 import 'data/repo/session.dart';
 import 'screens/about/about.dart';
 import 'screens/dashboard/attendance/attendance_page.dart';
@@ -29,6 +29,9 @@ class Routes {
         ChangeNotifierProvider<Session>(
           create: (context) => Session(),
         ),
+        ChangeNotifierProvider<Pings>(
+          create: (context) => Pings(),
+        )
       ],
       child: LayoutBuilder(builder: (context, constraints) {
         return OrientationBuilder(builder: (context, orientation) {
