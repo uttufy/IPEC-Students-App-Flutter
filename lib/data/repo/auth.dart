@@ -20,19 +20,19 @@ class Auth extends ChangeNotifier {
 
   Cred _cred;
   // ignore: unnecessary_getters_setters
-  get user => _user;
+  User get user => _user;
   // ignore: unnecessary_getters_setters
-  get hUser => _hUser;
+  Huser get hUser => _hUser;
   // ignore: unnecessary_getters_setters
   set user(User u) => _user = u;
   // ignore: unnecessary_getters_setters
   set hUser(Huser u) => _hUser = u;
   // ignore: unnecessary_getters_setters
-  get cred => _cred;
+  Cred get cred => _cred;
   // ignore: unnecessary_getters_setters
   set cred(Cred u) => _cred = u;
 
-  get token => _tokens;
+  Tokens get token => _tokens;
 
   //  Handle Login
   //  Step 1: Get Cookies

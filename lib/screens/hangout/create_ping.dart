@@ -482,10 +482,19 @@ class _CreatePingState extends State<CreatePing> {
       if (gifUrl.isEmpty) isGif = false;
       if (_imageUrl.isEmpty) isImage = false;
       if (link.isEmpty) isLink = false;
-
+      final authorUser = Huser(
+          id: widget.user.id,
+          name: widget.user.name,
+          email: "",
+          gender: "",
+          phone: "",
+          depart: widget.user.depart,
+          yr: widget.user.yr,
+          section: widget.user.section,
+          likes: []);
       final res = Post(
           id: widget.user.id + "_" + epoch.toString(),
-          author: widget.user,
+          author: authorUser,
           authorImage: "https://robohash.org/${widget.user.id}",
           postedOn: epoch,
           text: textEditingController.text,

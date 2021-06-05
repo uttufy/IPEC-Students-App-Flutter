@@ -6,6 +6,7 @@ import '../model/hangout/post.dart';
 class Pings extends ChangeNotifier {
   final databaseRef =
       FirebaseDatabase.instance.reference().child('hangout').child('pings');
+  final databaseRef2 = FirebaseDatabase.instance.reference().child('hangout');
 
   List<Post> postItemsList = [];
 
@@ -34,12 +35,36 @@ class Pings extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> reportItem(String postId, String userID) async {
+    final res = await databaseRef2.child('reports').child(postId).once();
+    if (res.value != null) {
+      List list = res.value;
+      if (list.length <= 5) {
+        if (!(list.contains(userID))) {
+          list.add(userID);
+          databaseRef2.child('reports').child(postId).set(list);
+        }
+      } else {
+        //ban permanent
+        databaseRef2
+            .child('pings')
+            .child(postId)
+            .update({'reports': list.length});
+      }
+    } else {
+      databaseRef2.child('reports').child(postId).set([userID]);
+    }
+    postItemsList.removeWhere((element) => element.id == postId);
+
+    notifyListeners();
+  }
+
   void addLike(
     String postId,
   ) {
     var elem = postItemsList.firstWhere((element) => element.id == postId);
     elem.likes = elem.likes + 1;
-    databaseRef.child(postId).update({'likes': elem.likes});
+
     notifyListeners();
     Future.delayed(Duration(seconds: 2)).then(
         (value) => databaseRef.child(postId).update({'likes': elem.likes}));

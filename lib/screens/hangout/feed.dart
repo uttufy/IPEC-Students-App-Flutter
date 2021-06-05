@@ -64,16 +64,19 @@ class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
                   arguments: {'user': auth.hUser});
             },
             label: Text('Ping'),
-            icon: Icon(Icons.send),
+            icon: Icon(Icons.flash_on),
           ),
           body: ListView.builder(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
             itemBuilder: (c, i) {
               final item = pings.postItemsList[i];
-              return PingBasicWidget(
-                item: item,
-                userId: auth.hUser.id,
-              );
+              if (item.reports > 0)
+                return SizedBox();
+              else
+                return PingBasicWidget(
+                  item: item,
+                  userId: auth.hUser.id,
+                );
             },
             // itemExtent: 100.0,
             itemCount: pings.postItemsList.length,

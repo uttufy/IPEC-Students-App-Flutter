@@ -116,6 +116,8 @@ class _BottomStripState extends State<BottomStrip> {
                   onTap: () {
                     if (widget.authorId == widget.currentUserId)
                       _onDelete(context, pingProvider);
+                    else
+                      _onReport(context, pingProvider, authProvider.hUser.id);
                   },
                   borderRadius: BorderRadius.circular(20),
                   child: Ink(
@@ -158,6 +160,31 @@ class _BottomStripState extends State<BottomStrip> {
         title: 'DELETE',
         icon: Icons.delete_rounded,
       ),
+      negative: SweetSheetAction(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        title: 'CANCEL',
+      ),
+    );
+  }
+
+  void _onReport(BuildContext context, Pings pingProvider, String id) {
+    _sweetSheet.show(
+      context: context,
+      title: Text("Report"),
+      description:
+          Text('Did you find this ping to be harmful/spam/wrong/misleading?'),
+      color: SweetSheetColor.WARNING,
+      icon: Icons.error,
+      positive: SweetSheetAction(
+          onPressed: () {
+            if (widget.postId != "1813119_1622898994899")
+              pingProvider.reportItem(widget.postId, id);
+            Navigator.of(context).pop();
+          },
+          title: 'REPORT',
+          icon: Icons.warning),
       negative: SweetSheetAction(
         onPressed: () {
           Navigator.of(context).pop();
