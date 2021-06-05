@@ -497,7 +497,7 @@ class _CreatePingState extends State<CreatePing> {
           pollData: _poll,
           gifUrl: gifUrl,
           isGif: isGif);
-      print(res.toJson());
+
       FirebaseDatabase.instance
           .reference()
           .child('hangout')

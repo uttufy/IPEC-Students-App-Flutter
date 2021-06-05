@@ -11,13 +11,13 @@ import 'userStrip.dart';
 
 class PingBasicWidget extends StatelessWidget {
   final Post item;
-
+  final String userId;
   const PingBasicWidget({
     Key key,
     @required this.userId,
     @required this.item,
   }) : super(key: key);
-  final String userId;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -34,6 +34,9 @@ class PingBasicWidget extends StatelessWidget {
         BottomStrip(
           likes: item.likes,
           comments: item.comments,
+          postId: item.id,
+          currentUserId: userId,
+          authorId: item.author.id,
         ),
         Divider()
       ],

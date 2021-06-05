@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ipecstudentsapp/data/repo/pings.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/base_bloc/base_bloc_builder.dart';
@@ -61,7 +62,10 @@ class _HangoutScreenState extends State<HangoutScreen> {
                     if (state is UserExistState) {
                       Provider.of<Auth>(context, listen: false).hUser =
                           state.huser;
-                      return Expanded(child: HangoutFeedScreen());
+                      return Expanded(
+                          child: HangoutFeedScreen(
+                        pings: Provider.of<Pings>(context, listen: false),
+                      ));
                     }
                     return Center(
                       child: Text("Something went wrong try again!"),

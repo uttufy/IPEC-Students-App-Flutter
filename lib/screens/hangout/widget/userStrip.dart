@@ -12,6 +12,7 @@ class UserStripWidget extends StatelessWidget {
     @required this.yr,
     @required this.id,
   }) : super(key: key);
+
   final String id;
   final String name;
   final String section;

@@ -1,5 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:ipecstudentsapp/data/repo/pings.dart';
 import 'package:provider/provider.dart';
 
 import 'data/repo/auth.dart';
@@ -28,6 +29,9 @@ class Routes {
         ),
         ChangeNotifierProvider<Session>(
           create: (context) => Session(),
+        ),
+        ChangeNotifierProvider<Pings>(
+          create: (context) => Pings(),
         ),
       ],
       child: LayoutBuilder(builder: (context, constraints) {
