@@ -11,6 +11,7 @@ import 'widget/basic_ping.dart';
 class HangoutFeedScreen extends StatefulWidget {
   static const String ROUTE = "/feed";
   final Pings pings;
+
   const HangoutFeedScreen({
     Key key,
     @required this.pings,
@@ -52,34 +53,32 @@ class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Auth>(builder: (context, auth, child) {
-      return Consumer<Pings>(builder: (context, pings, child) {
-        return Scaffold(
-          floatingActionButton: FloatingActionButton.extended(
-            onPressed: () {
-              Navigator.pushNamed(context, CreatePing.ROUTE,
-                  arguments: {'user': auth.hUser});
-            },
-            label: Text('Ping'),
-            icon: Icon(Icons.flash_on),
-          ),
-          body: ListView.builder(
-            padding:
-                const EdgeInsets.only(top: 10, left: 30, right: 30, bottom: 80),
-            itemBuilder: (c, i) {
-              final item = pings.postItemsList[i];
-              if (item.reports > 0)
-                return SizedBox();
-              else
-                return PingBasicWidget(
-                  item: item,
-                  userId: auth.hUser.id,
-                );
-            },
-            itemCount: pings.postItemsList.length,
-          ),
-        );
-      });
+    return Consumer<Pings>(builder: (context, pings, child) {
+      return Scaffold(
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            Navigator.pushNamed(context, CreatePing.ROUTE,
+                arguments: {'user': pings.hUser});
+          },
+          label: Text('Ping'),
+          icon: Icon(Icons.flash_on),
+        ),
+        body: ListView.builder(
+          padding:
+              const EdgeInsets.only(top: 10, left: 30, right: 30, bottom: 80),
+          itemBuilder: (c, i) {
+            final item = pings.postItemsList[i];
+            if (item.reports > 0)
+              return SizedBox();
+            else
+              return PingBasicWidget(
+                item: item,
+                userId: pings.hUser.id,
+              );
+          },
+          itemCount: pings.postItemsList.length,
+        ),
+      );
     });
   }
 }

@@ -2,6 +2,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:ipecstudentsapp/data/repo/pings.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/base_bloc/base_bloc_builder.dart';
@@ -63,7 +64,7 @@ class _OnboardingState extends State<Onboarding> {
                 if (state is OnboardingLoading)
                   return Center(child: LoadingWidget());
                 if (state is OnboardingLoaded) {
-                  Provider.of<Auth>(context, listen: false).hUser = state.user;
+                  Provider.of<Pings>(context, listen: false).hUser = state.user;
                   return _getbody(context, isDark, state.user);
                 }
                 if (state is SavedUserState) {

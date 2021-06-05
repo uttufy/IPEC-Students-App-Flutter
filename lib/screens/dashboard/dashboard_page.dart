@@ -163,9 +163,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     if (auth.user.isFirstYear)
                                       _showSnackBar(
                                           "Sorry, First year students not allowed!");
-                                    else
+                                    else {
+                                      // auth.reloadHuser();
                                       Navigator.pushNamed(
                                           context, HangoutScreen.ROUTE);
+                                    }
                                   }),
                                   optionIcon(
                                       'assets/icons/Compass.png', 'About', () {

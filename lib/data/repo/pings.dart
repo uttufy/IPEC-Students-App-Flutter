@@ -1,9 +1,17 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:ipecstudentsapp/data/model/hangout/hangUser.dart';
 
 import '../model/hangout/post.dart';
 
 class Pings extends ChangeNotifier {
+  Huser _hUser;
+
+  // ignore: unnecessary_getters_setters
+  Huser get hUser => _hUser;
+  // ignore: unnecessary_getters_setters
+  set hUser(Huser u) => _hUser = u;
+
   final databaseRef =
       FirebaseDatabase.instance.reference().child('hangout').child('pings');
   final databaseRef2 = FirebaseDatabase.instance.reference().child('hangout');
@@ -59,15 +67,23 @@ class Pings extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addLikeID(String postId) {
+    _hUser.likes.add(postId);
+    notifyListeners();
+  }
+
+  void removeLikeID(String postId) {
+    _hUser.likes.remove(postId);
+    notifyListeners();
+  }
+
   void addLike(
     String postId,
   ) {
     var elem = postItemsList.firstWhere((element) => element.id == postId);
     elem.likes = elem.likes + 1;
-
+    databaseRef.child(postId).update({'likes': elem.likes});
     notifyListeners();
-    Future.delayed(Duration(seconds: 2)).then(
-        (value) => databaseRef.child(postId).update({'likes': elem.likes}));
   }
 
   void removeLike(
@@ -76,11 +92,8 @@ class Pings extends ChangeNotifier {
     var elem = postItemsList.firstWhere((element) => element.id == postId);
     if (elem.likes > 0) {
       elem.likes = elem.likes - 1;
-
+      databaseRef.child(postId).update({'likes': elem.likes});
       notifyListeners();
-
-      Future.delayed(Duration(seconds: 2)).then(
-          (value) => databaseRef.child(postId).update({'likes': elem.likes}));
     }
   }
 

@@ -58,9 +58,10 @@ class _HangoutScreenState extends State<HangoutScreen> {
                     }
                     if (state is HangoutLoading) return LoadingWidget();
                     if (state is UserNotExistState)
-                      return _getOnboardingBody(auth);
+                      return _getOnboardingBody(
+                          auth, Provider.of<Pings>(context, listen: false));
                     if (state is UserExistState) {
-                      Provider.of<Auth>(context, listen: false).hUser =
+                      Provider.of<Pings>(context, listen: false).hUser =
                           state.huser;
                       return Expanded(
                           child: HangoutFeedScreen(
@@ -80,12 +81,12 @@ class _HangoutScreenState extends State<HangoutScreen> {
     );
   }
 
-  Widget _getOnboardingBody(Auth auth) {
+  Widget _getOnboardingBody(Auth auth, Pings pings) {
     return Expanded(
         child: Onboarding(
       auth: auth,
       onDone: () {
-        _bloc.add(OnboardFinishEvent(auth.hUser));
+        _bloc.add(OnboardFinishEvent(pings.hUser));
       },
     ));
   }

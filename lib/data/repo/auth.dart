@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
 
@@ -16,17 +17,11 @@ class Auth extends ChangeNotifier {
 
   User _user;
 
-  Huser _hUser;
-
   Cred _cred;
   // ignore: unnecessary_getters_setters
   User get user => _user;
   // ignore: unnecessary_getters_setters
-  Huser get hUser => _hUser;
-  // ignore: unnecessary_getters_setters
   set user(User u) => _user = u;
-  // ignore: unnecessary_getters_setters
-  set hUser(Huser u) => _hUser = u;
   // ignore: unnecessary_getters_setters
   Cred get cred => _cred;
   // ignore: unnecessary_getters_setters
@@ -88,15 +83,5 @@ class Auth extends ChangeNotifier {
   Future<void> logout() async {
     LocalData _local = LocalData();
     await _local.setLogout();
-  }
-
-  void addLikeID(String postId) {
-    _hUser.likes.add(postId);
-    notifyListeners();
-  }
-
-  void removeLikeID(String postId) {
-    _hUser.likes.remove(postId);
-    notifyListeners();
   }
 }

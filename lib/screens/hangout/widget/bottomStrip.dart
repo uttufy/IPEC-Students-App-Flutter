@@ -35,9 +35,9 @@ class _BottomStripState extends State<BottomStrip> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Auth>(
-      builder: (context, authProvider, child) {
-        isSamosa = authProvider.hUser.likes.contains(widget.postId);
+    return Consumer<Pings>(
+      builder: (context, pings, child) {
+        isSamosa = pings.hUser.likes.contains(widget.postId);
 
         return Consumer<Pings>(
           builder: (context, pingProvider, child) {
@@ -52,10 +52,10 @@ class _BottomStripState extends State<BottomStrip> {
                     setState(() {
                       if (isSamosa) {
                         pingProvider.removeLike(widget.postId);
-                        authProvider.removeLikeID(widget.postId);
+                        pings.removeLikeID(widget.postId);
                       } else {
                         pingProvider.addLike(widget.postId);
-                        authProvider.addLikeID(widget.postId);
+                        pings.addLikeID(widget.postId);
                       }
                     });
                   },
@@ -120,7 +120,7 @@ class _BottomStripState extends State<BottomStrip> {
                     if (widget.authorId == widget.currentUserId)
                       _onDelete(context, pingProvider);
                     else
-                      _onReport(context, pingProvider, authProvider.hUser.id);
+                      _onReport(context, pingProvider, pings.hUser.id);
                   },
                   borderRadius: BorderRadius.circular(20),
                   child: Ink(
