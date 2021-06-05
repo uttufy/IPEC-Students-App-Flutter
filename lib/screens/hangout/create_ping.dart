@@ -6,6 +6,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:giphy_picker/giphy_picker.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ipecstudentsapp/data/bad_hindi_words.dart';
+import 'package:profanity_filter/profanity_filter.dart';
 
 import '../../data/model/hangout/PollModel.dart';
 import '../../data/model/hangout/hangUser.dart';
@@ -33,6 +35,7 @@ class _CreatePingState extends State<CreatePing> {
   List<Widget> addtionalChildren = [];
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
       new GlobalKey<ScaffoldMessengerState>();
+  final filter = ProfanityFilter.filterAdditionally(badwordsHindi);
 
   bool isImage = false;
   bool isLink = false;
@@ -307,7 +310,14 @@ class _CreatePingState extends State<CreatePing> {
       margin: const EdgeInsets.symmetric(horizontal: 30),
       child: TextField(
         controller: textEditingController,
-        onChanged: (text) {},
+        onChanged: (text) {
+          if (filter.hasProfanity(text)) {
+            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                content: Text(
+                    'Bad words detected... Beware any bad activity will lead to straight up ban')));
+            textEditingController.text = filter.censor(text);
+          }
+        },
         maxLines: null,
         maxLength: 200,
         focusNode: focusNode,
