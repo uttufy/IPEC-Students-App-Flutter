@@ -14,10 +14,10 @@ class PingBasicWidget extends StatelessWidget {
 
   const PingBasicWidget({
     Key key,
-    @required this.name,
+    @required this.userId,
     @required this.item,
   }) : super(key: key);
-  final String name;
+  final String userId;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -30,7 +30,7 @@ class PingBasicWidget extends StatelessWidget {
           yr: item.author.yr,
         ),
         kLowPadding,
-        InkWell(onTap: () {}, child: buildMainBody(context)),
+        buildMainBody(context),
         BottomStrip(
           likes: item.likes,
           comments: item.comments,
@@ -55,11 +55,12 @@ class PingBasicWidget extends StatelessWidget {
         if (item.isPoll && item.pollData != null)
           PollView(
             poll: PollModel(
-                creator: item.author.name,
+                creator: item.author.id,
                 numberOfVotes: item.pollData.numberOfVotes,
                 optionLabel: item.pollData.optionLabel,
                 userWhoVoted: item.pollData.userWhoVoted),
-            user: name,
+            user: item.author.id,
+            postId: item.id,
           ),
         if (item.isLinkAttached && item.link != null) LinkWidget(item.link),
         if (item.isImage && item.imageUrl != null)

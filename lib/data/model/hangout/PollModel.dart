@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 
 class PollModel {
   final String creator;
-  Map userWhoVoted;
+  Map<dynamic, dynamic> userWhoVoted;
   List<double> numberOfVotes;
   List<String> optionLabel;
 
@@ -30,7 +30,7 @@ class PollModel {
     });
     return PollModel(
       creator: map['creator'],
-      userWhoVoted: map['userWhoVoted'],
+      userWhoVoted: map['userWhoVoted'] as Map<dynamic, dynamic>,
       numberOfVotes: temp,
       optionLabel: List<String>.from(map['optionLabel']),
     );

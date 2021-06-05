@@ -145,7 +145,7 @@ class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
               final item = postItemsList[i];
               return PingBasicWidget(
                 item: item,
-                name: auth.hUser.name,
+                userId: auth.hUser.id,
               );
             },
             // itemExtent: 100.0,
