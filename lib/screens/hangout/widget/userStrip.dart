@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../data/const.dart';
 
+import '../../../data/const.dart';
 import '../../../theme/style.dart';
 import '../../../util/SizeConfig.dart';
 

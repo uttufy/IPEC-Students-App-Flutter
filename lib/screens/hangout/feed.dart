@@ -79,7 +79,6 @@ class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
                   userId: auth.hUser.id,
                 );
             },
-            // itemExtent: 100.0,
             itemCount: pings.postItemsList.length,
           ),
         );
