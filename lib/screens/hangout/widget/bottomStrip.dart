@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ipecstudentsapp/data/repo/auth.dart';
 import 'package:ipecstudentsapp/data/repo/pings.dart';
 import 'package:provider/provider.dart';
+import 'package:sweetsheet/sweetsheet.dart';
 
 import '../../../theme/colors.dart';
 import '../../../theme/style.dart';
@@ -24,6 +25,7 @@ class BottomStrip extends StatefulWidget {
 
 class _BottomStripState extends State<BottomStrip> {
   bool isSamosa = false;
+  final SweetSheet _sweetSheet = SweetSheet();
 
   @override
   void initState() {
@@ -112,9 +114,8 @@ class _BottomStripState extends State<BottomStrip> {
                 Spacer(),
                 InkWell(
                   onTap: () {
-                    if (widget.authorId == widget.currentUserId) {
-                      pingProvider.removeItem('${widget.postId}');
-                    }
+                    if (widget.authorId == widget.currentUserId)
+                      _onDelete(context, pingProvider);
                   },
                   borderRadius: BorderRadius.circular(20),
                   child: Ink(
@@ -138,6 +139,31 @@ class _BottomStripState extends State<BottomStrip> {
           },
         );
       },
+    );
+  }
+
+  void _onDelete(BuildContext context, Pings pingProvider) {
+    _sweetSheet.show(
+      context: context,
+      title: Text("Are you sure ?"),
+      description: Text('This action will delete your ping'),
+      color: SweetSheetColor.DANGER,
+      icon: Icons.remove_circle_outline,
+      positive: SweetSheetAction(
+        onPressed: () {
+          if (widget.postId != "1813119_1622898994899")
+            pingProvider.removeItem('${widget.postId}');
+          Navigator.of(context).pop();
+        },
+        title: 'DELETE',
+        icon: Icons.delete_rounded,
+      ),
+      negative: SweetSheetAction(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        title: 'CANCEL',
+      ),
     );
   }
 }

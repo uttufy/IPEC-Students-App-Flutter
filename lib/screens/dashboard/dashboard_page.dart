@@ -165,8 +165,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       _showSnackBar(
                                           "Sorry, First year students not allowed!");
                                     else
-                                      // Navigator.pushNamed(
-                                      //     context, HangoutScreen.ROUTE);
                                       Navigator.pushNamed(
                                           context, HangoutScreen.ROUTE);
                                   }),

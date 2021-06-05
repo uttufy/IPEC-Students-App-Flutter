@@ -56,7 +56,7 @@ class OnboardingBloc extends BaseBloc {
             phone: phone,
             section: section,
             yr: yr,
-            likes: ["1813119_1622895767456"]);
+            likes: ["1813119_1622898994899"]);
         final ref = FirebaseDatabase.instance
             .reference()
             .child('hangout/pings/1813119_1622895767456');

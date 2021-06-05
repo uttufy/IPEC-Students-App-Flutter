@@ -30,9 +30,6 @@ class Routes {
         ChangeNotifierProvider<Session>(
           create: (context) => Session(),
         ),
-        ChangeNotifierProvider<Pings>(
-          create: (context) => Pings(),
-        ),
       ],
       child: LayoutBuilder(builder: (context, constraints) {
         return OrientationBuilder(builder: (context, orientation) {

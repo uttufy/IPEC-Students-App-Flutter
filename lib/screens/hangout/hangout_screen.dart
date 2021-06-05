@@ -30,53 +30,56 @@ class _HangoutScreenState extends State<HangoutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Auth>(
-      builder: (context, auth, child) {
-        return Scaffold(
-            body: SafeArea(
-          child: Column(
-            children: [
-              SimpleAppBar(
-                onBack: () => Navigator.pop(context),
-                title: 'Cafeteria Talks',
-              ),
-              BaseBlocListener(
-                bloc: _bloc,
-                listener: (BuildContext context, BaseState state) {
-                  print("$runtimeType BlocListener - ${state.toString()}");
-                },
-                child: BaseBlocBuilder(
-                  bloc: _bloc,
-                  condition: (BaseState previous, BaseState current) {
-                    return !(BaseBlocBuilder.isBaseState(current));
-                  },
-                  builder: (BuildContext context, BaseState state) {
-                    print("$runtimeType BlocBuilder - ${state.toString()}");
-
-                    if (state is HangoutInitState) {
-                      _bloc.add(CheckUserEvent(auth.user));
-                    }
-                    if (state is HangoutLoading) return LoadingWidget();
-                    if (state is UserNotExistState)
-                      return _getOnboardingBody(auth);
-                    if (state is UserExistState) {
-                      Provider.of<Auth>(context, listen: false).hUser =
-                          state.huser;
-                      return Expanded(
-                          child: HangoutFeedScreen(
-                        pings: Provider.of<Pings>(context, listen: false),
-                      ));
-                    }
-                    return Center(
-                      child: Text("Something went wrong try again!"),
-                    );
-                  },
+    return ChangeNotifierProvider<Pings>(
+      create: (context) => Pings(),
+      child: Consumer<Auth>(
+        builder: (context, auth, child) {
+          return Scaffold(
+              body: SafeArea(
+            child: Column(
+              children: [
+                SimpleAppBar(
+                  onBack: () => Navigator.pop(context),
+                  title: 'Cafeteria Talks',
                 ),
-              ),
-            ],
-          ),
-        ));
-      },
+                BaseBlocListener(
+                  bloc: _bloc,
+                  listener: (BuildContext context, BaseState state) {
+                    print("$runtimeType BlocListener - ${state.toString()}");
+                  },
+                  child: BaseBlocBuilder(
+                    bloc: _bloc,
+                    condition: (BaseState previous, BaseState current) {
+                      return !(BaseBlocBuilder.isBaseState(current));
+                    },
+                    builder: (BuildContext context, BaseState state) {
+                      print("$runtimeType BlocBuilder - ${state.toString()}");
+
+                      if (state is HangoutInitState) {
+                        _bloc.add(CheckUserEvent(auth.user));
+                      }
+                      if (state is HangoutLoading) return LoadingWidget();
+                      if (state is UserNotExistState)
+                        return _getOnboardingBody(auth);
+                      if (state is UserExistState) {
+                        Provider.of<Auth>(context, listen: false).hUser =
+                            state.huser;
+                        return Expanded(
+                            child: HangoutFeedScreen(
+                          pings: Provider.of<Pings>(context, listen: false),
+                        ));
+                      }
+                      return Center(
+                        child: Text("Something went wrong try again!"),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ));
+        },
+      ),
     );
   }
 
