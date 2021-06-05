@@ -79,10 +79,29 @@ class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
     }
   }
 
+  _firebaseListeners() {
+    FirebaseDatabase.instance
+        .reference()
+        .child('hangout/pings')
+        .onChildRemoved
+        .listen((event) {
+      print(event.snapshot.value);
+    });
+    FirebaseDatabase.instance
+        .reference()
+        .child('hangout/pings')
+        .onChildAdded
+        .listen((event) {
+      print(event.snapshot.value);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     _onInit();
+
+    _firebaseListeners();
   }
 
   @override

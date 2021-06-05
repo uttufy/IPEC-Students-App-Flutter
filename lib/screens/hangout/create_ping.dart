@@ -252,6 +252,7 @@ class _CreatePingState extends State<CreatePing> {
       final gif = await GiphyPicker.pickGif(
           context: context, apiKey: 'cXIAL2LDuPM9W8HaqDItOQm3i3guL0bt');
       if (gif != null && gif.images != null) {
+        print(gifUrl);
         gifUrl = gif.images.original.url;
         isGif = true;
         addtionalChildren.add(Stack(
@@ -425,15 +426,13 @@ class _CreatePingState extends State<CreatePing> {
                       option2.isNotEmpty) {
                     isPoll = true;
                     pollModel = PollModel(
-                        //TODO: User info
-                        creator: '',
+                        creator: widget.user.id,
                         optionLabel: [option1, option2]);
                     addtionalChildren.add(Stack(
                       children: [
                         PollView(
                           poll: pollModel,
-                          //TODO:USer
-                          user: '',
+                          user: widget.user.id,
                           isCreate: true,
                         ),
                         Align(
@@ -468,6 +467,10 @@ class _CreatePingState extends State<CreatePing> {
             .putFile(_image);
         _imageUrl = await snapshot.ref.getDownloadURL();
       }
+      if (gifUrl.isEmpty) isGif = false;
+      if (_imageUrl.isEmpty) isImage = false;
+      if (link.isEmpty) isLink = false;
+
       final res = Post(
           id: widget.user.id + "_" + epoch.toString(),
           author: widget.user,
@@ -481,14 +484,14 @@ class _CreatePingState extends State<CreatePing> {
           isPoll: isPoll,
           pollData: _poll,
           gifUrl: gifUrl,
-          isGif: true);
-      print(res.toString());
+          isGif: isGif);
+      print(res.toJson());
       FirebaseDatabase.instance
           .reference()
           .child('hangout')
           .child('pings')
-          .push()
-          // .child('${widget.user.id + "_" + epoch.toString()}')
+          // .push()
+          .child('${widget.user.id + "_" + epoch.toString()}')
           .set(res.toMap());
       _scaffoldKey.currentState
           .showSnackBar(SnackBar(content: Text("Pinged!!!")));
