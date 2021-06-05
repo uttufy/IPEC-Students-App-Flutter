@@ -1,6 +1,8 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:sweetsheet/sweetsheet.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../data/model/hangout/PollModel.dart';
 import '../../../data/model/hangout/post.dart';
@@ -98,10 +100,21 @@ class PingBasicWidget extends StatelessWidget {
 class LinkWidget extends StatelessWidget {
   final String url;
 
-  const LinkWidget(
+  LinkWidget(
     this.url, {
     Key key,
   }) : super(key: key);
+
+  _launchURL(String url) async {
+    print(url);
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  final SweetSheet _sweetSheet = SweetSheet();
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +123,29 @@ class LinkWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          _sweetSheet.show(
+            context: context,
+            title: Text("Warning!"),
+            description: Text('Do you really want open link ? '),
+            color: SweetSheetColor.NICE,
+            icon: Icons.link,
+            positive: SweetSheetAction(
+              onPressed: () {
+                _launchURL(url);
+                Navigator.of(context).pop();
+              },
+              title: 'OPEN IN BROWSER',
+              icon: Icons.open_in_browser,
+            ),
+            negative: SweetSheetAction(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              title: 'CANCEL',
+            ),
+          );
+        },
         child: Ink(
           padding: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
