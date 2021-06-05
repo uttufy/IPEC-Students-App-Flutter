@@ -26,7 +26,7 @@ class BottomCompose extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
-          color: kPurple,
+          color: kLighterGrey,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Row(

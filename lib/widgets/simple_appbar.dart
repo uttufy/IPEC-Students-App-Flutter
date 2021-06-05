@@ -26,7 +26,7 @@ class SimpleAppBar extends StatelessWidget {
             onTap: onBack,
             borderRadius: BorderRadius.circular(50),
             child: Ink(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(10),
               child: Icon(
                 Icons.chevron_left,
                 size: 30,
@@ -48,7 +48,7 @@ class SimpleAppBar extends StatelessWidget {
                   ),
                 )
               : Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Text(
                     title,
                     style: Theme.of(context).textTheme.headline5.copyWith(

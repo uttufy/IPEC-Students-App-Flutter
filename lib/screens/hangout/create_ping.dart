@@ -138,13 +138,13 @@ class _CreatePingState extends State<CreatePing> {
                             },
                             label: Text(
                               'Post',
-                              style: TextStyle(color: Colors.black),
+                              // style: TextStyle(color: Colors.black),
                             ),
                             icon: Icon(
                               Icons.send,
-                              color: Colors.black,
+                              // color: Colors.black,
                             ),
-                            backgroundColor: kPurple,
+                            // backgroundColor: kPurple,
                           )
                         ],
                       ),
