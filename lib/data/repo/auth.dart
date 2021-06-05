@@ -89,4 +89,14 @@ class Auth extends ChangeNotifier {
     LocalData _local = LocalData();
     await _local.setLogout();
   }
+
+  void addLikeID(String postId) {
+    _hUser.likes.add(postId);
+    notifyListeners();
+  }
+
+  void removeLikeID(String postId) {
+    _hUser.likes.remove(postId);
+    notifyListeners();
+  }
 }

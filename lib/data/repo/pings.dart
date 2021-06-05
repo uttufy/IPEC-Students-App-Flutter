@@ -33,6 +33,31 @@ class Pings extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addLike(
+    String postId,
+  ) {
+    var elem = postItemsList.firstWhere((element) => element.id == postId);
+    elem.likes = elem.likes + 1;
+    databaseRef.child(postId).update({'likes': elem.likes});
+    notifyListeners();
+    Future.delayed(Duration(seconds: 2)).then(
+        (value) => databaseRef.child(postId).update({'likes': elem.likes}));
+  }
+
+  void removeLike(
+    String postId,
+  ) {
+    var elem = postItemsList.firstWhere((element) => element.id == postId);
+    if (elem.likes > 0) {
+      elem.likes = elem.likes - 1;
+
+      notifyListeners();
+
+      Future.delayed(Duration(seconds: 2)).then(
+          (value) => databaseRef.child(postId).update({'likes': elem.likes}));
+    }
+  }
+
   void deleteEvent(DataSnapshot snapshot) {
     postItemsList.removeWhere((element) => element.id == snapshot.key);
     notifyListeners();

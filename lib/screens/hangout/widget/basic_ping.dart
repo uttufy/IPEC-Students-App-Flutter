@@ -32,8 +32,6 @@ class PingBasicWidget extends StatelessWidget {
         kLowPadding,
         buildMainBody(context),
         BottomStrip(
-          likes: item.likes,
-          comments: item.comments,
           postId: item.id,
           currentUserId: userId,
           authorId: item.author.id,

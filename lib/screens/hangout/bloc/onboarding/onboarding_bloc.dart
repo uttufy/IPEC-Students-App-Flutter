@@ -55,7 +55,13 @@ class OnboardingBloc extends BaseBloc {
             name: event.auth.user.name,
             phone: phone,
             section: section,
-            yr: yr);
+            yr: yr,
+            likes: ["1813119_1622895767456"]);
+        final ref = FirebaseDatabase.instance
+            .reference()
+            .child('hangout/pings/1813119_1622895767456');
+        final res = await ref.once();
+        ref.update({'likes': res.value['likes'] + 1});
 
         yield OnboardingLoaded(user);
       } else {
