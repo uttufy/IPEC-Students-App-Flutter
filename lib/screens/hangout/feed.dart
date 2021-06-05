@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ipecstudentsapp/theme/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -36,7 +37,7 @@ class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
     _refreshController.refreshCompleted();
   }
 
-  void _onLoading() async {
+  void _onScrollBottomLoading() async {
     // monitor network fetch
     await Future.delayed(Duration(milliseconds: 1000));
     // if failed,use loadFailed(),if no data return,use LoadNodata()
@@ -58,6 +59,7 @@ class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
 
         if (!(postItemsList.contains(postItem))) postItemsList.add(postItem);
       }
+      postItemsList = postItemsList.reversed.toList();
       _rebuildState();
     } catch (e) {
       print(e.toString());
@@ -72,17 +74,14 @@ class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
       });
     });
     databaseRef.onChildAdded.listen((event) {
-      var keys = event.snapshot.value.keys;
-      for (var indivisualKey in keys) {
-        final postItem = Post.fromSnapshot(event.snapshot.value, indivisualKey);
-        if (!(postItemsList.contains(postItem))) postItemsList.add(postItem);
-      }
+      final newPost = Post.fromMap(event.snapshot.value);
+      if (!(postItemsList.contains(newPost))) postItemsList.insert(0, newPost);
       _rebuildState();
     });
   }
 
   void _rebuildState() {
-    _rebuildState();
+    if (mounted) setState(() {});
   }
 
   @override
@@ -114,18 +113,20 @@ class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
         body: SmartRefresher(
           enablePullDown: true,
           enablePullUp: true,
-          header: WaterDropHeader(),
+          header: WaterDropHeader(
+            waterDropColor: kPurple,
+          ),
           footer: CustomFooter(
             builder: (BuildContext context, LoadStatus mode) {
               Widget body;
               if (mode == LoadStatus.idle) {
-                body = Text("pull up load");
+                body = Text("Pull up load");
               } else if (mode == LoadStatus.loading) {
                 body = CupertinoActivityIndicator();
               } else if (mode == LoadStatus.failed) {
                 body = Text("Load Failed!Click retry!");
               } else if (mode == LoadStatus.canLoading) {
-                body = Text("release to load more");
+                body = Text("Release to load more");
               } else {
                 body = Text("No more Data");
               }
@@ -137,7 +138,7 @@ class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
           ),
           controller: _refreshController,
           onRefresh: _onRefresh,
-          onLoading: _onLoading,
+          onLoading: _onScrollBottomLoading,
           child: ListView.builder(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
             itemBuilder: (c, i) {
@@ -152,32 +153,6 @@ class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
           ),
         ),
       );
-      // SingleChildScrollView(
-      //   physics: BouncingScrollPhysics(),
-      //   padding: const EdgeInsets.symmetric(horizontal: 30.0),
-      //   child: Column(
-      //     children: [
-      //       PingBasicWidget(
-      //           name: 'UTKARSH SHARMA',
-      //           havePhoto: true,
-      //           pingTxt:
-      //               "Only after disaster can we be resurrected. It's only after you've lost everything that you're free to do anything. Nothing is static, everything is evolving, everything is falling apart.",
-      //           imageURl:
-      //               "https://miro.medium.com/max/800/0*QTqcHXF1RgSRlien.png",
-      //           isLinkAttached: true,
-      //           url:
-      //               "https://miro.medium.com/max/800/0*QTqcHXF1RgSRlien.png"),
-      //       PingBasicWidget(
-      //           name: 'UTKARSH SHARMA',
-      //           havePhoto: false,
-      //           pingTxt:
-      //               "Only after disaster can we be resurrected. It's only after you've lost everything that you're free to do anything. Nothing is static, everything is evolving, everything is falling apart.",
-      //           isLinkAttached: true,
-      //           url:
-      //               "https://miro.medium.com/max/800/0*QTqcHXF1RgSRlien.png"),
-      //     ],
-      //   ),
-      // ),
     });
   }
 }
