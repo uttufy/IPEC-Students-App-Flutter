@@ -25,10 +25,10 @@ class PingBasicWidget extends StatelessWidget {
       children: [
         kLowPadding,
         UserStripWidget(
-          name: item.author.name,
-          section: item.author.section,
-          yr: item.author.yr,
-        ),
+            name: item.author.name,
+            section: item.author.section,
+            yr: item.author.yr,
+            id: item.author.id),
         kLowPadding,
         buildMainBody(context),
         BottomStrip(

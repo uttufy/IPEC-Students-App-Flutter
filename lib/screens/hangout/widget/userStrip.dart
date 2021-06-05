@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ipecstudentsapp/data/const.dart';
 
 import '../../../theme/style.dart';
 import '../../../util/SizeConfig.dart';
@@ -9,8 +10,9 @@ class UserStripWidget extends StatelessWidget {
     @required this.name,
     @required this.section,
     @required this.yr,
+    @required this.id,
   }) : super(key: key);
-
+  final String id;
   final String name;
   final String section;
   final String yr;
@@ -32,10 +34,26 @@ class UserStripWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  name,
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                  overflow: TextOverflow.ellipsis,
+                Row(
+                  children: [
+                    Flexible(
+                      child: Text(
+                        name,
+                        style: TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.bold),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Visibility(
+                        visible: kAdmins.contains(id), child: kLowWidthPadding),
+                    Visibility(
+                      visible: kAdmins.contains(id),
+                      child: Image.asset(
+                        'assets/icons/verified.png',
+                        width: 15,
+                      ),
+                    ),
+                  ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
