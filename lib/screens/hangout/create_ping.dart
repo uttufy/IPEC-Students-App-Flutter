@@ -6,9 +6,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:giphy_picker/giphy_picker.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ipecstudentsapp/data/bad_hindi_words.dart';
 import 'package:profanity_filter/profanity_filter.dart';
 
+import '../../data/bad_hindi_words.dart';
 import '../../data/model/hangout/PollModel.dart';
 import '../../data/model/hangout/hangUser.dart';
 import '../../data/model/hangout/post.dart';

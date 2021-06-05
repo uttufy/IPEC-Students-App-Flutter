@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/data/model/hangout/post.dart';
+
+import '../model/hangout/post.dart';
 
 class Pings extends ChangeNotifier {
   final databaseRef =

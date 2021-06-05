@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/data/repo/pings.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/base_bloc/base_bloc_builder.dart';
 import '../../data/base_bloc/base_bloc_listener.dart';
 import '../../data/base_bloc/base_state.dart';
 import '../../data/repo/auth.dart';
+import '../../data/repo/pings.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/simple_appbar.dart';
 import 'bloc/hangout/hangout_bloc.dart';

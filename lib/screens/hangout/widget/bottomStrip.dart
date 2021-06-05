@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/data/repo/auth.dart';
-import 'package:ipecstudentsapp/data/repo/pings.dart';
 import 'package:provider/provider.dart';
 import 'package:sweetsheet/sweetsheet.dart';
 
+import '../../../data/repo/auth.dart';
+import '../../../data/repo/pings.dart';
 import '../../../theme/colors.dart';
 import '../../../theme/style.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/data/const.dart';
+import '../../../data/const.dart';
 
 import '../../../theme/style.dart';
 import '../../../util/SizeConfig.dart';
