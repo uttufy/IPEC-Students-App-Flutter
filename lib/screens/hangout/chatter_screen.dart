@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ipecstudentsapp/data/model/hangout/post.dart';
+import 'package:ipecstudentsapp/data/repo/pings.dart';
 import 'package:ipecstudentsapp/screens/hangout/widget/basic_ping.dart';
 import 'package:ipecstudentsapp/widgets/simple_appbar.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +17,7 @@ class ChatterScreen extends StatefulWidget {
 class _ChatterScreenState extends State<ChatterScreen> {
   @override
   Widget build(BuildContext context) {
-    return Consumer(
+    return Consumer<Pings>(
       builder: (context, pings, child) {
         return Scaffold(
           body: SafeArea(

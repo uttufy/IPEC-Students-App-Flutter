@@ -67,22 +67,13 @@ class Pings extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addLikeID(String postId) {
-    _hUser.likes.add(postId);
-    notifyListeners();
-  }
-
-  void removeLikeID(String postId) {
-    _hUser.likes.remove(postId);
-    notifyListeners();
-  }
-
   void addLike(
     String postId,
   ) {
     var elem = postItemsList.firstWhere((element) => element.id == postId);
     elem.likes = elem.likes + 1;
     databaseRef.child(postId).update({'likes': elem.likes});
+    _hUser.likes.add(postId);
     notifyListeners();
   }
 
@@ -93,6 +84,7 @@ class Pings extends ChangeNotifier {
     if (elem.likes > 0) {
       elem.likes = elem.likes - 1;
       databaseRef.child(postId).update({'likes': elem.likes});
+      _hUser.likes.remove(postId);
       notifyListeners();
     }
   }

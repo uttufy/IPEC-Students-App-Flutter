@@ -34,12 +34,14 @@ class PingBasicWidget extends StatelessWidget {
         kLowPadding,
         buildMainBody(context),
         BottomStrip(
+          isDetailed: detailedView,
           postId: item.id,
           currentUserId: userId,
           authorId: item.author.id,
           onChatter: () {
             _openDetailed(context);
           },
+          postedOn: item.postedOn,
         ),
         Divider()
       ],
@@ -115,15 +117,16 @@ class PingBasicWidget extends StatelessWidget {
   }
 
   void _openDetailed(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return ChatterScreen(
-            post: item,
-          );
-        },
-      ),
-    );
+    if (!detailedView)
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return ChatterScreen(
+              post: item,
+            );
+          },
+        ),
+      );
   }
 }

@@ -12,12 +12,16 @@ class BottomStrip extends StatefulWidget {
   final String postId;
   final String authorId;
   final VoidCallback onChatter;
+  final int postedOn;
+  final bool isDetailed;
   const BottomStrip({
     Key key,
     @required this.currentUserId,
     @required this.authorId,
     @required this.postId,
     @required this.onChatter,
+    this.isDetailed = false,
+    @required this.postedOn,
   }) : super(key: key);
 
   @override
@@ -35,6 +39,8 @@ class _BottomStripState extends State<BottomStrip> {
 
   @override
   Widget build(BuildContext context) {
+    final date = DateTime.fromMillisecondsSinceEpoch(widget.postedOn);
+
     return Consumer<Pings>(
       builder: (context, pings, child) {
         isSamosa = pings.hUser.likes.contains(widget.postId);
@@ -52,10 +58,8 @@ class _BottomStripState extends State<BottomStrip> {
                     setState(() {
                       if (isSamosa) {
                         pingProvider.removeLike(widget.postId);
-                        pings.removeLikeID(widget.postId);
                       } else {
                         pingProvider.addLike(widget.postId);
-                        pings.addLikeID(widget.postId);
                       }
                     });
                   },
@@ -86,35 +90,48 @@ class _BottomStripState extends State<BottomStrip> {
                     ),
                   ),
                 ),
-                InkWell(
-                  onTap: () {
-                    widget.onChatter();
-                  },
-                  borderRadius: BorderRadius.circular(20),
-                  child: Ink(
-                    padding: const EdgeInsets.all(10),
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.comment_outlined,
-                          color: kLightGrey,
-                        ),
-                        kLowWidthPadding,
-                        Text(
-                          item.comments == 0
-                              ? 'Chatter'
-                              : item.comments.toString(),
-                          style: Theme.of(context).textTheme.bodyText2.copyWith(
-                                color: kLightGrey,
-                              ),
-                        ),
-                      ],
+                Visibility(
+                  visible: !widget.isDetailed,
+                  child: InkWell(
+                    onTap: () {
+                      widget.onChatter();
+                    },
+                    borderRadius: BorderRadius.circular(20),
+                    child: Ink(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.comment_outlined,
+                            color: kLightGrey,
+                          ),
+                          kLowWidthPadding,
+                          Text(
+                            item.comments == 0
+                                ? 'Chatter'
+                                : item.comments.toString(),
+                            style:
+                                Theme.of(context).textTheme.bodyText2.copyWith(
+                                      color: kLightGrey,
+                                    ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 Spacer(),
+                Visibility(
+                  visible: widget.isDetailed,
+                  child: Text(
+                    '${date.day}/${date.month}/${date.year}',
+                    style: TextStyle(
+                      color: kLightGrey,
+                    ),
+                  ),
+                ),
                 InkWell(
                   onTap: () {
                     if (widget.authorId == widget.currentUserId)
