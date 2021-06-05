@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'userStrip.dart';
+
 import '../../../theme/colors.dart';
 import '../../../theme/style.dart';
+import 'userStrip.dart';
 
 class BasicWidget extends StatelessWidget {
   const BasicWidget({

@@ -1,9 +1,9 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:ipecstudentsapp/data/model/hangout/post.dart';
 
 import '../../../data/model/hangout/PollModel.dart';
+import '../../../data/model/hangout/post.dart';
 import '../../../theme/style.dart';
 import 'bottomStrip.dart';
 import 'pollsWidget.dart';

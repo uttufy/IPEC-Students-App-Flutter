@@ -1,8 +1,7 @@
-import 'package:ipecstudentsapp/data/model/hangout/hangUser.dart';
-
 import '../../../../../data/base_bloc/base_bloc.dart';
 import '../../../../../data/base_bloc/base_event.dart';
 import '../../../../../data/base_bloc/base_state.dart';
+import '../../../../data/model/hangout/hangUser.dart';
 import '../../../../util/helper.dart';
 import 'hangout_event.dart';
 import 'hangout_state.dart';

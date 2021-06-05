@@ -1,19 +1,21 @@
 import 'dart:io';
 import 'dart:math';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:giphy_picker/giphy_picker.dart';
-import 'package:ipecstudentsapp/data/model/hangout/PollModel.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ipecstudentsapp/data/model/hangout/hangUser.dart';
-import 'package:ipecstudentsapp/data/model/hangout/post.dart';
-import 'package:ipecstudentsapp/screens/hangout/widget/basic_ping.dart';
-import 'package:ipecstudentsapp/screens/hangout/widget/pollsWidget.dart';
-import 'package:ipecstudentsapp/widgets/loading_widget.dart';
+
+import '../../data/model/hangout/PollModel.dart';
+import '../../data/model/hangout/hangUser.dart';
+import '../../data/model/hangout/post.dart';
 import '../../theme/colors.dart';
 import '../../theme/style.dart';
+import '../../widgets/loading_widget.dart';
+import 'widget/basic_ping.dart';
 import 'widget/bottomCompose.dart';
+import 'widget/pollsWidget.dart';
 
 class CreatePing extends StatefulWidget {
   static const String ROUTE = "/createPing";

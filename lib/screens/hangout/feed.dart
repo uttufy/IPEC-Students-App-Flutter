@@ -1,13 +1,11 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/data/model/hangout/PollModel.dart';
-import 'package:ipecstudentsapp/data/model/hangout/hangUser.dart';
-import 'package:ipecstudentsapp/data/model/hangout/post.dart';
-import 'package:ipecstudentsapp/data/repo/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../data/model/hangout/post.dart';
+import '../../data/repo/auth.dart';
 import 'create_ping.dart';
 import 'widget/basic_ping.dart';
 
@@ -31,6 +29,7 @@ class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
   int pageSize = 10; //database reference object
 
   void _onRefresh() async {
+    print("refereshing");
     // monitor network fetch
     await Future.delayed(Duration(milliseconds: 1000));
     // if failed,use refreshFailed()
@@ -41,8 +40,9 @@ class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
     // monitor network fetch
     await Future.delayed(Duration(milliseconds: 1000));
     // if failed,use loadFailed(),if no data return,use LoadNodata()
+    print("loading");
     await _onInit();
-    if (mounted) setState(() {});
+    _rebuildState();
     _refreshController.loadComplete();
   }
 
@@ -54,46 +54,35 @@ class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
       var data = snapshot.value;
 
       for (var indivisualKey in keys) {
-        Post postItem = new Post(
-            id: data[indivisualKey]['id'],
-            author: Huser.fromMap(data[indivisualKey]['author']),
-            authorImage: data[indivisualKey]['authorImage'],
-            postedOn: data[indivisualKey]['postedOn'],
-            text: data[indivisualKey]['text'],
-            likes: data[indivisualKey]['likes'],
-            comments: data[indivisualKey]['comments'],
-            reports: data[indivisualKey]['reports'],
-            isLinkAttached: data[indivisualKey]['isLinkAttached'],
-            link: data[indivisualKey]['link'],
-            isImage: data[indivisualKey]['isImage'],
-            imageUrl: data[indivisualKey]['imageUrl'],
-            isPoll: data[indivisualKey]['isPoll'],
-            pollData: PollModel.fromMap(data[indivisualKey]['pollData']),
-            gifUrl: data[indivisualKey]['gifUrl'],
-            isGif: data[indivisualKey]['isGif']);
+        final postItem = Post.fromSnapshot(data, indivisualKey);
+
         if (!(postItemsList.contains(postItem))) postItemsList.add(postItem);
       }
-      setState(() {});
+      _rebuildState();
     } catch (e) {
       print(e.toString());
     }
   }
 
   _firebaseListeners() {
-    FirebaseDatabase.instance
-        .reference()
-        .child('hangout/pings')
-        .onChildRemoved
-        .listen((event) {
-      print(event.snapshot.value);
+    databaseRef.onChildRemoved.listen((event) {
+      setState(() {
+        postItemsList
+            .removeWhere((element) => element.id == event.snapshot.key);
+      });
     });
-    FirebaseDatabase.instance
-        .reference()
-        .child('hangout/pings')
-        .onChildAdded
-        .listen((event) {
-      print(event.snapshot.value);
+    databaseRef.onChildAdded.listen((event) {
+      var keys = event.snapshot.value.keys;
+      for (var indivisualKey in keys) {
+        final postItem = Post.fromSnapshot(event.snapshot.value, indivisualKey);
+        if (!(postItemsList.contains(postItem))) postItemsList.add(postItem);
+      }
+      _rebuildState();
     });
+  }
+
+  void _rebuildState() {
+    _rebuildState();
   }
 
   @override
@@ -102,6 +91,12 @@ class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
     _onInit();
 
     _firebaseListeners();
+  }
+
+  @override
+  void dispose() {
+    _refreshController.dispose();
+    super.dispose();
   }
 
   @override

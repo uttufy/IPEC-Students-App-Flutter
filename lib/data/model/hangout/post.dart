@@ -2,9 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-import 'package:ipecstudentsapp/data/model/hangout/hangUser.dart';
-
 import 'PollModel.dart';
+import 'hangUser.dart';
 
 class Post {
   final String id;
@@ -81,6 +80,27 @@ class Post {
         pollData: PollModel.fromMap(map['pollData']),
         gifUrl: map['gifUrl'],
         isGif: map['isGif']);
+  }
+
+  factory Post.fromSnapshot(data, indivisualKey) {
+    Post postItem = new Post(
+        id: data[indivisualKey]['id'],
+        author: Huser.fromMap(data[indivisualKey]['author']),
+        authorImage: data[indivisualKey]['authorImage'],
+        postedOn: data[indivisualKey]['postedOn'],
+        text: data[indivisualKey]['text'],
+        likes: data[indivisualKey]['likes'],
+        comments: data[indivisualKey]['comments'],
+        reports: data[indivisualKey]['reports'],
+        isLinkAttached: data[indivisualKey]['isLinkAttached'],
+        link: data[indivisualKey]['link'],
+        isImage: data[indivisualKey]['isImage'],
+        imageUrl: data[indivisualKey]['imageUrl'],
+        isPoll: data[indivisualKey]['isPoll'],
+        pollData: PollModel.fromMap(data[indivisualKey]['pollData']),
+        gifUrl: data[indivisualKey]['gifUrl'],
+        isGif: data[indivisualKey]['isGif']);
+    return postItem;
   }
 
   String toJson() => json.encode(toMap());
