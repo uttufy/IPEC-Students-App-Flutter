@@ -163,7 +163,9 @@ class _ChatterScreenState extends State<ChatterScreen> {
     );
   }
 
-  void _onSubmit(Pings pings) {
+  void _onSubmit(
+    Pings pings,
+  ) {
     if (textEditingController.text.isNotEmpty) {
       isLoading = true;
       setState(() {});
@@ -204,6 +206,8 @@ class _ChatterScreenState extends State<ChatterScreen> {
             .showSnackBar(SnackBar(content: Text("Chattered!!!")));
 
         textEditingController.text = "";
+
+        pings.addComment(widget.post.id, res);
         isLoading = false;
         setState(() {});
       } catch (e) {

@@ -25,6 +25,18 @@ class Pings extends ChangeNotifier {
     notifyListeners();
   }
 
+  addComment(String postID, CommentModel comment) {
+    List<CommentModel> res = comments[postID];
+    if (res == null) {
+      comments[postID] = [comment];
+    } else {
+      res.add(comment);
+      comments[postID] = res;
+    }
+
+    notifyListeners();
+  }
+
   Future<void> loadPings(int pageSize) async {
     var query = databaseRef.orderByChild('postedOn').limitToFirst(pageSize);
     try {

@@ -52,7 +52,13 @@ class _ChattersState extends State<Chatters> {
                 _bloc.add(LoadChattersEvent(widget.postID, pings));
 
               if (state is ChattersLoadingState)
-                return Center(child: CircularProgressIndicator());
+                return Center(
+                    child: Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                  ),
+                ));
 
               if (state is ChattersLoadedState)
                 return _getBody(pings.comments[widget.postID]);
