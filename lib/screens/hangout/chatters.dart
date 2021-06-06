@@ -74,7 +74,7 @@ class _ChattersState extends State<Chatters> {
     if (comments == null || comments.length == 0)
       return Container(
         padding: const EdgeInsets.all(20),
-        child: Text("be the first one to chatter 😊 "),
+        child: Text("Be the first one to chatter 😊 "),
       );
     else
       return ListView.builder(
