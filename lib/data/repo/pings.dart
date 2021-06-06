@@ -179,7 +179,7 @@ class Pings extends ChangeNotifier {
   }
 
   void addPost(Post res) {
-    postItemsList.add(res);
+    postItemsList.insert(0, res);
     notifyListeners();
   }
 }
