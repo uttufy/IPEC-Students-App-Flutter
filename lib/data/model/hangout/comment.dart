@@ -37,7 +37,7 @@ class CommentModel {
     };
   }
 
-  factory CommentModel.fromMap(Map<String, dynamic> map) {
+  factory CommentModel.fromMap(Map<dynamic, dynamic> map) {
     return CommentModel(
       id: map['id'],
       author: Huser.fromMap(map['author']),
@@ -48,6 +48,19 @@ class CommentModel {
       isGif: map['isGif'],
       gifUrl: map['gifUrl'],
     );
+  }
+
+  factory CommentModel.fromSnapshot(data, indivisualKey) {
+    CommentModel commentItem = new CommentModel(
+        id: data[indivisualKey]['id'],
+        author: Huser.fromMap(data[indivisualKey]['author']),
+        authorImage: data[indivisualKey]['authorImage'],
+        postedOn: data[indivisualKey]['postedOn'],
+        text: data[indivisualKey]['text'],
+        reports: data[indivisualKey]['reports'],
+        gifUrl: data[indivisualKey]['gifUrl'],
+        isGif: data[indivisualKey]['isGif']);
+    return commentItem;
   }
 
   String toJson() => json.encode(toMap());

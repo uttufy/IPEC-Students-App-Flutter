@@ -6,6 +6,7 @@ import 'package:ipecstudentsapp/data/model/hangout/comment.dart';
 import 'package:ipecstudentsapp/data/model/hangout/hangUser.dart';
 import 'package:ipecstudentsapp/data/model/hangout/post.dart';
 import 'package:ipecstudentsapp/data/repo/pings.dart';
+import 'package:ipecstudentsapp/screens/hangout/chatters.dart';
 import 'package:ipecstudentsapp/screens/hangout/widget/basic_ping.dart';
 import 'package:ipecstudentsapp/widgets/simple_appbar.dart';
 import 'package:profanity_filter/profanity_filter.dart';
@@ -62,6 +63,10 @@ class _ChatterScreenState extends State<ChatterScreen> {
                             detailedView: true,
                           ),
                           // CommentWidget(commentModel: ,),
+
+                          Chatters(
+                            postID: widget.post.id,
+                          ),
                         ],
                       ),
                     ),
@@ -91,23 +96,23 @@ class _ChatterScreenState extends State<ChatterScreen> {
                 ? Text('Loading...')
                 : Row(
                     children: <Widget>[
-                      GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                            color:
-                                isDark ? Colors.greenAccent : Colors.lightBlue,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Icon(
-                            Icons.add,
-                            color: isDark ? Colors.black : Colors.white,
-                            size: 20,
-                          ),
-                        ),
-                      ),
+                      // GestureDetector(
+                      //   onTap: () {},
+                      //   child: Container(
+                      //     height: 30,
+                      //     width: 30,
+                      //     decoration: BoxDecoration(
+                      //       color:
+                      //           isDark ? Colors.greenAccent : Colors.lightBlue,
+                      //       borderRadius: BorderRadius.circular(30),
+                      //     ),
+                      //     child: Icon(
+                      //       Icons.add,
+                      //       color: isDark ? Colors.black : Colors.white,
+                      //       size: 20,
+                      //     ),
+                      //   ),
+                      // ),
                       SizedBox(
                         width: 15,
                       ),
@@ -185,13 +190,13 @@ class _ChatterScreenState extends State<ChatterScreen> {
           reports: 0);
 
       try {
-        FirebaseDatabase.instance
+        final ref = FirebaseDatabase.instance
             .reference()
             .child('hangout')
             .child('comments')
-            .child('${widget.post.id}')
-            .push()
-            .set(res.toMap());
+            .child('${widget.post.id}');
+        ref.push().set(res.toMap());
+
         _scaffoldKey.currentState
             .showSnackBar(SnackBar(content: Text("Chattered!!!")));
 
