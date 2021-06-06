@@ -461,7 +461,7 @@ class _CreatePingState extends State<CreatePing> {
     setState(() {});
     String _imageUrl = "";
     int epoch = DateTime.now().microsecondsSinceEpoch;
-    print(widget.user.id);
+
     PollModel _poll =
         PollModel(creator: widget.user.id, optionLabel: [option1, option2]);
     try {

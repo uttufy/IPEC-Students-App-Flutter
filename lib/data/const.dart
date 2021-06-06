@@ -15,3 +15,5 @@ const kDefaultUserImage =
 const kHackerNewsUrl = "https://hnews.xyz/top";
 
 const List<String> kAdmins = ["1813119"];
+
+const kDefaultPOst = "1813119_1622981585486118";

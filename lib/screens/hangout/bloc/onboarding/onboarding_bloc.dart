@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:html/parser.dart';
+import 'package:ipecstudentsapp/data/const.dart';
 
 import '../../../../../data/base_bloc/base_bloc.dart';
 import '../../../../../data/base_bloc/base_event.dart';
@@ -56,11 +57,12 @@ class OnboardingBloc extends BaseBloc {
             phone: phone,
             section: section,
             yr: yr,
-            likes: ["1813119_1622898994899"]);
+            likes: [kDefaultPOst]);
         final ref = FirebaseDatabase.instance
             .reference()
-            .child('hangout/pings/1813119_1622895767456');
+            .child('hangout/pings/$kDefaultPOst');
         final res = await ref.once();
+        if(res!=null && res.value!=null && res.value['likes']!=null)
         ref.update({'likes': res.value['likes'] + 1});
 
         yield OnboardingLoaded(user);

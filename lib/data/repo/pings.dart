@@ -37,20 +37,27 @@ class Pings extends ChangeNotifier {
   }
 
   Future<void> loadPings(int pageSize) async {
+    // First Load Likes
+    final snap = await databaseRef2.child('user').child(_hUser.id).once();
+    if (snap != null && snap.value != null && snap.value['likes'] != null)
+      _hUser.likes = List<String>.from(snap.value['likes']);
     print("-- Loading posts --");
+
     Query query = databaseRef.orderByChild('postedOn');
     try {
       final snapshot = await query.limitToLast(pageSize).once();
-      var keys = snapshot.value.keys;
-      var data = snapshot.value;
+      if (snapshot != null && snapshot.value != null) {
+        var keys = snapshot.value.keys;
+        var data = snapshot.value;
 
-      for (var indivisualKey in keys) {
-        final postItem = Post.fromSnapshot(data, indivisualKey);
-        if (!(postItemsList.contains(postItem))) postItemsList.add(postItem);
+        for (var indivisualKey in keys) {
+          final postItem = Post.fromSnapshot(data, indivisualKey);
+          if (!(postItemsList.contains(postItem))) postItemsList.add(postItem);
+        }
+
+        postItemsList.sort((a, b) => b.postedOn.compareTo(a.postedOn));
+        notifyListeners();
       }
-
-      postItemsList.sort((a, b) => b.postedOn.compareTo(a.postedOn));
-      notifyListeners();
     } catch (e) {
       print(e.toString());
       throw Exception(e);

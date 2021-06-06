@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ipecstudentsapp/data/const.dart';
 import 'package:provider/provider.dart';
 import 'package:sweetsheet/sweetsheet.dart';
 
@@ -42,123 +43,117 @@ class _BottomStripState extends State<BottomStrip> {
     final date = DateTime.fromMicrosecondsSinceEpoch(widget.postedOn);
 
     return Consumer<Pings>(
-      builder: (context, pings, child) {
-        isSamosa = pings.hUser.likes.contains(widget.postId);
+      builder: (context, pingProvider, child) {
+        isSamosa = pingProvider.hUser.likes.contains(widget.postId);
+        final item = pingProvider.postItemsList
+            .firstWhere((element) => element.id == widget.postId);
 
-        return Consumer<Pings>(
-          builder: (context, pingProvider, child) {
-            final item = pingProvider.postItemsList
-                .firstWhere((element) => element.id == widget.postId);
-
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      if (isSamosa) {
-                        pingProvider.removeLike(widget.postId);
-                      } else {
-                        pingProvider.addLike(widget.postId);
-                      }
-                    });
-                  },
-                  borderRadius: BorderRadius.circular(20),
-                  child: Ink(
-                    padding: const EdgeInsets.all(10),
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                    child: Row(
-                      children: [
-                        isSamosa
-                            ? Image.asset(
-                                'assets/icons/sam2.png',
-                                width: 22,
-                              )
-                            : ImageIcon(
-                                AssetImage('assets/icons/sam1.png'),
-                                color: kLightGrey,
-                              ),
-                        kLowWidthPadding,
-                        Text(
-                          item.likes == 0 ? 'Samosa' : item.likes.toString(),
-                          style: Theme.of(context).textTheme.bodyText2.copyWith(
-                                color: kLightGrey,
-                              ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Visibility(
-                  visible: !widget.isDetailed,
-                  child: InkWell(
-                    onTap: () {
-                      widget.onChatter();
-                    },
-                    borderRadius: BorderRadius.circular(20),
-                    child: Ink(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.comment_outlined,
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            InkWell(
+              onTap: () {
+                setState(() {
+                  if (isSamosa) {
+                    pingProvider.removeLike(widget.postId);
+                  } else {
+                    pingProvider.addLike(widget.postId);
+                  }
+                });
+              },
+              borderRadius: BorderRadius.circular(20),
+              child: Ink(
+                padding: const EdgeInsets.all(10),
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                child: Row(
+                  children: [
+                    isSamosa
+                        ? Image.asset(
+                            'assets/icons/sam2.png',
+                            width: 22,
+                          )
+                        : ImageIcon(
+                            AssetImage('assets/icons/sam1.png'),
                             color: kLightGrey,
                           ),
-                          kLowWidthPadding,
-                          Text(
-                            item.comments == 0
-                                ? 'Chatter'
-                                : item.comments.toString(),
-                            style:
-                                Theme.of(context).textTheme.bodyText2.copyWith(
-                                      color: kLightGrey,
-                                    ),
+                    kLowWidthPadding,
+                    Text(
+                      item.likes == 0 ? 'Samosa' : item.likes.toString(),
+                      style: Theme.of(context).textTheme.bodyText2.copyWith(
+                            color: kLightGrey,
                           ),
-                        ],
-                      ),
                     ),
+                  ],
+                ),
+              ),
+            ),
+            Visibility(
+              visible: !widget.isDetailed,
+              child: InkWell(
+                onTap: () {
+                  widget.onChatter();
+                },
+                borderRadius: BorderRadius.circular(20),
+                child: Ink(
+                  padding: const EdgeInsets.all(10),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.comment_outlined,
+                        color: kLightGrey,
+                      ),
+                      kLowWidthPadding,
+                      Text(
+                        item.comments == 0
+                            ? 'Chatter'
+                            : item.comments.toString(),
+                        style: Theme.of(context).textTheme.bodyText2.copyWith(
+                              color: kLightGrey,
+                            ),
+                      ),
+                    ],
                   ),
                 ),
-                Spacer(),
-                Visibility(
-                  visible: widget.isDetailed,
-                  child: Text(
-                    '${date.day}/${date.month}/${date.year}',
-                    style: TextStyle(
+              ),
+            ),
+            Spacer(),
+            Visibility(
+              visible: widget.isDetailed,
+              child: Text(
+                '${date.day}/${date.month}/${date.year}',
+                style: TextStyle(
+                  color: kLightGrey,
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                if (widget.authorId == widget.currentUserId)
+                  _onDelete(context, pingProvider);
+                else
+                  _onReport(context, pingProvider, pingProvider.hUser.id);
+              },
+              borderRadius: BorderRadius.circular(20),
+              child: Ink(
+                padding: const EdgeInsets.all(10),
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                child: Row(
+                  children: [
+                    Icon(
+                      widget.authorId == widget.currentUserId
+                          ? Icons.delete_forever
+                          : Icons.report,
                       color: kLightGrey,
                     ),
-                  ),
+                  ],
                 ),
-                InkWell(
-                  onTap: () {
-                    if (widget.authorId == widget.currentUserId)
-                      _onDelete(context, pingProvider);
-                    else
-                      _onReport(context, pingProvider, pings.hUser.id);
-                  },
-                  borderRadius: BorderRadius.circular(20),
-                  child: Ink(
-                    padding: const EdgeInsets.all(10),
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                    child: Row(
-                      children: [
-                        Icon(
-                          widget.authorId == widget.currentUserId
-                              ? Icons.delete_forever
-                              : Icons.report,
-                          color: kLightGrey,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
+              ),
+            ),
+          ],
         );
       },
     );
@@ -173,7 +168,7 @@ class _BottomStripState extends State<BottomStrip> {
       icon: Icons.remove_circle_outline,
       positive: SweetSheetAction(
         onPressed: () {
-          if (widget.postId != "1813119_1622898994899")
+          if (widget.postId != kDefaultPOst)
             pingProvider.removeItem('${widget.postId}');
           Navigator.of(context).pop();
         },
@@ -199,7 +194,7 @@ class _BottomStripState extends State<BottomStrip> {
       icon: Icons.error,
       positive: SweetSheetAction(
           onPressed: () {
-            if (widget.postId != "1813119_1622898994899")
+            if (widget.postId != kDefaultPOst)
               pingProvider.reportItem(widget.postId, id);
             Navigator.of(context).pop();
           },
