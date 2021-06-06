@@ -167,6 +167,11 @@ class _ChatterScreenState extends State<ChatterScreen> {
     Pings pings,
   ) {
     if (textEditingController.text.isNotEmpty) {
+      if (filter.hasProfanity(textEditingController.text)) {
+        _scaffoldKey.currentState.showSnackBar(
+            SnackBar(content: Text("Bad language is not allowed!!!")));
+        return;
+      }
       isLoading = true;
       setState(() {});
 

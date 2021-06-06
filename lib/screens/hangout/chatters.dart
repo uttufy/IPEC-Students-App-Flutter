@@ -53,13 +53,13 @@ class _ChattersState extends State<Chatters> {
 
               if (state is ChattersLoadingState)
                 return Center(
-                    child: Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                    ),
                   ),
-                ));
-
+                );
               if (state is ChattersLoadedState)
                 return _getBody(pings.comments[widget.postID]);
               return Container();
