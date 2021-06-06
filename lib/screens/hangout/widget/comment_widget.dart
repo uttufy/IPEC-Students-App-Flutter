@@ -36,6 +36,22 @@ class CommentWidget extends StatelessWidget {
               .bodyText1
               .copyWith(fontWeight: FontWeight.normal, fontSize: 16),
         ),
+        if (commentModel.isGif && commentModel.gifUrl != null)
+          GestureDetector(
+            onTap: () {},
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(kLowCircleRadius),
+                child: Image.network(
+                  commentModel.gifUrl,
+                  height: 150,
+                  width: double.maxFinite,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
         Row(
           children: [
             Text(
@@ -69,7 +85,7 @@ class CommentWidget extends StatelessWidget {
               ),
             ),
           ],
-        )
+        ),
       ],
     );
   }

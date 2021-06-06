@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:giphy_picker/giphy_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ipecstudentsapp/screens/hangout/widget/linked_widget.dart';
+import 'package:ipecstudentsapp/screens/hangout/widget/removeButton.dart';
 import 'package:profanity_filter/profanity_filter.dart';
 import '../../data/bad_hindi_words.dart';
 import '../../data/model/hangout/PollModel.dart';
@@ -186,7 +187,7 @@ class _CreatePingState extends State<CreatePing> {
                                         addtionalChildren.add(Stack(
                                           children: [
                                             Image.file(_image),
-                                            removeWidget(),
+                                            removeWidget(onRemove),
                                           ],
                                         ));
                                       });
@@ -263,7 +264,7 @@ class _CreatePingState extends State<CreatePing> {
             Image.network(
               gifUrl,
             ),
-            removeWidget(),
+            removeWidget(onRemove),
           ],
         ));
       }
@@ -277,29 +278,17 @@ class _CreatePingState extends State<CreatePing> {
     setState(() {});
   }
 
-  IconButton removeWidget() {
-    return IconButton(
-      color: Colors.red,
-      icon: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Icon(
-          Icons.remove_circle,
-          size: 30,
-        ),
-      ),
-      onPressed: () {
-        addtionalChildren = [];
-        isImage = false;
-        isLink = false;
-        isPoll = false;
-        isGif = false;
-        gifUrl = "";
-        link = '';
+  onRemove() {
+    addtionalChildren = [];
+    isImage = false;
+    isLink = false;
+    isPoll = false;
+    isGif = false;
+    gifUrl = "";
+    link = '';
 
-        // imageUrl = '';
-        setState(() {});
-      },
-    );
+    // imageUrl = '';
+    setState(() {});
   }
 
   Widget composeArea() {
@@ -370,7 +359,7 @@ class _CreatePingState extends State<CreatePing> {
                         LinkWidget(link),
                         Align(
                             alignment: Alignment.centerRight,
-                            child: removeWidget()),
+                            child: removeWidget(onRemove)),
                       ],
                     ));
                     setState(() {});
@@ -451,7 +440,7 @@ class _CreatePingState extends State<CreatePing> {
                         ),
                         Align(
                             alignment: Alignment.centerRight,
-                            child: removeWidget()),
+                            child: removeWidget(onRemove)),
                       ],
                     ));
 
