@@ -33,14 +33,14 @@ class Pings extends ChangeNotifier {
       res.add(comment);
       comments[postID] = res;
     }
-
     notifyListeners();
   }
 
   Future<void> loadPings(int pageSize) async {
-    var query = databaseRef.orderByChild('postedOn').limitToFirst(pageSize);
+    print("-- Loading posts --");
+    Query query = databaseRef.orderByChild('postedOn');
     try {
-      final snapshot = await query.once();
+      final snapshot = await query.limitToLast(pageSize).once();
       var keys = snapshot.value.keys;
       var data = snapshot.value;
 
@@ -48,7 +48,34 @@ class Pings extends ChangeNotifier {
         final postItem = Post.fromSnapshot(data, indivisualKey);
         if (!(postItemsList.contains(postItem))) postItemsList.add(postItem);
       }
+
       postItemsList = postItemsList.reversed.toList();
+
+      notifyListeners();
+    } catch (e) {
+      print(e.toString());
+      throw Exception(e);
+    }
+  }
+
+  Future<void> fetchMorePings() async {
+    print("--Fetching posts--");
+    List<Post> temp = [];
+    var query = databaseRef
+        .orderByChild('postedOn')
+        .startAt(postItemsList.last.postedOn)
+        .limitToLast(2);
+    try {
+      final snapshot = await query.once();
+      var keys = snapshot.value.keys;
+      var data = snapshot.value;
+
+      for (var indivisualKey in keys) {
+        final postItem = Post.fromSnapshot(data, indivisualKey);
+        temp.add(postItem);
+      }
+      postItemsList.addAll(temp.reversed);
+      // postItemsList = postItemsList.reversed.toList();
       notifyListeners();
     } catch (e) {
       print(e.toString());
@@ -147,6 +174,11 @@ class Pings extends ChangeNotifier {
   void addEvent(DataSnapshot snapshot) {
     final newPost = Post.fromMap(snapshot.value);
     if (!(postItemsList.contains(newPost))) postItemsList.insert(0, newPost);
+    notifyListeners();
+  }
+
+  void addPost(Post res) {
+    postItemsList.add(res);
     notifyListeners();
   }
 }

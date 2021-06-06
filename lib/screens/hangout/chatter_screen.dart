@@ -223,7 +223,7 @@ class _ChatterScreenState extends State<ChatterScreen> {
       isLoading = true;
       setState(() {});
 
-      int epoch = DateTime.now().millisecondsSinceEpoch;
+      int epoch = DateTime.now().microsecondsSinceEpoch;
 
       if (gifUrl.isEmpty) isGif = false;
       final authorUser = Huser(

@@ -5,9 +5,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:giphy_picker/giphy_picker.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ipecstudentsapp/data/repo/pings.dart';
 import 'package:ipecstudentsapp/screens/hangout/widget/linked_widget.dart';
 import 'package:ipecstudentsapp/screens/hangout/widget/removeButton.dart';
 import 'package:profanity_filter/profanity_filter.dart';
+import 'package:provider/provider.dart';
 import '../../data/bad_hindi_words.dart';
 import '../../data/model/hangout/PollModel.dart';
 import '../../data/model/hangout/hangUser.dart';
@@ -458,7 +460,7 @@ class _CreatePingState extends State<CreatePing> {
     isLoading = true;
     setState(() {});
     String _imageUrl = "";
-    int epoch = DateTime.now().millisecondsSinceEpoch;
+    int epoch = DateTime.now().microsecondsSinceEpoch;
     print(widget.user.id);
     PollModel _poll =
         PollModel(creator: widget.user.id, optionLabel: [option1, option2]);
@@ -507,7 +509,7 @@ class _CreatePingState extends State<CreatePing> {
           .set(res.toMap());
       _scaffoldKey.currentState
           .showSnackBar(SnackBar(content: Text("Pinged!!!")));
-
+      Provider.of<Pings>(context, listen: false).addPost(res);
       Future.delayed(Duration(seconds: 2))
           .then((value) => Navigator.pop(context));
     } catch (e) {

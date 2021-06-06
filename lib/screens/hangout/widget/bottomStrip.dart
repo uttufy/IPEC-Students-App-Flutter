@@ -39,7 +39,7 @@ class _BottomStripState extends State<BottomStrip> {
 
   @override
   Widget build(BuildContext context) {
-    final date = DateTime.fromMillisecondsSinceEpoch(widget.postedOn);
+    final date = DateTime.fromMicrosecondsSinceEpoch(widget.postedOn);
 
     return Consumer<Pings>(
       builder: (context, pings, child) {

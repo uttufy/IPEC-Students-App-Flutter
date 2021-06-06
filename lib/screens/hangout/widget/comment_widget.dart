@@ -21,7 +21,7 @@ class CommentWidget extends StatelessWidget {
   final SweetSheet _sweetSheet = SweetSheet();
   @override
   Widget build(BuildContext context) {
-    final date = DateTime.fromMillisecondsSinceEpoch(commentModel.postedOn);
+    final date = DateTime.fromMicrosecondsSinceEpoch(commentModel.postedOn);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
