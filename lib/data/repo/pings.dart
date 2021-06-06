@@ -60,11 +60,12 @@ class Pings extends ChangeNotifier {
 
   Future<void> fetchMorePings() async {
     print("--Fetching posts--");
+    print(postItemsList.last.text);
     List<Post> temp = [];
     var query = databaseRef
         .orderByChild('postedOn')
-        .startAt(postItemsList.last.postedOn)
-        .limitToLast(2);
+        .endAt(postItemsList.last.postedOn)
+        .limitToLast(3);
     try {
       final snapshot = await query.once();
       var keys = snapshot.value.keys;
@@ -72,10 +73,10 @@ class Pings extends ChangeNotifier {
 
       for (var indivisualKey in keys) {
         final postItem = Post.fromSnapshot(data, indivisualKey);
-        temp.add(postItem);
+        if (!(postItemsList.contains(postItem))) temp.add(postItem);
       }
       postItemsList.addAll(temp.reversed);
-      // postItemsList = postItemsList.reversed.toList();
+
       notifyListeners();
     } catch (e) {
       print(e.toString());
