@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 class ChatterScreen extends StatefulWidget {
   static const String ROUTE = "/chatter";
   final Post post;
+
   const ChatterScreen({Key key, this.post}) : super(key: key);
 
   @override
@@ -54,6 +55,7 @@ class _ChatterScreenState extends State<ChatterScreen> {
                   ),
                   Expanded(
                     child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Column(
                         children: [
@@ -66,6 +68,7 @@ class _ChatterScreenState extends State<ChatterScreen> {
 
                           Chatters(
                             postID: widget.post.id,
+                            currentUserID: pings.hUser.id,
                           ),
                         ],
                       ),

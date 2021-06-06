@@ -6,15 +6,17 @@ import 'package:ipecstudentsapp/theme/style.dart';
 
 class CommentWidget extends StatelessWidget {
   final CommentModel commentModel;
-  final String userId;
+  final String currentUserID;
   const CommentWidget({
     Key key,
     @required this.commentModel,
-    this.userId,
+    @required this.currentUserID,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final date = DateTime.fromMillisecondsSinceEpoch(commentModel.postedOn);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -27,7 +29,7 @@ class CommentWidget extends StatelessWidget {
         ),
         kLowPadding,
         Text(
-          "This will give us a messaging section with a text field to type the messages and a button to send the messages:",
+          commentModel.text,
           textAlign: TextAlign.start,
           style: Theme.of(context)
               .textTheme
@@ -37,8 +39,7 @@ class CommentWidget extends StatelessWidget {
         Row(
           children: [
             Text(
-              // '${date.day}/${date.month}/${date.year}',
-              '10/20',
+              '${date.day}/${date.month}/${date.year}',
               style: TextStyle(color: kLightGrey, fontSize: 12),
             ),
             Spacer(),
@@ -58,9 +59,9 @@ class CommentWidget extends StatelessWidget {
                 child: Row(
                   children: [
                     Icon(
-                      // widget.authorId ==
-                      //         widget.currentUserId
-                      true ? Icons.delete_forever : Icons.report,
+                      commentModel.author.id == currentUserID
+                          ? Icons.delete_forever
+                          : Icons.report,
                       color: kLightGrey,
                     ),
                   ],

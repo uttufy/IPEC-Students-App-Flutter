@@ -1,12 +1,12 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:ipecstudentsapp/data/model/hangout/comment.dart';
 import 'package:ipecstudentsapp/data/model/hangout/hangUser.dart';
 
 import '../model/hangout/post.dart';
 
 class Pings extends ChangeNotifier {
   Huser _hUser;
-
   // ignore: unnecessary_getters_setters
   Huser get hUser => _hUser;
   // ignore: unnecessary_getters_setters
@@ -17,6 +17,13 @@ class Pings extends ChangeNotifier {
   final databaseRef2 = FirebaseDatabase.instance.reference().child('hangout');
 
   List<Post> postItemsList = [];
+
+  Map<String, List<CommentModel>> comments = {};
+
+  setComments(String postID, List<CommentModel> list) {
+    comments[postID] = list;
+    notifyListeners();
+  }
 
   Future<void> loadPings(int pageSize) async {
     var query = databaseRef.orderByChild('postedOn').limitToFirst(pageSize);

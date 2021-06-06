@@ -64,6 +64,7 @@ class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
           icon: Icon(Icons.flash_on),
         ),
         body: ListView.builder(
+          physics: BouncingScrollPhysics(),
           padding:
               const EdgeInsets.only(top: 10, left: 30, right: 30, bottom: 80),
           itemBuilder: (c, i) {

@@ -21,8 +21,6 @@ class ChattersBloc extends BaseBloc {
       try {
         final res = await firebaseRef.child(event.postID).once();
 
-        print(res.value);
-
         List<CommentModel> _list = [];
         if (res != null && res.value != null && res.value.keys != null) {
           var keys = res.value.keys;
@@ -31,7 +29,8 @@ class ChattersBloc extends BaseBloc {
             _list.add(CommentModel.fromSnapshot(data, indivisualKey));
           }
         }
-        yield ChattersLoadedState(_list);
+        event.pings.comments[event.postID] = _list;
+        yield ChattersLoadedState();
       } catch (e) {
         yield ShowDialogErrorState(e.toString());
       }

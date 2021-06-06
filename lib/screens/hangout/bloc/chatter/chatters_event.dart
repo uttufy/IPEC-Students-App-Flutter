@@ -1,3 +1,5 @@
+import 'package:ipecstudentsapp/data/repo/pings.dart';
+
 import '../../../../data/base_bloc/base_event.dart';
 
 class ChattersEvent extends BaseEvent {
@@ -6,6 +8,7 @@ class ChattersEvent extends BaseEvent {
 
 class LoadChattersEvent extends ChattersEvent {
   final String postID;
+  final Pings pings;
 
-  LoadChattersEvent(this.postID);
+  LoadChattersEvent(this.postID, this.pings);
 }

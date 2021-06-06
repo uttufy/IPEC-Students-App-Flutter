@@ -9,10 +9,6 @@ class ChattersInitialState extends ChattersState {}
 
 class ChattersLoadingState extends ChattersState {}
 
-class ChattersLoadedState extends ChattersState {
-  final List<CommentModel> comments;
-
-  ChattersLoadedState(this.comments);
-}
+class ChattersLoadedState extends ChattersState {}
 
 class ChattersErrorState extends ChattersState {}
