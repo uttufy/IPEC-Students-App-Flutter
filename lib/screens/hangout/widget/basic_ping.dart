@@ -72,7 +72,7 @@ class PingBasicWidget extends StatelessWidget {
                 numberOfVotes: item.pollData.numberOfVotes,
                 optionLabel: item.pollData.optionLabel,
                 userWhoVoted: item.pollData.userWhoVoted),
-            user: item.author.id,
+            user: userId,
             postId: item.id,
           ),
         if (item.isLinkAttached && item.link != null) LinkWidget(item.link),

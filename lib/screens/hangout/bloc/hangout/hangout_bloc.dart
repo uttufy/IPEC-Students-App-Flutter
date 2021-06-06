@@ -19,7 +19,6 @@ class HangoutBloc extends BaseBloc {
 
       if (res['exists']) {
         final huser = Huser.fromMap(res['data']);
-
         yield UserExistState(huser);
       } else {
         yield UserNotExistState();
