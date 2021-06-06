@@ -27,7 +27,7 @@ class HangoutFeedScreen extends StatefulWidget {
 class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
-  int pageSize = 2; //database reference object
+  int pageSize = 5; //database reference object
   final databaseRef =
       FirebaseDatabase.instance.reference().child('hangout').child('pings');
 

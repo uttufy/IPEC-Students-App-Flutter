@@ -65,7 +65,7 @@ class Pings extends ChangeNotifier {
     var query = databaseRef
         .orderByChild('postedOn')
         .endAt(postItemsList.last.postedOn)
-        .limitToLast(3);
+        .limitToLast(5);
     try {
       final snapshot = await query.once();
       var keys = snapshot.value.keys;
