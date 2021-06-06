@@ -151,24 +151,33 @@ class Pings extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addLike(
+  Future<void> addLike(
     String postId,
-  ) {
+  ) async {
     var elem = postItemsList.firstWhere((element) => element.id == postId);
     elem.likes = elem.likes + 1;
     databaseRef.child(postId).update({'likes': elem.likes});
+
     _hUser.likes.add(postId);
+    await databaseRef2
+        .child('user')
+        .child(_hUser.id)
+        .update({'likes': _hUser.likes});
     notifyListeners();
   }
 
-  void removeLike(
+  Future<void> removeLike(
     String postId,
-  ) {
+  ) async {
     var elem = postItemsList.firstWhere((element) => element.id == postId);
     if (elem.likes > 0) {
       elem.likes = elem.likes - 1;
       databaseRef.child(postId).update({'likes': elem.likes});
       _hUser.likes.remove(postId);
+      await databaseRef2
+          .child('user')
+          .child(_hUser.id)
+          .update({'likes': _hUser.likes});
       notifyListeners();
     }
   }
