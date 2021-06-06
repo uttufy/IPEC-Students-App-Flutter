@@ -82,13 +82,23 @@ class _ChattersState extends State<Chatters> {
         physics: NeverScrollableScrollPhysics(),
         itemCount: comments.length ?? 0,
         itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: CommentWidget(
-              commentModel: comments[index],
-              currentUserID: widget.currentUserID,
-            ),
-          );
+          if (comments[index].reports > 0) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'A comment has been removed due to many reports',
+                textAlign: TextAlign.center,
+              ),
+            );
+          } else
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
+              child: CommentWidget(
+                commentModel: comments[index],
+                currentUserID: widget.currentUserID,
+                postID: widget.postID,
+              ),
+            );
         },
       );
   }

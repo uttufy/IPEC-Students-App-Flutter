@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:ipecstudentsapp/data/model/hangout/comment.dart';
+import 'package:ipecstudentsapp/data/repo/pings.dart';
 import 'package:ipecstudentsapp/screens/hangout/widget/userStrip.dart';
 import 'package:ipecstudentsapp/theme/colors.dart';
 import 'package:ipecstudentsapp/theme/style.dart';
+import 'package:provider/provider.dart';
+import 'package:sweetsheet/sweetsheet.dart';
 
 class CommentWidget extends StatelessWidget {
   final CommentModel commentModel;
   final String currentUserID;
-  const CommentWidget({
+  final String postID;
+  CommentWidget({
     Key key,
     @required this.commentModel,
     @required this.currentUserID,
+    @required this.postID,
   }) : super(key: key);
 
+  final SweetSheet _sweetSheet = SweetSheet();
   @override
   Widget build(BuildContext context) {
     final date = DateTime.fromMillisecondsSinceEpoch(commentModel.postedOn);
@@ -61,11 +67,12 @@ class CommentWidget extends StatelessWidget {
             Spacer(),
             InkWell(
               onTap: () {
-                // if (widget.authorId == widget.currentUserId)
-                //   _onDelete(context, pingProvider);
-                // else
-                //   _onReport(context, pingProvider,
-                //       pings.hUser.id);
+                final _pingProvider =
+                    Provider.of<Pings>(context, listen: false);
+                if (commentModel.author.id == currentUserID)
+                  _onDelete(context, _pingProvider);
+                else
+                  _onReport(context, _pingProvider);
               },
               borderRadius: BorderRadius.circular(20),
               child: Ink(
@@ -87,6 +94,55 @@ class CommentWidget extends StatelessWidget {
           ],
         ),
       ],
+    );
+  }
+
+  void _onDelete(BuildContext context, Pings pingProvider) {
+    _sweetSheet.show(
+      context: context,
+      title: Text("Are you sure ?"),
+      description: Text('This action will delete your ping'),
+      color: SweetSheetColor.DANGER,
+      icon: Icons.remove_circle_outline,
+      positive: SweetSheetAction(
+        onPressed: () {
+          pingProvider.removeComment(commentModel.commentId, postID);
+          Navigator.of(context).pop();
+        },
+        title: 'DELETE',
+        icon: Icons.delete_rounded,
+      ),
+      negative: SweetSheetAction(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        title: 'CANCEL',
+      ),
+    );
+  }
+
+  void _onReport(BuildContext context, Pings pingProvider) {
+    _sweetSheet.show(
+      context: context,
+      title: Text("Report"),
+      description:
+          Text('Did you find this ping to be harmful/spam/wrong/misleading?'),
+      color: SweetSheetColor.WARNING,
+      icon: Icons.error,
+      positive: SweetSheetAction(
+          onPressed: () {
+            pingProvider.reportComment(
+                commentModel.commentId, postID, currentUserID);
+            Navigator.of(context).pop();
+          },
+          title: 'REPORT',
+          icon: Icons.warning),
+      negative: SweetSheetAction(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        title: 'CANCEL',
+      ),
     );
   }
 }

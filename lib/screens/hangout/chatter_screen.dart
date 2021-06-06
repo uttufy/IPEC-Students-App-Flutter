@@ -68,8 +68,6 @@ class _ChatterScreenState extends State<ChatterScreen> {
                             userId: pings.hUser.id,
                             detailedView: true,
                           ),
-                          // CommentWidget(commentModel: ,),
-
                           Chatters(
                             postID: widget.post.id,
                             currentUserID: pings.hUser.id,
@@ -240,7 +238,7 @@ class _ChatterScreenState extends State<ChatterScreen> {
           likes: []);
 
       final res = CommentModel(
-          id: pings.hUser.id + "_" + epoch.toString(),
+          id: widget.post.id,
           author: authorUser,
           authorImage: "https://robohash.org/${pings.hUser.id}",
           postedOn: epoch,

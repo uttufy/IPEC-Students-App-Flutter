@@ -62,6 +62,37 @@ class Pings extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeComment(String commentId, String id) {
+    comments[id].removeWhere((element) => element.commentId == commentId);
+    databaseRef2.child('/comments').child(id).child(commentId).remove();
+    notifyListeners();
+  }
+
+  Future<void> reportComment(String commentId, String id, String userID) async {
+    final res =
+        await databaseRef2.child('c_reports').child(id).child(commentId).once();
+    if (res.value != null) {
+      List list = res.value;
+      if (list.length <= 5) {
+        if (!(list.contains(userID))) {
+          list.add(userID);
+          databaseRef2.child('c_reports').child(id).child(commentId).set(list);
+        }
+      } else {
+        //ban permanent
+        databaseRef2
+            .child('comments')
+            .child(id)
+            .child(commentId)
+            .update({'reports': list.length});
+      }
+    } else {
+      databaseRef2.child('c_reports').child(id).child(commentId).set([userID]);
+    }
+
+    notifyListeners();
+  }
+
   Future<void> reportItem(String postId, String userID) async {
     final res = await databaseRef2.child('reports').child(postId).once();
     if (res.value != null) {

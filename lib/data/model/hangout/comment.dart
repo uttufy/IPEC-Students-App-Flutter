@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'hangUser.dart';
 
 class CommentModel {
+  String commentId;
   final String id;
   final Huser author;
   final String authorImage;
@@ -14,6 +15,7 @@ class CommentModel {
   final bool isGif;
   final String gifUrl;
   CommentModel({
+    this.commentId = "",
     @required this.id,
     @required this.author,
     @required this.authorImage,
@@ -26,6 +28,7 @@ class CommentModel {
 
   Map<String, dynamic> toMap() {
     return {
+      'commentId': commentId,
       'id': id,
       'author': author.toMap(),
       'authorImage': authorImage,
@@ -39,6 +42,7 @@ class CommentModel {
 
   factory CommentModel.fromMap(Map<dynamic, dynamic> map) {
     return CommentModel(
+      commentId: map['commentId'],
       id: map['id'],
       author: Huser.fromMap(map['author']),
       authorImage: map['authorImage'],
@@ -52,6 +56,7 @@ class CommentModel {
 
   factory CommentModel.fromSnapshot(data, indivisualKey) {
     CommentModel commentItem = new CommentModel(
+        commentId: indivisualKey,
         id: data[indivisualKey]['id'],
         author: Huser.fromMap(data[indivisualKey]['author']),
         authorImage: data[indivisualKey]['authorImage'],
