@@ -6,6 +6,7 @@ import 'package:ipecstudentsapp/data/model/hangout/comment.dart';
 import 'package:ipecstudentsapp/data/repo/pings.dart';
 import 'package:ipecstudentsapp/screens/hangout/bloc/chatter/chatters_bloc.dart';
 import 'package:ipecstudentsapp/screens/hangout/widget/comment_widget.dart';
+import 'package:ipecstudentsapp/theme/style.dart';
 import 'package:provider/provider.dart';
 import 'bloc/chatter/chatters_bloc.dart';
 import 'bloc/chatter/chatters_event.dart';
@@ -77,29 +78,40 @@ class _ChattersState extends State<Chatters> {
         child: Text("Be the first one to chatter 😊 "),
       );
     else
-      return ListView.builder(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        itemCount: comments.length ?? 0,
-        itemBuilder: (context, index) {
-          if (comments[index].reports > 0) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'A comment has been removed due to many reports',
-                textAlign: TextAlign.center,
-              ),
-            );
-          } else
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: CommentWidget(
-                commentModel: comments[index],
-                currentUserID: widget.currentUserID,
-                postID: widget.postID,
-              ),
-            );
-        },
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          kMedPadding,
+          Text(
+            "Chatter",
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          kMedPadding,
+          ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: comments.length ?? 0,
+            itemBuilder: (context, index) {
+              if (comments[index].reports > 0) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'A comment has been removed due to many reports',
+                    textAlign: TextAlign.center,
+                  ),
+                );
+              } else
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: CommentWidget(
+                    commentModel: comments[index],
+                    currentUserID: widget.currentUserID,
+                    postID: widget.postID,
+                  ),
+                );
+            },
+          ),
+        ],
       );
   }
 }

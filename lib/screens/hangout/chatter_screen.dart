@@ -1,6 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:giphy_picker/giphy_picker.dart';
 import 'package:ipecstudentsapp/data/bad_hindi_words.dart';
 import 'package:ipecstudentsapp/data/model/hangout/comment.dart';
@@ -10,6 +11,7 @@ import 'package:ipecstudentsapp/data/repo/pings.dart';
 import 'package:ipecstudentsapp/screens/hangout/chatters.dart';
 import 'package:ipecstudentsapp/screens/hangout/widget/basic_ping.dart';
 import 'package:ipecstudentsapp/screens/hangout/widget/removeButton.dart';
+import 'package:ipecstudentsapp/theme/colors.dart';
 import 'package:ipecstudentsapp/widgets/simple_appbar.dart';
 import 'package:profanity_filter/profanity_filter.dart';
 import 'package:provider/provider.dart';
@@ -43,6 +45,8 @@ class _ChatterScreenState extends State<ChatterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
+
     return Consumer<Pings>(
       builder: (context, pings, child) {
         return ScaffoldMessenger(
@@ -56,21 +60,42 @@ class _ChatterScreenState extends State<ChatterScreen> {
                       Navigator.pop(context);
                     },
                     title: 'Ping',
+                    bgColor: isDark ? kGrey : null,
                   ),
                   Expanded(
                     child: SingleChildScrollView(
                       physics: BouncingScrollPhysics(),
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Column(
                         children: [
-                          PingBasicWidget(
-                            item: widget.post,
-                            userId: pings.hUser.id,
-                            detailedView: true,
+                          NeumorphicButton(
+                            onPressed: () {
+                              // return _launchURL(notices[index].link);
+                            },
+                            padding: const EdgeInsets.all(20),
+                            style: NeumorphicStyle(
+                                boxShape: NeumorphicBoxShape.roundRect(
+                                    BorderRadius.only(
+                                        bottomLeft: Radius.circular(20),
+                                        bottomRight: Radius.circular(20))),
+                                depth: isDark ? 5 : 8,
+                                lightSource: LightSource.top,
+                                shadowDarkColor: isDark ? Colors.black12 : null,
+                                shadowLightColor:
+                                    isDark ? Colors.black45 : null,
+                                color: isDark ? kGrey : Colors.white),
+                            child: PingBasicWidget(
+                              item: widget.post,
+                              userId: pings.hUser.id,
+                              detailedView: true,
+                            ),
                           ),
-                          Chatters(
-                            postID: widget.post.id,
-                            currentUserID: pings.hUser.id,
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 30.0),
+                            child: Chatters(
+                              postID: widget.post.id,
+                              currentUserID: pings.hUser.id,
+                            ),
                           ),
                         ],
                       ),

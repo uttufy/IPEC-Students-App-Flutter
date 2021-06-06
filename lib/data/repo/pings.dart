@@ -49,8 +49,7 @@ class Pings extends ChangeNotifier {
         if (!(postItemsList.contains(postItem))) postItemsList.add(postItem);
       }
 
-      postItemsList = postItemsList.reversed.toList();
-
+      postItemsList.sort((a, b) => b.postedOn.compareTo(a.postedOn));
       notifyListeners();
     } catch (e) {
       print(e.toString());
@@ -60,7 +59,7 @@ class Pings extends ChangeNotifier {
 
   Future<void> fetchMorePings() async {
     print("--Fetching posts--");
-    print(postItemsList.last.text);
+
     List<Post> temp = [];
     var query = databaseRef
         .orderByChild('postedOn')
@@ -76,7 +75,7 @@ class Pings extends ChangeNotifier {
         if (!(postItemsList.contains(postItem))) temp.add(postItem);
       }
       postItemsList.addAll(temp.reversed);
-
+      postItemsList.sort((a, b) => b.postedOn.compareTo(a.postedOn));
       notifyListeners();
     } catch (e) {
       print(e.toString());

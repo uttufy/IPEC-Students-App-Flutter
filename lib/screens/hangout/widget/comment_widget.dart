@@ -93,6 +93,7 @@ class CommentWidget extends StatelessWidget {
             ),
           ],
         ),
+        Divider(),
       ],
     );
   }

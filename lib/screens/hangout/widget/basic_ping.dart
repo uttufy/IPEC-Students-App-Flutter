@@ -43,7 +43,7 @@ class PingBasicWidget extends StatelessWidget {
           },
           postedOn: item.postedOn,
         ),
-        Divider()
+        Visibility(visible: !detailedView, child: Divider())
       ],
     );
   }
