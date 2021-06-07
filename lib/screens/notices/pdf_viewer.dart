@@ -34,7 +34,6 @@ IOS : http://bit.ly/ipecappios
 """;
 
     // Widgets
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.notice.title),
@@ -51,7 +50,9 @@ IOS : http://bit.ly/ipecappios
         ],
       ),
       body: SafeArea(
-        child: Expanded(
+        child: Container(
+          height: double.maxFinite,
+          width: double.maxFinite,
           child: SfPdfViewer.network(
             widget.url,
           ),
