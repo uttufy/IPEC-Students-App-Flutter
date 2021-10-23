@@ -59,7 +59,7 @@ class AboutScreen extends StatelessWidget {
                       kMedPadding,
                       _aboutWidget(
                           context,
-                          'https://scontent-ort2-1.cdninstagram.com/v/t51.2885-19/145590602_331200411492174_1964991030066564271_n.jpg?_nc_ht=scontent-ort2-1.cdninstagram.com&_nc_ohc=AuRG2JEctw0AX9PTEn9&edm=AKralEIBAAAA&ccb=7-4&oh=a11aa483c0b5bc8c7759089eea93181c&oe=60BFBEE6&_nc_sid=5e3072',
+                          'https://avatars.githubusercontent.com/u/60356611?v=4',
                           'Raks',
                           'Rakshit Raj\nSingh', () {
                         _launchURL(
