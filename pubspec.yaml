@@ -1,5 +1,5 @@
 name: ipecstudentsapp
-description: A new Flutter project.
+description: IPEC Student's App 
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
@@ -11,7 +11,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_neumorphic: ^3.1.0
+  flutter_neumorphic:
+    git:
+        url: https://github.com/tsvillain/Flutter-Neumorphic.git
   adaptive_theme: ^2.2.0
   circular_profile_avatar: ^2.0.0
   cupertino_icons: ^1.0.3

@@ -98,8 +98,10 @@ On an island full of engineers you'll have light, whereas on an island full of b
                       Text(
                         "Our Mantras",
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.headline6.copyWith(
-                            color: Colors.black, fontWeight: FontWeight.bold),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6
+                            .copyWith(fontWeight: FontWeight.bold),
                       ),
                       kMedPadding,
                       Text(
