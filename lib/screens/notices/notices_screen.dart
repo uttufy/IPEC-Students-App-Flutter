@@ -1,19 +1,23 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:provider/provider.dart';
+
 import '../../data/base_bloc/base_bloc_builder.dart';
 import '../../data/base_bloc/base_bloc_listener.dart';
 import '../../data/base_bloc/base_state.dart';
 import '../../data/model/Notice.dart';
 import '../../data/repo/auth.dart';
 import '../../data/repo/session.dart';
-import 'bloc/notice_event.dart';
+import '../../theme/colors.dart';
 import '../../theme/style.dart';
-import '../../widgets/simple_appbar.dart';
-import 'package:provider/provider.dart';
 import '../../util/string_cap.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '../../widgets/loading_widget.dart';
+import '../../widgets/simple_appbar.dart';
 import 'bloc/notice_bloc.dart';
+import 'bloc/notice_event.dart';
 import 'bloc/notice_state.dart';
+import 'pdf_viewer.dart';
 
 class NoticesScreen extends StatefulWidget {
   static const String ROUTE = "/notices";
@@ -38,80 +42,107 @@ class _NoticesScreenState extends State<NoticesScreen> {
     super.dispose();
   }
 
-  _launchURL(String url) async {
-    print(url);
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Consumer<Session>(
-        builder: (context, session, child) {
-          return BaseBlocListener(
-            bloc: _bloc,
-            listener: (BuildContext context, BaseState state) {
-              print("$runtimeType BlocListener - ${state.toString()}");
-            },
-            child: BaseBlocBuilder(
+    return ScaffoldMessenger(
+      child: Scaffold(
+        body: Consumer<Session>(
+          builder: (context, session, child) {
+            return BaseBlocListener(
               bloc: _bloc,
-              condition: (BaseState previous, BaseState current) {
-                return true;
-              },
-              builder: (BuildContext context, BaseState state) {
-                print("$runtimeType BlocBuilder - ${state.toString()}");
-                if (state is NoticeInitial)
-                  _bloc.add(NoticeLoadEvent(session, _auth));
+              listener: (BuildContext context, BaseState state) {
+                print("$runtimeType BlocListener - ${state.toString()}");
 
-                return SafeArea(
-                  child: Column(
-                    children: [
-                      SimpleAppBar(
-                        onBack: () {
-                          Navigator.popUntil(context, (route) => route.isFirst);
-                        },
-                        title: "Notices",
-                      ),
-                      Expanded(
-                        child: _getBody(session, context, state),
-                      )
-                    ],
-                  ),
-                );
+                if (state is NoticeOpeningLoading) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('⚡️ Loading in background!'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                }
+                if (state is NoticeOpenFailedState) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(state.msg),
+                    ),
+                  );
+                }
+                if (state is NoticeOpeningLoaded) {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return PdfScreen(
+                        url: state.url,
+                        notice: state.notice,
+                      );
+                    },
+                  ));
+                }
               },
-            ),
-          );
-        },
+              child: BaseBlocBuilder(
+                bloc: _bloc,
+                condition: (BaseState previous, BaseState current) {
+                  return true;
+                },
+                builder: (BuildContext context, BaseState state) {
+                  print("$runtimeType BlocBuilder - ${state.toString()}");
+                  if (state is NoticeInitial)
+                    _bloc.add(NoticeLoadEvent(session, _auth));
+
+                  return SafeArea(
+                    child: Column(
+                      children: [
+                        SimpleAppBar(
+                          onBack: () {
+                            Navigator.popUntil(
+                                context, (route) => route.isFirst);
+                          },
+                          title: "Notices",
+                        ),
+                        Visibility(
+                            visible: state is NoticeOpeningLoading,
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 20.0),
+                              child: Text('⚡️ Loading...'),
+                            )),
+                        Expanded(
+                          child: _getBody(session, context, state),
+                        )
+                      ],
+                    ),
+                  );
+                },
+              ),
+            );
+          },
+        ),
       ),
     );
   }
 
   Widget _getBody(Session session, BuildContext context, BaseState state) {
-    if (state is NoticeLoadingState)
-      return Center(
-          child: CircularProgressIndicator(
-        strokeWidth: 2,
-        backgroundColor: Colors.black,
-      ));
+    if (state is NoticeLoadingState) return LoadingWidget();
     if (state is NoticeLoadedState) {
       _notices = state.notices;
-      return _noticesListView(_notices);
+      return _noticesListView(_notices, session);
     }
     if (state is NoticeErrorState) return Center(child: Text(state.msg));
     if (state is NoticeInitial) return Center(child: Text("Intializing"));
 
     if (state is AllNoticeLoadedState) {
       _notices = state.notices;
-      return _noticesListView(_notices);
-    } else
+      return _noticesListView(_notices, session);
+    }
+
+    if (state is NoticeOpeningLoaded ||
+        state is NoticeOpeningLoading ||
+        state is NoticeOpenFailedState)
+      return _noticesListView(_notices, session);
+    else
       return Center(child: Text("Something Went Wrong! Try Again"));
   }
 
-  Widget _noticesListView(List<Notice> notices) {
+  Widget _noticesListView(List<Notice> notices, Session session) {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: notices?.length ?? 0,
@@ -120,30 +151,41 @@ class _NoticesScreenState extends State<NoticesScreen> {
       itemBuilder: (BuildContext context, int index) {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
-          child: _noticeItem(notices, index),
+          child: _noticeItem(notices, index, session),
         );
       },
     );
   }
 
-  Widget _noticeItem(List<Notice> notices, int index) {
+  Widget _noticeItem(List<Notice> notices, int index, Session session) {
+    final isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
     return NeumorphicButton(
-      onPressed: () => _launchURL(notices[index].link),
+      onPressed: () {
+        // return _launchURL(notices[index].link);
+
+        _bloc.add(NoticeOpenEvent(session, _auth, notices[index]));
+      },
       padding: const EdgeInsets.all(20),
       style: NeumorphicStyle(
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
-          depth: 8,
+          depth: isDark ? 5 : 8,
           lightSource: LightSource.top,
+          shadowDarkColor: isDark ? Colors.black12 : null,
+          shadowLightColor: isDark ? Colors.black45 : null,
           color: notices[index].tp
-              ? Colors.amberAccent.withOpacity(0.5)
-              : Colors.white),
+              ? isDark
+                  ? kOrange
+                  : Colors.amberAccent.withOpacity(0.5)
+              : isDark
+                  ? kGrey
+                  : Colors.white),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             notices[index].title,
             style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  color: Colors.black,
+                  color: isDark ? Colors.white : Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
           ),
@@ -157,7 +199,8 @@ class _NoticesScreenState extends State<NoticesScreen> {
                   children: [
                     Text(
                       "Date",
-                      style: TextStyle(color: Colors.black26),
+                      style: TextStyle(
+                          color: isDark ? Colors.white30 : Colors.black26),
                     ),
                     Text(
                       notices[index].date,
@@ -174,7 +217,8 @@ class _NoticesScreenState extends State<NoticesScreen> {
                     Text(
                       "Contri. by",
                       textAlign: TextAlign.right,
-                      style: TextStyle(color: Colors.black26),
+                      style: TextStyle(
+                          color: isDark ? Colors.white30 : Colors.black26),
                     ),
                     Text(
                       notices[index].credit.toLowerCase().capitalize(),

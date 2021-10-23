@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +25,8 @@ class _AttendanceGraphState extends State<AttendanceGraph> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
+    final graphColor = isDark ? kDarkBg : Color(0xffFFFFFF);
     return Consumer<Session>(
       builder: (context, session, child) {
         if (session.attendance.percent != null) {
@@ -31,7 +34,7 @@ class _AttendanceGraphState extends State<AttendanceGraph> {
             gradientColors = [
               Color(0xff23b6e6),
               Color(0xff02d39a),
-              Color(0xffFFFFFF),
+              graphColor,
             ];
             gradientColorsLine = [
               Color(0xff23b6e6),
@@ -41,7 +44,7 @@ class _AttendanceGraphState extends State<AttendanceGraph> {
             gradientColors = [
               Colors.orange,
               Colors.yellow,
-              Color(0xffFFFFFF),
+              graphColor,
             ];
             gradientColorsLine = [
               Colors.orange,
@@ -51,7 +54,7 @@ class _AttendanceGraphState extends State<AttendanceGraph> {
             gradientColors = [
               Colors.red,
               Colors.deepOrange,
-              Color(0xffFFFFFF),
+              graphColor,
             ];
             gradientColorsLine = [
               Colors.red,
@@ -83,7 +86,6 @@ class _AttendanceGraphState extends State<AttendanceGraph> {
     return LineChartData(
       lineTouchData: LineTouchData(
           enabled: true,
-          fullHeightTouchLine: false,
           touchTooltipData: LineTouchTooltipData(tooltipBgColor: kLighterGrey)),
       gridData: FlGridData(
         show: false,

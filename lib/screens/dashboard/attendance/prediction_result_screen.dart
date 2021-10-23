@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +26,7 @@ class PredictionResultScreen extends StatefulWidget {
 class _PredictionResultScreenState extends State<PredictionResultScreen> {
   @override
   Widget build(BuildContext context) {
+    final isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
     return Consumer<Auth>(
       builder: (context, _auth, child) {
         final img = _auth.user.img.toString().split(',')[1];
@@ -43,13 +45,14 @@ class _PredictionResultScreenState extends State<PredictionResultScreen> {
                 Text('Your Result',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          color: Colors.black,
+                          color: isDark ? Colors.white : Colors.black,
                         )),
                 kLowPadding,
                 Text(
                   '${widget.result}%',
                   style: Theme.of(context).textTheme.headline3.copyWith(
-                      color: Colors.black, fontWeight: FontWeight.w700),
+                      color: isDark ? Colors.white : Colors.black,
+                      fontWeight: FontWeight.w700),
                 ),
                 kLowPadding,
                 Text(
@@ -57,7 +60,7 @@ class _PredictionResultScreenState extends State<PredictionResultScreen> {
                     'out of ${widget.total} lectures.',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          color: Colors.black,
+                          color: isDark ? Colors.white : Colors.black,
                         )),
                 kHighPadding,
                 Expanded(

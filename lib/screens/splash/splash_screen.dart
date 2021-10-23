@@ -27,22 +27,41 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-    _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        print("onMessage: $message");
-        // _showItemDialog(message);
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch: $message");
-        // _navigateToItemDetail(message);
-      },
-      onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-        // _navigateToItemDetail(message);
-      },
+    initFirebase();
+  }
+
+  Future<void> initFirebase() async {
+    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+    // _firebaseMessaging.configure(
+    //   onMessage: (Map<String, dynamic> message) async {
+    //     print("onMessage: $message");
+    //     // _showItemDialog(message);
+    //   },
+    //   onLaunch: (Map<String, dynamic> message) async {
+    //     print("onLaunch: $message");
+    //     // _navigateToItemDetail(message);
+    //   },
+    //   onResume: (Map<String, dynamic> message) async {
+    //     print("onResume: $message");
+    //     // _navigateToItemDetail(message);
+    //   },
+    // );
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
     );
 
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      print('User granted provisional permission');
+    } else {
+      print('User declined or has not accepted permission');
+    }
     _firebaseMessaging.subscribeToTopic("GeneralNotices");
   }
 

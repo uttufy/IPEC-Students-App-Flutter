@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -75,6 +76,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
   }
 
   Widget _getBody(Session session, BuildContext context, BaseState state) {
+    bool isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
     return SafeArea(
       child: SingleChildScrollView(
         controller: widget.scrollController,
@@ -116,7 +118,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             Text(
               'Total Attendance',
               style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    color: Colors.black,
+                    color: isDark ? Colors.white : Colors.black,
                   ),
             ),
             kLowPadding,
@@ -126,7 +128,8 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                         ? "Failed"
                         : session.attendance.percent.toString() + "%",
                     style: Theme.of(context).textTheme.headline3.copyWith(
-                        color: Colors.black, fontWeight: FontWeight.w700),
+                        color: isDark ? Colors.white : Colors.black,
+                        fontWeight: FontWeight.w700),
                   )
                 : Shimmer.fromColors(
                     baseColor: Colors.grey[400],
@@ -142,11 +145,12 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                 : AspectRatio(
                     aspectRatio: 1.70,
                     child: Shimmer.fromColors(
-                        baseColor: Colors.white,
-                        highlightColor: Colors.grey[200],
+                        baseColor: isDark ? kDarkBg : Colors.white,
+                        highlightColor:
+                            isDark ? Colors.grey[900] : Colors.grey[200],
                         child: Container(
                           width: SizeConfig.screenWidth,
-                          color: Colors.white,
+                          color: isDark ? kDarkBg : Colors.white,
                         )),
                   ),
             kMedPadding,
@@ -155,11 +159,12 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                 : AspectRatio(
                     aspectRatio: 3,
                     child: Shimmer.fromColors(
-                        baseColor: Colors.white,
-                        highlightColor: Colors.grey[200],
+                        baseColor: isDark ? kDarkBg : Colors.white,
+                        highlightColor:
+                            isDark ? Colors.grey[900] : Colors.grey[200],
                         child: Container(
                           width: SizeConfig.screenWidth,
-                          color: Colors.white,
+                          color: isDark ? kDarkBg : Colors.white,
                         )),
                   ),
             state is AttendanceLoaded
@@ -173,6 +178,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
   }
 
   SingleChildScrollView _bottomSlider(Session session) {
+    bool isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
@@ -195,7 +201,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: Colors.black),
+                    color: isDark ? kGreen : Colors.black),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -218,12 +224,15 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             margin: const EdgeInsets.all(20),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(40),
-                color: kPrimaryLightColor),
+                color: isDark
+                    ? kPrimaryLightColor.withOpacity(0.1)
+                    : kPrimaryLightColor),
             child: Row(
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 20.0),
                   child: _listitem(
+                    isDark: isDark,
                     iconBg: Colors.lightGreen[200],
                     img: 'assets/icons/skip.png',
                     main: 'Lectures Skipped',
@@ -238,6 +247,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                 Padding(
                   padding: const EdgeInsets.only(right: 20.0),
                   child: _listitem(
+                    isDark: isDark,
                     iconBg: Colors.orange[200],
                     img: 'assets/icons/attended.png',
                     main: 'Lectures Attended',
@@ -246,6 +256,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   ),
                 ),
                 _listitem(
+                  isDark: isDark,
                   iconBg: Colors.blue[200],
                   img: 'assets/icons/total.png',
                   main: 'Total Lectures',
@@ -264,11 +275,13 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
       @required String title,
       Color iconBg = kPrimaryLightColor,
       Color cardBg = Colors.white,
-      @required String img}) {
+      @required String img,
+      @required bool isDark}) {
     return Container(
       padding: const EdgeInsets.all(20),
-      decoration:
-          BoxDecoration(borderRadius: BorderRadius.circular(30), color: cardBg),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          color: isDark ? kDarkBg : cardBg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,

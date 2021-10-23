@@ -1,15 +1,17 @@
-import 'package:firebase_core/firebase_core.dart';
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/screens/about/about.dart';
 import 'package:provider/provider.dart';
-
 import 'data/repo/auth.dart';
+import 'data/repo/pings.dart';
 import 'data/repo/session.dart';
+import 'screens/about/about.dart';
 import 'screens/dashboard/attendance/attendance_page.dart';
 import 'screens/dashboard/attendance/attendance_screen.dart';
 import 'screens/dashboard/attendance/prediction_input_screen.dart';
 import 'screens/dashboard/attendance/prediction_result_screen.dart';
 import 'screens/dashboard/dashboard_page.dart';
+import 'screens/hangout/create_ping.dart';
+import 'screens/hangout/hangout_screen.dart';
 import 'screens/loading/loading_screen.dart';
 import 'screens/login/login_screen.dart';
 import 'screens/notices/notices_screen.dart';
@@ -18,7 +20,7 @@ import 'theme/style.dart';
 import 'util/SizeConfig.dart';
 
 class Routes {
-  Routes() {
+  Routes(AdaptiveThemeMode savedThemeMode) {
     runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider<Auth>(
@@ -27,19 +29,25 @@ class Routes {
         ChangeNotifierProvider<Session>(
           create: (context) => Session(),
         ),
+        ChangeNotifierProvider<Pings>(
+          create: (context) => Pings(),
+        )
       ],
       child: LayoutBuilder(builder: (context, constraints) {
         return OrientationBuilder(builder: (context, orientation) {
           SizeConfig().init(constraints, orientation);
-          Firebase.initializeApp();
 
-          return MaterialApp(
-            title: "IPEC Students App",
-            home: SplashScreen(),
-            theme: appTheme,
-            onGenerateRoute: onGenerate,
-            debugShowCheckedModeBanner: false,
-          );
+          return AdaptiveTheme(
+              light: appTheme,
+              dark: appdarkTheme,
+              initial: savedThemeMode ?? AdaptiveThemeMode.light,
+              builder: (theme, darkTheme) => MaterialApp(
+                    title: "IPEC Student's App",
+                    home: SplashScreen(),
+                    theme: theme,
+                    onGenerateRoute: onGenerate,
+                    debugShowCheckedModeBanner: false,
+                  ));
         });
       }),
     ));
@@ -68,6 +76,15 @@ class Routes {
         return _getMaterialRoute(NoticesScreen(), settings);
       case AboutScreen.ROUTE:
         return _getMaterialRoute(AboutScreen(), settings);
+      case HangoutScreen.ROUTE:
+        return _getMaterialRoute(HangoutScreen(), settings);
+      case CreatePing.ROUTE:
+        Map arg = settings.arguments;
+        return _getMaterialRoute(
+            CreatePing(
+              user: arg['user'],
+            ),
+            settings);
       case PredictionInputScreen.ROUTE:
         Map arg = settings.arguments;
         return _getMaterialRoute(

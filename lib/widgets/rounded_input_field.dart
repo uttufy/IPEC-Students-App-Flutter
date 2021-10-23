@@ -21,6 +21,7 @@ class RoundedInputField extends StatelessWidget {
       child: TextField(
         onChanged: onChanged,
         cursorColor: kPrimaryColor,
+        style: TextStyle(color: Colors.black),
         decoration: InputDecoration(
           icon: Icon(
             icon,

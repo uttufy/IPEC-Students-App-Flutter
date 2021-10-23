@@ -1,27 +1,34 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data/model/Cred.dart';
 import '../../../data/repo/auth.dart';
+import '../../../theme/colors.dart';
 import '../../../widgets/background.dart';
 import '../../../widgets/rounded_button.dart';
 import '../../../widgets/rounded_input_field.dart';
 import '../../../widgets/rounded_password_field.dart';
 import '../../loading/loading_screen.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   const Body({
     Key key,
   }) : super(key: key);
 
   @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _scaffoldKey =
         new GlobalKey<ScaffoldState>();
 
-    String _username;
-    String _password;
+    String _username = "";
+    String _password = "";
     Size size = MediaQuery.of(context).size;
 
     void showInSnackBar(String value) {
@@ -30,6 +37,7 @@ class Body extends StatelessWidget {
           .showSnackBar(new SnackBar(content: new Text(value)));
     }
 
+    bool isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
     return Scaffold(
       key: _scaffoldKey,
       body: Background(
@@ -37,9 +45,43 @@ class Body extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(
-                "LOGIN",
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
+              Row(
+                children: [
+                  // SizedBox(),
+                  // Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.all(40.0),
+                    child: Text(
+                      "LOGIN",
+                      style:
+                          TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
+                    ),
+                  ),
+                  Spacer(),
+                  GestureDetector(
+                    onTap: () {
+                      print("Mode change");
+                      setState(() {
+                        if (isDark) {
+                          AdaptiveTheme.of(context).setLight();
+                        } else {
+                          AdaptiveTheme.of(context).setDark();
+                        }
+                      });
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              color: isDark
+                                  ? kPrimaryColor.withOpacity(0.3)
+                                  : kBlue.withOpacity(0.3),
+                              borderRadius: BorderRadius.circular(50)),
+                          child: Icon(Icons.wb_sunny)),
+                    ),
+                  )
+                ],
               ),
               SizedBox(height: size.height * 0.03),
               Lottie.asset(

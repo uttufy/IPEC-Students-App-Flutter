@@ -144,11 +144,65 @@ class WebClientService {
         return GeneralResponse(data: response.data, status: true);
       else
         return GeneralResponse(
+            error: "Failed to open notices. Error at first get.",
+            status: false);
+    } catch (error) {
+      return GeneralResponse(
+          error: "Failed to open notice : " + error.toString(), status: false);
+    }
+  }
+
+  Future<GeneralResponse> openNotices(String cookie, String url) async {
+    _dio.options.headers['Cookie'] = cookie;
+    _dio.options.headers['Referer'] = kWebsiteURL + kHomeURL;
+    _dio.options.headers['Connection'] = 'keep-alive';
+
+    try {
+      final response = await _dio.get(
+        url,
+      );
+      if (response.statusCode == 200)
+        return GeneralResponse(data: response.data, status: true);
+      else
+        return GeneralResponse(
             error: "Failed to sync notices. Error at first get.",
             status: false);
     } catch (error) {
       return GeneralResponse(
           error: "Notice Sync : " + error.toString(), status: false);
+    }
+  }
+
+  Future<GeneralResponse> getMyProfile(String cookie) async {
+    _dio.options.headers['Cookie'] = cookie;
+    _dio.options.headers['Referer'] = kWebsiteURL + kHomeURL;
+    _dio.options.headers['Connection'] = 'keep-alive';
+
+    try {
+      final response = await _dio.get(
+        kMyPorfileURL,
+      );
+      if (response.statusCode == 200)
+        return GeneralResponse(data: response.data, status: true);
+      else
+        return GeneralResponse(
+            error: "Failed to load profile. Please reopen app and try again",
+            status: false);
+    } catch (error) {
+      if (error is DioError) {
+        //handle DioError here by error type or by error code
+        if (error.response.statusCode == 500) {
+          return GeneralResponse(
+              error: "IPEC Session Expired! Please Restart the app to fix it",
+              status: false);
+        } else
+          return GeneralResponse(
+              error: "Failed to  load profile : " + error.message,
+              status: false);
+      } else
+        return GeneralResponse(
+            error: "Failed to  load profile : " + error.toString(),
+            status: false);
     }
   }
 }

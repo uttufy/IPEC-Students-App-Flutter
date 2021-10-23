@@ -1,58 +1,71 @@
 import 'dart:convert';
 
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+
 import '../util/SizeConfig.dart';
 
 class SimpleAppBar extends StatelessWidget {
   final img;
   final VoidCallback onPic;
   final VoidCallback onBack;
+  final Color bgColor;
   final String title;
   const SimpleAppBar(
-      {Key key, this.img, this.onPic, @required this.onBack, this.title})
+      {Key key,
+      this.img,
+      this.onPic,
+      @required this.onBack,
+      this.title,
+      this.bgColor = Colors.transparent})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          InkWell(
-            onTap: onBack,
-            borderRadius: BorderRadius.circular(50),
-            child: Ink(
-              padding: const EdgeInsets.all(15),
-              child: Icon(
-                Icons.chevron_left,
-                size: 30,
+    final isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
+    return Container(
+      color: bgColor,
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            InkWell(
+              onTap: onBack,
+              borderRadius: BorderRadius.circular(50),
+              child: Ink(
+                padding: const EdgeInsets.all(10),
+                child: Icon(
+                  Icons.chevron_left,
+                  size: 30,
+                ),
               ),
             ),
-          ),
-          img != null
-              ? GestureDetector(
-                  onTap: onPic,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: SizeConfig.widthMultiplier * 5,
-                      backgroundImage: MemoryImage(
-                        base64Decode(img),
+            img != null
+                ? GestureDetector(
+                    onTap: onPic,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: SizeConfig.widthMultiplier * 5,
+                        backgroundImage: MemoryImage(
+                          base64Decode(img),
+                        ),
                       ),
                     ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Text(
+                      title,
+                      style: Theme.of(context).textTheme.headline5.copyWith(
+                          color: isDark ? Colors.white : Colors.black,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
-                )
-              : Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Text(
-                    title,
-                    style: Theme.of(context).textTheme.headline5.copyWith(
-                        color: Colors.black, fontWeight: FontWeight.bold),
-                  ),
-                ),
-        ],
+          ],
+        ),
       ),
     );
   }

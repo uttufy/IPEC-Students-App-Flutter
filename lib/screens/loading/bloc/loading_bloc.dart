@@ -3,9 +3,7 @@ import '../../../data/base_bloc/base_event.dart';
 import '../../../data/base_bloc/base_state.dart';
 import '../../../data/local/shared_pref.dart';
 import '../../../data/model/GeneralResponse.dart';
-
 import '../../../util/SugarParse.dart';
-
 import 'loading_event.dart';
 import 'loading_state.dart';
 

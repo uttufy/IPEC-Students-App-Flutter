@@ -1,9 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_share/flutter_share.dart';
-import 'package:ipecstudentsapp/screens/about/about.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -12,6 +13,8 @@ import '../../theme/colors.dart';
 import '../../theme/style.dart';
 import '../../util/SizeConfig.dart';
 import '../../widgets/background.dart';
+import '../about/about.dart';
+import '../hangout/hangout_screen.dart';
 import '../notices/notices_screen.dart';
 import '../splash/splash_screen.dart';
 import 'attendance/attendance_page.dart';
@@ -25,8 +28,9 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
       new GlobalKey<ScaffoldMessengerState>();
-  static const appLink =
-      "https://play.google.com/store/apps/details?id=com.uttu.ipecstudentsapp&hl=en_IN&gl=US";
+  final appLink = Platform.isIOS
+      ? "https://apps.apple.com/us/app/ipec-students-app/id1568495067"
+      : "https://play.google.com/store/apps/details?id=com.uttu.ipecstudentsapp&hl=en_IN&gl=US";
   _launchURL(String url) async {
     print(url);
     if (await canLaunch(url)) {
@@ -45,6 +49,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
     return Consumer<Auth>(
       builder: (context, auth, child) {
         return ScaffoldMessenger(
@@ -76,6 +81,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               )),
                               onSelected: (value) {
                                 switch (value) {
+                                  case 0:
+                                    setState(() {
+                                      if (isDark) {
+                                        AdaptiveTheme.of(context).setLight();
+                                      } else {
+                                        AdaptiveTheme.of(context).setDark();
+                                      }
+                                    });
+                                    break;
                                   case 1:
                                     _launchURL(appLink);
 
@@ -104,16 +118,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       kHighPadding,
                       Text(
                         'Hello,',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline5
-                            .copyWith(color: Colors.black),
+                        style: Theme.of(context).textTheme.headline5.copyWith(
+                            color: isDark ? Colors.white : Colors.black),
                       ),
                       Text(
                         auth.user.name,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.headline5.copyWith(
-                            color: Colors.black, fontWeight: FontWeight.bold),
+                            color: isDark ? Colors.white : Colors.black,
+                            fontWeight: FontWeight.bold),
                       ),
                       Expanded(
                         child: SingleChildScrollView(
@@ -145,10 +158,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  optionIcon('assets/icons/Boy-Student.png',
-                                      'Learning', () {
-                                    _showSnackBar(
-                                        "This is not developed yet!👷‍♂️ Soon be available");
+                                  optionIcon('assets/icons/conversation.png',
+                                      'Cafeteria\nTalks', () {
+                                    if (auth.user.isFirstYear)
+                                      _showSnackBar(
+                                          "Sorry, First year students not allowed!");
+                                    else {
+                                      // auth.reloadHuser();
+                                      Navigator.pushNamed(
+                                          context, HangoutScreen.ROUTE);
+                                    }
                                   }),
                                   optionIcon(
                                       'assets/icons/Compass.png', 'About', () {
@@ -172,41 +191,55 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  List<PopupMenuEntry<int>> _popOptions(context) => [
-        PopupMenuItem(
-            value: 1,
-            child: Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
-                  child: Icon(Icons.star),
-                ),
-                Text('Rate')
-              ],
-            )),
-        PopupMenuItem(
-            value: 2,
-            child: Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
-                  child: Icon(Icons.share),
-                ),
-                Text('Share')
-              ],
-            )),
-        PopupMenuItem(
-            value: 3,
-            child: Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
-                  child: Icon(Icons.logout),
-                ),
-                Text('Logout')
-              ],
-            )),
-      ];
+  List<PopupMenuEntry<int>> _popOptions(context) {
+    var isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
+    return [
+      PopupMenuItem(
+          value: 0,
+          child: Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
+                child: Icon(Icons.wb_sunny_rounded),
+              ),
+              Text(isDark ? 'Switch to light mode' : 'Switch to dark mode')
+            ],
+          )),
+      PopupMenuItem(
+          value: 1,
+          child: Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
+                child: Icon(Icons.star),
+              ),
+              Text('Rate')
+            ],
+          )),
+      PopupMenuItem(
+          value: 2,
+          child: Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
+                child: Icon(Icons.share),
+              ),
+              Text('Share')
+            ],
+          )),
+      PopupMenuItem(
+          value: 3,
+          child: Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
+                child: Icon(Icons.logout),
+              ),
+              Text('Logout')
+            ],
+          )),
+    ];
+  }
 
   Widget optionIcon(String img, String title, Function onPress) {
     return Flexible(
@@ -226,6 +259,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               kLowPadding,
               Text(
                 title,
+                textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
               ),
             ],

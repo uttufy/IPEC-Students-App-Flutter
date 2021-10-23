@@ -24,3 +24,17 @@ class NoticeErrorState extends NoticeState {
 
   NoticeErrorState(this.msg);
 }
+
+class NoticeOpenFailedState extends NoticeState {
+  final msg;
+
+  NoticeOpenFailedState(this.msg);
+}
+
+class NoticeOpeningLoading extends NoticeState {}
+
+class NoticeOpeningLoaded extends NoticeState {
+  final String url;
+  final Notice notice;
+  NoticeOpeningLoaded(this.url, this.notice);
+}

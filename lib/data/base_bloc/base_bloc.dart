@@ -66,18 +66,18 @@ abstract class BaseBloc<E extends BaseEvent, S extends BaseState>
   }
 
   void errorHandlerEvent(DioError error) {
-    if (error.type == DioErrorType.RESPONSE) {
+    if (error.type == DioErrorType.response) {
       add(ShowDialogErrorEvent(
           "Something went wrong : " + error.message.toString()));
     }
 
-    if (error.type == DioErrorType.CONNECT_TIMEOUT ||
-        error.type == DioErrorType.RECEIVE_TIMEOUT ||
-        error.type == DioErrorType.SEND_TIMEOUT) {
+    if (error.type == DioErrorType.connectTimeout ||
+        error.type == DioErrorType.receiveTimeout ||
+        error.type == DioErrorType.sendTimeout) {
       add(ShowDialogErrorEvent(
           "Connection Time Out : " + error.message.toString()));
     }
-    if (error.type == DioErrorType.DEFAULT) {
+    if (error.type == DioErrorType.other) {
       add(ShowDialogErrorEvent(
           "Something went wrong : " + error.message.toString()));
     }
