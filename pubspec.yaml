@@ -3,7 +3,7 @@ description: IPEC Student's App
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 3.0.2+22
+version: 3.0.3+23
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
