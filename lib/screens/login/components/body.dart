@@ -22,21 +22,19 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  String _username = "";
+  String _password = "";
+  void showInSnackBar(String value) {
+    _scaffoldKey.currentState
+        // ignore: deprecated_member_use
+        .showSnackBar(new SnackBar(content: new Text(value)));
+  }
+
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey =
-        new GlobalKey<ScaffoldState>();
-
-    String _username = "";
-    String _password = "";
     Size size = MediaQuery.of(context).size;
-
-    void showInSnackBar(String value) {
-      _scaffoldKey.currentState
-          // ignore: deprecated_member_use
-          .showSnackBar(new SnackBar(content: new Text(value)));
-    }
-
     bool isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
     return Scaffold(
       key: _scaffoldKey,
