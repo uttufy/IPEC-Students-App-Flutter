@@ -136,7 +136,7 @@ class _PredictionInputScreenState extends State<PredictionInputScreen> {
                   child: Lottie.asset('assets/anim/data.json'),
                 ),
                 RoundedButton(
-                  text: 'Calulate',
+                  text: 'Calculate',
                   press: () {
                     try {
                       String res = calculatePercent();
