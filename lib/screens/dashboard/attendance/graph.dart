@@ -107,20 +107,14 @@ class _AttendanceGraphState extends State<AttendanceGraph> {
                       .substring(0, 3);
             else
               return '';
-            // switch (value.toInt()) {
-            //   case 0:
-            //     return ;
-            //   case 5:
-            //     return 'Last 10 Days';
-            //   case 9:
-            //     return '';
-            // }
           },
           margin: 10,
         ),
         leftTitles: SideTitles(
           showTitles: false,
         ),
+        rightTitles: SideTitles(showTitles: false),
+        topTitles: SideTitles(showTitles: false),
       ),
       borderData: FlBorderData(
         show: false,
