@@ -95,7 +95,7 @@ class _AttendanceGraphState extends State<AttendanceGraph> {
         bottomTitles: SideTitles(
           showTitles: true,
           reservedSize: 22,
-          getTextStyles: (value) =>
+          getTextStyles: (context, value) =>
               const TextStyle(color: kGrey, fontFamily: 'Averta'),
           getTitles: (value) {
             if (value.toInt() != 0 && value.toInt() != 10)

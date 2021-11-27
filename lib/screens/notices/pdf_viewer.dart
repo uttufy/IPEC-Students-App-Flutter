@@ -18,7 +18,7 @@ class PdfScreen extends StatefulWidget {
 class _PdfScreenState extends State<PdfScreen> {
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
+    // final _size = MediaQuery.of(context).size;
     // Widgets
     return Scaffold(
       appBar: AppBar(

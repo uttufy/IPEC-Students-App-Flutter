@@ -26,7 +26,7 @@ dependencies:
   firebase_core: ^1.2.0
   firebase_database: ^7.0.0
   firebase_messaging: ^10.0.0
-  fl_chart: ^0.36.1
+  fl_chart: ^0.40.2
   flutter_bloc: ^4.0.1
   flutter_share: ^2.0.0
   flutter_svg: ^0.22.0
@@ -48,6 +48,7 @@ dependencies:
   firebase_storage: ^8.1.1
   giphy_picker: ^2.0.0
   pull_to_refresh: ^2.0.0
+  upgrader: ^3.10.0
   profanity_filter: ^1.0.4
   sweetsheet: ^0.3.1
 

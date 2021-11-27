@@ -1,4 +1,3 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
 
@@ -7,7 +6,6 @@ import '../model/Cred.dart';
 import '../model/GeneralResponse.dart';
 import '../model/TokensModel.dart';
 import '../model/User.dart';
-import '../model/hangout/hangUser.dart';
 import '../service/webClientService.dart';
 
 class Auth extends ChangeNotifier {

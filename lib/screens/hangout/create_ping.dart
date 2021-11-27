@@ -56,7 +56,7 @@ class _CreatePingState extends State<CreatePing> {
   PollModel pollModel;
 
   Future getImage() async {
-    final pickedFile = await picker.getImage(
+    final pickedFile = await picker.pickImage(
         source: ImageSource.gallery,
         maxWidth: 800,
         maxHeight: 800,

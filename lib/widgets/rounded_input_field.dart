@@ -29,7 +29,7 @@ class RoundedInputField extends StatelessWidget {
           ),
           hintText: hintText,
           hintStyle: Theme.of(context)
-              .accentTextTheme
+              .textTheme
               .bodyText1
               .copyWith(color: Colors.black),
           border: InputBorder.none,
