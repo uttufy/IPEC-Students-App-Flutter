@@ -61,6 +61,28 @@ class _OnboardingState extends State<Onboarding> {
                 }
                 if (state is OnboardingLoading)
                   return Center(child: LoadingWidget());
+                if (state is OnboardingFailed)
+                  return Center(
+                      child: Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("😓🥴", style: TextStyle(fontSize: 100)),
+                        kMedPadding,
+                        Text(
+                          "You are not allowed currently!",
+                          style: Theme.of(context).textTheme.headline5,
+                          textAlign: TextAlign.center,
+                        ),
+                        kLowPadding,
+                        Text(
+                          "This may be due to incomplete profile data on IPEC Portal. Please retry after sometime once your info updates in My Profile section of IPEC live portal. ",
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ));
                 if (state is OnboardingLoaded) {
                   Provider.of<Pings>(context, listen: false).hUser = state.user;
                   return _getbody(context, isDark, state.user);

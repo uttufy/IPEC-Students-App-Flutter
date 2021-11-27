@@ -62,10 +62,17 @@ class OnboardingBloc extends BaseBloc {
             .reference()
             .child('hangout/pings/$kDefaultPOst');
         final res = await ref.once();
-        if(res!=null && res.value!=null && res.value['likes']!=null)
-        ref.update({'likes': res.value['likes'] + 1});
-
-        yield OnboardingLoaded(user);
+        if (res != null && res.value != null && res.value['likes'] != null)
+          ref.update({'likes': res.value['likes'] + 1});
+        if (depart == null ||
+            email == null ||
+            gender == null ||
+            phone == null ||
+            section == null ||
+            yr == null)
+          yield OnboardingFailed();
+        else
+          yield OnboardingLoaded(user);
       } else {
         yield ShowDialogErrorState(response.error.toString());
       }

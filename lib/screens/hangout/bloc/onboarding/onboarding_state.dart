@@ -9,6 +9,8 @@ class OnboardingInitState extends OnboardingState {}
 
 class OnboardingLoading extends OnboardingState {}
 
+class OnboardingFailed extends OnboardingState {}
+
 class OnboardingLoaded extends OnboardingState {
   final Huser user;
 
