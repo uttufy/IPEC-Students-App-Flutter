@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:html/parser.dart';
 
 import '../../../../data/base_bloc/base_bloc.dart';
@@ -65,7 +66,13 @@ class AttendanceBloc extends BaseBloc {
         }
       } on Exception catch (e) {
         event.session.setStatus(AttendanceStatus.Error);
-        yield ShowDialogErrorState(e.toString());
+
+        if (e is DioError) {
+          print("😀 dio error");
+          yield ShowDialogErrorState(e.message);
+        } else {
+          yield ShowDialogErrorState(e.toString());
+        }
       }
     }
   }
