@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ipecstudentsapp/util/msg_gen.dart';
 import 'package:share/share.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
@@ -17,22 +18,7 @@ class PdfScreen extends StatefulWidget {
 class _PdfScreenState extends State<PdfScreen> {
   @override
   Widget build(BuildContext context) {
-    ///
-    ///     Share Message
-    ///
-    final msg = """IPEC Notice
-----
-Title : ${widget.notice.title}
-Date : ${widget.notice.date}
-
-Link [PDF] : ${Uri.parse(widget.url).toString()}
-----
-Contributed by : ${widget.notice.credit}
-on IPEC Student's app 
-Android :  http://bit.ly/ipecapp 
-IOS : http://bit.ly/ipecappios
-""";
-
+    final _size = MediaQuery.of(context).size;
     // Widgets
     return Scaffold(
       appBar: AppBar(
@@ -43,20 +29,17 @@ IOS : http://bit.ly/ipecappios
             padding: const EdgeInsets.all(20.0),
             child: GestureDetector(
                 onTap: () {
-                  Share.share(msg, subject: 'IPEC Notice');
+                  Share.share(
+                      genShareMessage(widget.notice.title, widget.notice.date,
+                          widget.url, widget.notice.credit),
+                      subject: 'IPEC Notice');
                 },
-                child: Icon(Icons.share)),
+                child: Icon(Icons.ios_share_sharp)),
           ),
         ],
       ),
-      body: SafeArea(
-        child: Container(
-          height: double.maxFinite,
-          width: double.maxFinite,
-          child: SfPdfViewer.network(
-            widget.url,
-          ),
-        ),
+      body: SfPdfViewer.network(
+        widget.url,
       ),
     );
   }

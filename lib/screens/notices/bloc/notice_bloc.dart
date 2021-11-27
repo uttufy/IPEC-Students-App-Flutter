@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
@@ -18,6 +19,9 @@ class NoticeBloc extends BaseBloc {
 
   @override
   Stream<BaseState> mapBaseEventToBaseState(BaseEvent event) async* {
+    if (event is NoticeScreenFinished) {
+      yield AllNoticeLoadedState(event.notices);
+    }
     if (event is NoticeLoadEvent) {
       yield NoticeLoadingState();
       DateFormat format = new DateFormat("dd MMM yyyy HH:mm:ss");
@@ -98,12 +102,11 @@ class NoticeBloc extends BaseBloc {
             tp: data[indivisualKey]['tp'],
           );
           noticeList.add(noticeItem);
-          noticeList.sort((a, b) {
-            return format.parse(b.date).compareTo(format.parse(a.date));
-          });
         }
       });
-
+      noticeList.sort((a, b) {
+        return format.parse(b.date).compareTo(format.parse(a.date));
+      });
       yield AllNoticeLoadedState(noticeList);
     }
 

@@ -53,14 +53,6 @@ class _NoticesScreenState extends State<NoticesScreen> {
               listener: (BuildContext context, BaseState state) {
                 print("$runtimeType BlocListener - ${state.toString()}");
 
-                if (state is NoticeOpeningLoading) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('⚡️ Loading in background!'),
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
-                }
                 if (state is NoticeOpenFailedState) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -77,6 +69,8 @@ class _NoticesScreenState extends State<NoticesScreen> {
                       );
                     },
                   ));
+
+                  _bloc.add(NoticeScreenFinished(_notices));
                 }
               },
               child: BaseBlocBuilder(
@@ -99,12 +93,6 @@ class _NoticesScreenState extends State<NoticesScreen> {
                           },
                           title: "Notices",
                         ),
-                        Visibility(
-                            visible: state is NoticeOpeningLoading,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 20.0),
-                              child: Text('⚡️ Loading...'),
-                            )),
                         Expanded(
                           child: _getBody(session, context, state),
                         )
@@ -121,7 +109,6 @@ class _NoticesScreenState extends State<NoticesScreen> {
   }
 
   Widget _getBody(Session session, BuildContext context, BaseState state) {
-    if (state is NoticeLoadingState) return LoadingWidget();
     if (state is NoticeLoadedState) {
       _notices = state.notices;
       return _noticesListView(_notices, session);
@@ -134,9 +121,11 @@ class _NoticesScreenState extends State<NoticesScreen> {
       return _noticesListView(_notices, session);
     }
 
-    if (state is NoticeOpeningLoaded ||
-        state is NoticeOpeningLoading ||
-        state is NoticeOpenFailedState)
+    if (state is NoticeLoadingState ||
+        state is NoticeOpeningLoaded ||
+        state is NoticeOpeningLoading)
+      return LoadingWidget();
+    else if (state is NoticeOpenFailedState)
       return _noticesListView(_notices, session);
     else
       return Center(child: Text("Something Went Wrong! Try Again"));
@@ -161,8 +150,6 @@ class _NoticesScreenState extends State<NoticesScreen> {
     final isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
     return NeumorphicButton(
       onPressed: () {
-        // return _launchURL(notices[index].link);
-
         _bloc.add(NoticeOpenEvent(session, _auth, notices[index]));
       },
       padding: const EdgeInsets.all(20),

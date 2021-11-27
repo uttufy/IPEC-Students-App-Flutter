@@ -25,3 +25,9 @@ class NoticeOpenEvent extends NoticeEvent {
     this.notice,
   );
 }
+
+class NoticeScreenFinished extends NoticeEvent {
+  final List<Notice> notices;
+
+  NoticeScreenFinished(this.notices);
+}
