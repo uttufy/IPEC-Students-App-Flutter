@@ -65,13 +65,89 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   print("$runtimeType BlocBuilder - ${state.toString()}");
                   if (state is AttendanceInitState)
                     _bloc.add(LoadAttendance(_auth, session));
-                  return _getBody(session, context, state);
+                  if (state is AttendanceFailed)
+                    return _attendanceLoadFailedBody(session, context);
+                  else
+                    return _getBody(session, context, state);
                 },
               ),
             );
           },
         ),
       ),
+    );
+  }
+
+  Column _attendanceLoadFailedBody(Session session, BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: InkWell(
+            onTap: () {
+              _bloc.add(LoadAttendance(_auth, session));
+            },
+            borderRadius: BorderRadius.circular(30),
+            highlightColor: kPrimaryLightColor,
+            child: Ink(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: kBlue.withOpacity(0.5)),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.refresh_sharp,
+                    size: 80,
+                  ),
+                  kLowPadding,
+                  Text(
+                    "Retry",
+                    style: Theme.of(context).textTheme.subtitle1,
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            borderRadius: BorderRadius.circular(30),
+            highlightColor: kPrimaryLightColor,
+            child: Ink(
+              padding: const EdgeInsets.all(20),
+              // decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(30),
+              //     color: kGrey),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.arrow_back_ios_new_outlined,
+                    size: 50,
+                  ),
+                  kLowPadding,
+                  Text(
+                    "Go Back",
+                    style: Theme.of(context).textTheme.subtitle1,
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 

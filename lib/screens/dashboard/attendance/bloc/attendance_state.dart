@@ -9,3 +9,5 @@ class AttendanceInitState extends AttendanceState {}
 class AttendanceLoading extends AttendanceState {}
 
 class AttendanceLoaded extends AttendanceState {}
+
+class AttendanceFailed extends AttendanceState {}

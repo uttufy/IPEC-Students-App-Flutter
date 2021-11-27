@@ -63,16 +63,27 @@ class AttendanceBloc extends BaseBloc {
                 "Failed to load attendance! Error at parsing tokens");
         } else {
           yield ShowDialogErrorState(response.error);
+          yield AttendanceFailed();
         }
       } on Exception catch (e) {
         event.session.setStatus(AttendanceStatus.Error);
 
         if (e is DioError) {
-          print("😀 dio error");
-          yield ShowDialogErrorState(e.message);
+          // print("😀 dio error");
+          if (e.type == DioErrorType.connectTimeout) {
+            yield ShowDialogErrorState(
+                "Connection Timeout! Check your internet connectivity and retry again.");
+          } else if (e.type == DioErrorType.receiveTimeout) {
+            yield ShowDialogErrorState(
+                "Connection Timeout! Maybe IPEC Server is down or check your connectivity.");
+          } else {
+            yield ShowDialogErrorState(
+                "Something went wrong! Maybe IPEC Server is down or your internet connectivity is down. Please try again by restarting app");
+          }
         } else {
           yield ShowDialogErrorState(e.toString());
         }
+        yield AttendanceFailed();
       }
     }
   }
