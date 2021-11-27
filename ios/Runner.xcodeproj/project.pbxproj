@@ -33,6 +33,7 @@
 /* Begin PBXFileReference section */
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
+		2429F282275226F400602520 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
 		245D0BF8272561DC00190D5E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		33D04257FB29932E1197CD1A /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
@@ -104,6 +105,7 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				2429F282275226F400602520 /* Runner.entitlements */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
 				97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */,
@@ -358,7 +360,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 26;
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_TEAM = 84US952HPB;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -374,7 +377,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 3.0.4;
+				MARKETING_VERSION = 3.1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.uttu.ipecstudentsapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -497,7 +500,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 26;
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_TEAM = 84US952HPB;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -513,7 +517,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 3.0.4;
+				MARKETING_VERSION = 3.1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.uttu.ipecstudentsapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -530,7 +534,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 26;
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_TEAM = 84US952HPB;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -546,7 +551,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 3.0.4;
+				MARKETING_VERSION = 3.1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.uttu.ipecstudentsapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
