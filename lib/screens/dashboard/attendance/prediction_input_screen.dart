@@ -79,7 +79,7 @@ class _PredictionInputScreenState extends State<PredictionInputScreen> {
                     kMedWidthPadding,
                     _button(
                         onPress: () {
-                          if (total > 0)
+                          if (total > 0 && total > attend)
                             setState(() {
                               total--;
                             });
