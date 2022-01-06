@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ipecstudentsapp/theme/style.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/base_bloc/base_bloc_builder.dart';
@@ -38,7 +39,7 @@ class _HangoutScreenState extends State<HangoutScreen> {
             children: [
               SimpleAppBar(
                 onBack: () => Navigator.pop(context),
-                title: 'Cafeteria Talks',
+                title: 'Cafeteria Talks (Beta)',
               ),
               BaseBlocListener(
                 bloc: _bloc,
@@ -68,9 +69,32 @@ class _HangoutScreenState extends State<HangoutScreen> {
                         pings: Provider.of<Pings>(context, listen: false),
                       ));
                     }
-                    return Center(
-                      child: Text("Something went wrong try again!"),
-                    );
+                    if (state is UserBannedState)
+                      return Center(
+                          child: Padding(
+                        padding: const EdgeInsets.all(30.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("😓🥴", style: TextStyle(fontSize: 100)),
+                            kMedPadding,
+                            Text(
+                              "You are Banned!",
+                              style: Theme.of(context).textTheme.headline5,
+                              textAlign: TextAlign.center,
+                            ),
+                            kLowPadding,
+                            Text(
+                              "You are banned from using Cafeteria Talks due to bad behaviour. If you think this is a mistake write us email at utkarshstudent1@gmail.com",
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ));
+                    else
+                      return Center(
+                        child: Text("Something went wrong try again!"),
+                      );
                   },
                 ),
               ),

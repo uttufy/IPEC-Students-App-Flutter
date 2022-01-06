@@ -87,7 +87,7 @@ class PingBasicWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(kLowCircleRadius),
                 child: Image.network(
                   item.imageUrl,
-                  height: 180,
+                  // height: 180,
                   width: double.maxFinite,
                   fit: BoxFit.cover,
                 ),

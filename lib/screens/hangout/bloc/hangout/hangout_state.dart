@@ -28,3 +28,5 @@ class UserExistState extends HangoutState {
 }
 
 class UserNotExistState extends HangoutState {}
+
+class UserBannedState extends HangoutState {}
