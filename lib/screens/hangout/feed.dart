@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ipecstudentsapp/theme/colors.dart';
@@ -58,6 +59,7 @@ class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
   @override
   void initState() {
     super.initState();
+    FirebaseMessaging.instance.subscribeToTopic("hangoutNotification");
     _loadFeed();
     _firebaseListeners();
   }

@@ -67,6 +67,7 @@ class _HangoutScreenState extends State<HangoutScreen> {
                         if (state is UserExistState) {
                           Provider.of<Pings>(context, listen: false).hUser =
                               state.huser;
+
                           return Expanded(
                               child: HangoutFeedScreen(
                             pings: Provider.of<Pings>(context, listen: false),
