@@ -308,17 +308,57 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                 Padding(
                   padding: const EdgeInsets.only(right: 20.0),
                   child: _listitem(
-                    isDark: isDark,
-                    iconBg: Colors.lightGreen[200],
-                    img: 'assets/icons/skip.png',
-                    main: 'Lectures Skipped',
-                    title: session.attendance.percent < 0
-                        ? "Failed"
-                        : session.attendance
-                                .getAbsentPercent()
-                                .toStringAsFixed(0) +
-                            "%",
-                  ),
+                      isDark: isDark,
+                      iconBg: Colors.blue[200],
+                      img: 'assets/icons/total.png',
+                      main: 'Extra Attendance',
+                      title: session.attendance.extra.toString()),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20.0),
+                  child: _listitem(
+                      isDark: isDark,
+                      iconBg: Colors.blue[200],
+                      img: 'assets/icons/total.png',
+                      main: 'Attended Sessional',
+                      title: session.attendance.sessionalPresent.toString()),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20.0),
+                  child: _listitem(
+                      isDark: isDark,
+                      iconBg: Colors.blue[200],
+                      img: 'assets/icons/total.png',
+                      main: 'Total Sessional',
+                      title: session.attendance.sessionalTotal.toString()),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20.0),
+                  child: _listitem(
+                      isDark: isDark,
+                      iconBg: Colors.blue[200],
+                      img: 'assets/icons/total.png',
+                      main: 'Present SIP',
+                      title: session.attendance.sipPresentClasses.toString()),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20.0),
+                  child: _listitem(
+                      isDark: isDark,
+                      iconBg: Colors.blue[200],
+                      img: 'assets/icons/total.png',
+                      main: 'Total SIP Classes',
+                      title: session.attendance.sipTotalClasses.toString()),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20.0),
+                  child: _listitem(
+                      isDark: isDark,
+                      iconBg: Colors.blue[200],
+                      img: 'assets/icons/total.png',
+                      main: 'Attendend Lectures + Extra',
+                      title: session.attendance.cummulativeTotalLectures
+                          .toString()),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 20.0),
@@ -327,8 +367,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                     iconBg: Colors.orange[200],
                     img: 'assets/icons/attended.png',
                     main: 'Lectures Attended',
-                    title:
-                        session.attendance.presentLecture.split(": ")[1] ?? "",
+                    title: session.attendance.presentLecture ?? "",
                   ),
                 ),
                 _listitem(

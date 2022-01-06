@@ -2,13 +2,25 @@ class Attendance {
   double presentPercent;
   String totalLectures;
   String presentLecture;
+  String sipPresentClasses;
+  String sipTotalClasses;
+  String sessionalPresent;
+  String sessionalTotal;
+  String extra;
+  String cummulativeTotalLectures;
 
   double percent;
   Attendance(
       {this.percent,
       this.presentPercent,
       this.presentLecture,
-      this.totalLectures});
+      this.totalLectures,
+      this.sipPresentClasses,
+      this.sipTotalClasses,
+      this.sessionalPresent,
+      this.sessionalTotal,
+      this.cummulativeTotalLectures,
+      this.extra});
 
   double getPresentPercent() => presentPercent;
   double getAbsentPercent() => (100 - percent);
@@ -23,9 +35,17 @@ class Attendance {
       return presentLecture.split(":")[1].replaceAll(")", "");
   }
 
+  void setCummulativeAttendance() {
+    int ex = (int.tryParse(extra) ?? 0);
+    int pl = (int.tryParse(presentLecture) ?? 0);
+    cummulativeTotalLectures = (ex + pl).toString();
+  }
+
   String getAttendanceMessage() {
     double attendance = percent;
-
+    if (attendance > 100) {
+      return "This feels like illegal :)";
+    }
     if (attendance == 100) {
       return "God Level! 🙏👑👏";
     }

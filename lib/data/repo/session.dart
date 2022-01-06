@@ -64,14 +64,33 @@ class Session extends ChangeNotifier {
       _attendance.percent =
           double.parse(percent.substring(0, percent.length - 1));
       _attendance.totalLectures =
-          document.querySelector('#ContentPlaceHolder1_lbltotal').text;
+          document.querySelector('#ContentPlaceHolder1_lblTotalClasses').text;
       _attendance.presentLecture =
-          document.querySelector('#ContentPlaceHolder1_lblpresent').text;
+          document.querySelector('#ContentPlaceHolder1_lblPresentClass').text;
+      _attendance.sipPresentClasses =
+          document.querySelector('#ContentPlaceHolder1_lblPresentSIP').text;
+      _attendance.sipTotalClasses =
+          document.querySelector('#ContentPlaceHolder1_lblSIPClasses').text;
+      _attendance.sessionalPresent = document
+          .querySelector('#ContentPlaceHolder1_lblPresentSessional')
+          .text;
+      _attendance.sessionalTotal = document
+          .querySelector('#ContentPlaceHolder1_lblSessionalClasses')
+          .text;
+      _attendance.extra = document
+          .querySelector('#ContentPlaceHolder1_lblExtraAttendance')
+          .text;
+      _attendance.setCummulativeAttendance();
     } catch (e) {
       print(e.toString());
       _attendance.percent = -1.0;
-      _attendance.totalLectures = ": Failed";
-      _attendance.presentLecture = ": Error";
+      _attendance.totalLectures = "Error";
+      _attendance.presentLecture = "Error";
+      _attendance.cummulativeTotalLectures = "0";
+      _attendance.extra = "Error";
+      _attendance.sessionalPresent = "Error";
+      _attendance.sessionalTotal = "Error";
+      _attendance.sipPresentClasses = "Error";
     }
 
     try {
