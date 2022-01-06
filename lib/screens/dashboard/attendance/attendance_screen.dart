@@ -310,7 +310,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   child: _listitem(
                       isDark: isDark,
                       iconBg: Colors.blue[200],
-                      img: 'assets/icons/total.png',
+                      emoji: '🏄',
                       main: 'Extra Attendance',
                       title: session.attendance.extra.toString()),
                 ),
@@ -318,8 +318,8 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   padding: const EdgeInsets.only(right: 20.0),
                   child: _listitem(
                       isDark: isDark,
-                      iconBg: Colors.blue[200],
-                      img: 'assets/icons/total.png',
+                      iconBg: Colors.cyan[200],
+                      emoji: '🎖',
                       main: 'Attended Sessional',
                       title: session.attendance.sessionalPresent.toString()),
                 ),
@@ -327,8 +327,8 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   padding: const EdgeInsets.only(right: 20.0),
                   child: _listitem(
                       isDark: isDark,
-                      iconBg: Colors.blue[200],
-                      img: 'assets/icons/total.png',
+                      iconBg: Colors.purple[200],
+                      emoji: '⏰',
                       main: 'Total Sessional',
                       title: session.attendance.sessionalTotal.toString()),
                 ),
@@ -336,8 +336,8 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   padding: const EdgeInsets.only(right: 20.0),
                   child: _listitem(
                       isDark: isDark,
-                      iconBg: Colors.blue[200],
-                      img: 'assets/icons/total.png',
+                      iconBg: Colors.red[200],
+                      emoji: '🏝',
                       main: 'Present SIP',
                       title: session.attendance.sipPresentClasses.toString()),
                 ),
@@ -345,8 +345,8 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   padding: const EdgeInsets.only(right: 20.0),
                   child: _listitem(
                       isDark: isDark,
-                      iconBg: Colors.blue[200],
-                      img: 'assets/icons/total.png',
+                      iconBg: Colors.yellow[200],
+                      emoji: '🗽',
                       main: 'Total SIP Classes',
                       title: session.attendance.sipTotalClasses.toString()),
                 ),
@@ -354,8 +354,8 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   padding: const EdgeInsets.only(right: 20.0),
                   child: _listitem(
                       isDark: isDark,
-                      iconBg: Colors.blue[200],
-                      img: 'assets/icons/total.png',
+                      iconBg: Colors.green[200],
+                      emoji: '✍🏄',
                       main: 'Attendend Lectures + Extra',
                       title: session.attendance.cummulativeTotalLectures
                           .toString()),
@@ -364,16 +364,16 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   padding: const EdgeInsets.only(right: 20.0),
                   child: _listitem(
                     isDark: isDark,
-                    iconBg: Colors.orange[200],
-                    img: 'assets/icons/attended.png',
+                    iconBg: Colors.lightBlue[200],
+                    emoji: '✍',
                     main: 'Lectures Attended',
                     title: session.attendance.presentLecture ?? "",
                   ),
                 ),
                 _listitem(
                   isDark: isDark,
-                  iconBg: Colors.blue[200],
-                  img: 'assets/icons/total.png',
+                  iconBg: Colors.deepPurple[200],
+                  emoji: '🙋',
                   main: 'Total Lectures',
                   title: session.attendance.getTotalLectures().toString(),
                 ),
@@ -390,7 +390,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
       @required String title,
       Color iconBg = kPrimaryLightColor,
       Color cardBg = Colors.white,
-      @required String img,
+      @required String emoji,
       @required bool isDark}) {
     return Container(
       padding: const EdgeInsets.all(20),
@@ -407,9 +407,9 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10), color: iconBg),
-                child: Image.asset(
-                  img,
-                  width: SizeConfig.widthMultiplier * 6,
+                child: Text(
+                  emoji,
+                  style: TextStyle(fontSize: SizeConfig.textMultiplier * 6),
                 ),
               ),
               kMedWidthPadding,

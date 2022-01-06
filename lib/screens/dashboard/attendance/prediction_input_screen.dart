@@ -26,8 +26,8 @@ class _PredictionInputScreenState extends State<PredictionInputScreen> {
   int attend = 0;
 
   String calculatePercent() {
-    print(widget.attendance.getPresentLectures());
-    int a = int.parse(widget.attendance.getPresentLectures());
+    // print(widget.attendance.presentLecture);
+    int a = int.parse(widget.attendance.cummulativeTotalLectures);
     int b = int.parse(widget.attendance.getTotalLectures());
     double percent = ((a + attend) / (b + total)) * 100;
     return percent.toStringAsFixed(2);
