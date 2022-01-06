@@ -17,6 +17,7 @@ dependencies:
   adaptive_theme: ^2.2.0
   circular_profile_avatar: ^2.0.0
   cupertino_icons: ^1.0.3
+  cached_network_image: ^3.2.0
   dio: ^4.0.0
   equatable: ^2.0.2
   # firebase_analytics: ^8.1.0

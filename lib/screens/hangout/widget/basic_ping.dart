@@ -8,6 +8,7 @@ import 'bottomStrip.dart';
 import 'linked_widget.dart';
 import 'pollsWidget.dart';
 import 'userStrip.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class PingBasicWidget extends StatelessWidget {
   final Post item;
@@ -85,11 +86,17 @@ class PingBasicWidget extends StatelessWidget {
               padding: const EdgeInsets.only(top: 10.0),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(kLowCircleRadius),
-                child: Image.network(
-                  item.imageUrl,
+                child: CachedNetworkImage(
+                  imageUrl: item.imageUrl,
                   // height: 180,
                   width: double.maxFinite,
                   fit: BoxFit.cover,
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      Center(
+                    child: CircularProgressIndicator(
+                        value: downloadProgress.progress),
+                  ),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               ),
             ),

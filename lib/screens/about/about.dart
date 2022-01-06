@@ -190,7 +190,7 @@ On an island full of engineers you'll have light, whereas on an island full of b
       elevation:
           5.0, // sets elevation (shadow of the profile picture), default value is 0.0
 
-      cacheImage: false, // allow widget to cache image against provided url
+      cacheImage: true, // allow widget to cache image against provided url
       onTap: () {
         onTap();
       }, // sets on tap

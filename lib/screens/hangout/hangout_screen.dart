@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ipecstudentsapp/data/repo/session.dart';
 import 'package:ipecstudentsapp/theme/style.dart';
 import 'package:provider/provider.dart';
 
@@ -33,74 +34,78 @@ class _HangoutScreenState extends State<HangoutScreen> {
   Widget build(BuildContext context) {
     return Consumer<Auth>(
       builder: (context, auth, child) {
-        return Scaffold(
-            body: SafeArea(
-          child: Column(
-            children: [
-              SimpleAppBar(
-                onBack: () => Navigator.pop(context),
-                title: 'Cafeteria Talks (Beta)',
-              ),
-              BaseBlocListener(
-                bloc: _bloc,
-                listener: (BuildContext context, BaseState state) {
-                  print("$runtimeType BlocListener - ${state.toString()}");
-                },
-                child: BaseBlocBuilder(
-                  bloc: _bloc,
-                  condition: (BaseState previous, BaseState current) {
-                    return !(BaseBlocBuilder.isBaseState(current));
-                  },
-                  builder: (BuildContext context, BaseState state) {
-                    print("$runtimeType BlocBuilder - ${state.toString()}");
+        return Consumer<Session>(
+          builder: (context, session, child) {
+            return Scaffold(
+                body: SafeArea(
+              child: Column(
+                children: [
+                  SimpleAppBar(
+                    onBack: () => Navigator.pop(context),
+                    title: 'Cafeteria Talks (Beta)',
+                  ),
+                  BaseBlocListener(
+                    bloc: _bloc,
+                    listener: (BuildContext context, BaseState state) {
+                      print("$runtimeType BlocListener - ${state.toString()}");
+                    },
+                    child: BaseBlocBuilder(
+                      bloc: _bloc,
+                      condition: (BaseState previous, BaseState current) {
+                        return !(BaseBlocBuilder.isBaseState(current));
+                      },
+                      builder: (BuildContext context, BaseState state) {
+                        print("$runtimeType BlocBuilder - ${state.toString()}");
 
-                    if (state is HangoutInitState) {
-                      _bloc.add(CheckUserEvent(auth.user));
-                    }
-                    if (state is HangoutLoading) return LoadingWidget();
-                    if (state is UserNotExistState)
-                      return _getOnboardingBody(
-                          auth, Provider.of<Pings>(context, listen: false));
-                    if (state is UserExistState) {
-                      Provider.of<Pings>(context, listen: false).hUser =
-                          state.huser;
-                      return Expanded(
-                          child: HangoutFeedScreen(
-                        pings: Provider.of<Pings>(context, listen: false),
-                      ));
-                    }
-                    if (state is UserBannedState)
-                      return Center(
-                          child: Padding(
-                        padding: const EdgeInsets.all(30.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("😓🥴", style: TextStyle(fontSize: 100)),
-                            kMedPadding,
-                            Text(
-                              "You are Banned!",
-                              style: Theme.of(context).textTheme.headline5,
-                              textAlign: TextAlign.center,
+                        if (state is HangoutInitState) {
+                          _bloc.add(CheckUserEvent(auth, session));
+                        }
+                        if (state is HangoutLoading) return LoadingWidget();
+                        if (state is UserNotExistState)
+                          return _getOnboardingBody(
+                              auth, Provider.of<Pings>(context, listen: false));
+                        if (state is UserExistState) {
+                          Provider.of<Pings>(context, listen: false).hUser =
+                              state.huser;
+                          return Expanded(
+                              child: HangoutFeedScreen(
+                            pings: Provider.of<Pings>(context, listen: false),
+                          ));
+                        }
+                        if (state is UserBannedState)
+                          return Center(
+                              child: Padding(
+                            padding: const EdgeInsets.all(30.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("😓🥴", style: TextStyle(fontSize: 100)),
+                                kMedPadding,
+                                Text(
+                                  "You are Banned!",
+                                  style: Theme.of(context).textTheme.headline5,
+                                  textAlign: TextAlign.center,
+                                ),
+                                kLowPadding,
+                                Text(
+                                  "You are banned from using Cafeteria Talks due to bad behaviour. If you think this is a mistake write us email at utkarshstudent1@gmail.com",
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
                             ),
-                            kLowPadding,
-                            Text(
-                              "You are banned from using Cafeteria Talks due to bad behaviour. If you think this is a mistake write us email at utkarshstudent1@gmail.com",
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
-                      ));
-                    else
-                      return Center(
-                        child: Text("Something went wrong try again!"),
-                      );
-                  },
-                ),
+                          ));
+                        else
+                          return Center(
+                            child: Text("Something went wrong try again!"),
+                          );
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ));
+            ));
+          },
+        );
       },
     );
   }
