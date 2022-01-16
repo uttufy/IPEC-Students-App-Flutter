@@ -462,9 +462,11 @@ packages:
   mantras:
     dependency: "direct main"
     description:
-      name: mantras
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "8f6b0a14520ddd8683b453b2661693457ce9a77d"
+      url: "https://github.com/uttusharma/mantras.git"
+    source: git
     version: "0.0.3"
   matcher:
     dependency: transitive
@@ -668,7 +670,7 @@ packages:
       name: profanity_filter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.4"
+    version: "2.0.0"
   provider:
     dependency: "direct main"
     description:
