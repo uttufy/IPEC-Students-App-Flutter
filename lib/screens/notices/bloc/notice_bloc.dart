@@ -34,53 +34,51 @@ class NoticeBloc extends BaseBloc {
         String element = document
             .querySelector("#ContentPlaceHolder1_gridViewNotices")!
             .outerHtml;
-        if (element == null)
+        if (element.length == 0)
           yield NoticeErrorState("Error: Parsing Notices Failed");
         else {
           Document table = parse(element);
-          var rows = table.querySelectorAll('tr');
-          if (rows != null) {
-            var query1 =
-                "#ContentPlaceHolder1_gridViewNotices_gridViewNotices_grdlblHeading_";
-            var query2 =
-                "#ContentPlaceHolder1_gridViewNotices_gridViewNotices_gridlblPostedDate_";
-            var query3 =
-                "#ContentPlaceHolder1_gridViewNotices_gridViewNotices_hlpkView_";
-            String? link;
-            var date;
-            bool tp = false;
+          // var rows = table.querySelectorAll('tr');
+          var query1 =
+              "#ContentPlaceHolder1_gridViewNotices_gridViewNotices_grdlblHeading_";
+          var query2 =
+              "#ContentPlaceHolder1_gridViewNotices_gridViewNotices_gridlblPostedDate_";
+          var query3 =
+              "#ContentPlaceHolder1_gridViewNotices_gridViewNotices_hlpkView_";
+          String? link;
+          var date;
+          bool tp = false;
 
-            List<Notice> notices = [];
-            for (int i = 0; i < 10; i++) {
-              tp = false;
-              element = table.querySelector(query1 + i.toString())!.text;
-              date = table.querySelector(query2 + i.toString())!.text;
-              link =
-                  table.querySelector(query3 + i.toString())!.attributes['href'];
-              link = kWebsiteURL + "Students/" + link!;
-              if (element.contains('T & P') || element.contains('T&P')) {
-                tp = true;
-              }
-
-              notices.add(Notice(
-                  title: element,
-                  date: date,
-                  link: link,
-                  credit: event.auth!.user!.name,
-                  tp: tp));
+          List<Notice> notices = [];
+          for (int i = 0; i < 10; i++) {
+            tp = false;
+            element = table.querySelector(query1 + i.toString())!.text;
+            date = table.querySelector(query2 + i.toString())!.text;
+            link =
+                table.querySelector(query3 + i.toString())!.attributes['href'];
+            link = kWebsiteURL + "Students/" + link!;
+            if (element.contains('T & P') || element.contains('T&P')) {
+              tp = true;
             }
-            yield NoticeLoadedState(notices);
 
-            final DatabaseReference db = FirebaseDatabase.instance.reference();
-
-            notices.forEach((element) {
-              db
-                  .child('Notices')
-                  .child(format.parse(element.date!).year.toString())
-                  .child(element.date!)
-                  .set(element.toMap());
-            });
+            notices.add(Notice(
+                title: element,
+                date: date,
+                link: link,
+                credit: event.auth!.user!.name,
+                tp: tp));
           }
+          yield NoticeLoadedState(notices);
+
+          final DatabaseReference db = FirebaseDatabase.instance.reference();
+
+          notices.forEach((element) {
+            db
+                .child('Notices')
+                .child(format.parse(element.date!).year.toString())
+                .child(element.date!)
+                .set(element.toMap());
+          });
         }
       }
 

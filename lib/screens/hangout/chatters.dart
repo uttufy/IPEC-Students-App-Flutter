@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_bloc_builder.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_bloc_listener.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_state.dart';
-import 'package:ipecstudentsapp/data/model/hangout/comment.dart';
-import 'package:ipecstudentsapp/data/repo/pings.dart';
-import 'package:ipecstudentsapp/screens/hangout/bloc/chatter/chatters_bloc.dart';
-import 'package:ipecstudentsapp/screens/hangout/widget/comment_widget.dart';
-import 'package:ipecstudentsapp/theme/style.dart';
-import 'package:provider/provider.dart';
+import '../../data/base_bloc/base_bloc_builder.dart';
+import '../../data/base_bloc/base_bloc_listener.dart';
+import '../../data/base_bloc/base_state.dart';
+import '../../data/model/hangout/comment.dart';
+import '../../data/repo/pings.dart';
 import 'bloc/chatter/chatters_bloc.dart';
+import 'widget/comment_widget.dart';
+import '../../theme/style.dart';
+import 'package:provider/provider.dart';
 import 'bloc/chatter/chatters_event.dart';
 import 'bloc/chatter/chatters_state.dart';
 

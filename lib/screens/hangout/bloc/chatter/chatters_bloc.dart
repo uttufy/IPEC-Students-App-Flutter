@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_bloc.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_event.dart';
-import 'package:ipecstudentsapp/data/base_bloc/base_state.dart';
-import 'package:ipecstudentsapp/data/model/hangout/comment.dart';
+import '../../../../data/base_bloc/base_bloc.dart';
+import '../../../../data/base_bloc/base_event.dart';
+import '../../../../data/base_bloc/base_state.dart';
+import '../../../../data/model/hangout/comment.dart';
 import 'chatters_state.dart';
 import 'chatters_event.dart';
 
@@ -24,7 +24,7 @@ class ChattersBloc extends BaseBloc {
         final res = await firebaseRef.child(event.postID!).once();
 
         List<CommentModel> _list = [];
-        if (res != null && res.value != null && res.value.keys != null) {
+        if (res.value != null && res.value.keys != null) {
           var keys = res.value.keys;
           var data = res.value;
           for (var indivisualKey in keys) {

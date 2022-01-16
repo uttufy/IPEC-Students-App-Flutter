@@ -5,9 +5,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:giphy_picker/giphy_picker.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ipecstudentsapp/data/repo/pings.dart';
-import 'package:ipecstudentsapp/screens/hangout/widget/linked_widget.dart';
-import 'package:ipecstudentsapp/screens/hangout/widget/removeButton.dart';
+import '../../data/repo/pings.dart';
+import 'widget/linked_widget.dart';
+import 'widget/removeButton.dart';
 import 'package:profanity_filter/profanity_filter.dart';
 import 'package:provider/provider.dart';
 import '../../data/bad_hindi_words.dart';
@@ -257,7 +257,7 @@ class _CreatePingState extends State<CreatePing> {
     if (addtionalChildren.length <= 0) {
       final gif = await GiphyPicker.pickGif(
           context: context, apiKey: 'cXIAL2LDuPM9W8HaqDItOQm3i3guL0bt');
-      if (gif != null && gif.images != null) {
+      if (gif != null) {
         print(gifUrl);
         gifUrl = gif.images.original!.url;
         isGif = true;
@@ -353,7 +353,7 @@ class _CreatePingState extends State<CreatePing> {
             new FlatButton(
                 child: const Text('SAVE'),
                 onPressed: () {
-                  if (link != null && link.isNotEmpty) {
+                  if (link.isNotEmpty) {
                     isLink = true;
                     Navigator.pop(context);
                     addtionalChildren.add(Stack(
@@ -425,10 +425,7 @@ class _CreatePingState extends State<CreatePing> {
             new FlatButton(
                 child: const Text('SAVE'),
                 onPressed: () {
-                  if (option1 != null &&
-                      option1.isNotEmpty &&
-                      option2 != null &&
-                      option2.isNotEmpty) {
+                  if (option1.isNotEmpty && option2.isNotEmpty) {
                     isPoll = true;
                     pollModel = PollModel(
                         creator: widget.user!.id,

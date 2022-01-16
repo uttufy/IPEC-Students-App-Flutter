@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/data/model/hangout/comment.dart';
-import 'package:ipecstudentsapp/data/repo/pings.dart';
-import 'package:ipecstudentsapp/screens/hangout/widget/userStrip.dart';
-import 'package:ipecstudentsapp/theme/colors.dart';
-import 'package:ipecstudentsapp/theme/style.dart';
+import '../../../data/model/hangout/comment.dart';
+import '../../../data/repo/pings.dart';
+import 'userStrip.dart';
+import '../../../theme/colors.dart';
+import '../../../theme/style.dart';
 import 'package:provider/provider.dart';
 import 'package:sweetsheet/sweetsheet.dart';
 

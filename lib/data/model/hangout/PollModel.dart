@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-
 class PollModel {
   final String? creator;
   Map<dynamic, dynamic>? userWhoVoted;

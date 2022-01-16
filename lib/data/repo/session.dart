@@ -27,32 +27,24 @@ class Session extends ChangeNotifier {
       var document = parse(tableHtml);
       String changedHtml =
           document.querySelector("#ContentPlaceHolder1_GridView1")!.outerHtml;
-      if (changedHtml != null) {
-        Document table = parse(changedHtml);
-        var rows = table.querySelectorAll('tr');
-        if (rows != null) {
-          var query;
-          var query2;
-          for (int i = 3; i < rows.length - 3; i++) {
-            query =
-                "tbody > tr:nth-child(" + i.toString() + ") > td:nth-child(12)";
-            query2 =
-                "tbody > tr:nth-child(" + i.toString() + ") > td:nth-child(1)";
-            element = table.querySelector(query)!.text.replaceAll('%', '');
-            element2 = table.querySelector(query2)!.text;
-            record.add((double.parse(element)));
-            days.add(element2);
-          }
-          graphDays = days;
-          return record;
-        }
+      Document table = parse(changedHtml);
+      var rows = table.querySelectorAll('tr');
+      var query;
+      var query2;
+      for (int i = 3; i < rows.length - 3; i++) {
+        query = "tbody > tr:nth-child(" + i.toString() + ") > td:nth-child(12)";
+        query2 = "tbody > tr:nth-child(" + i.toString() + ") > td:nth-child(1)";
+        element = table.querySelector(query)!.text.replaceAll('%', '');
+        element2 = table.querySelector(query2)!.text;
+        record.add((double.parse(element)));
+        days.add(element2);
       }
+      graphDays = days;
+      return record;
     } catch (e) {
       // print(e.to);
       throw Exception(e);
     }
-
-    return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   }
 
   void setAttendance(String? body) {

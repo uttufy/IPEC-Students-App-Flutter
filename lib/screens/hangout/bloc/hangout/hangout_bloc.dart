@@ -1,5 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'package:ipecstudentsapp/data/model/GeneralResponse.dart';
+import '../../../../data/model/GeneralResponse.dart';
 import 'package:html/parser.dart';
 import '../../../../../data/base_bloc/base_bloc.dart';
 import '../../../../../data/base_bloc/base_event.dart';

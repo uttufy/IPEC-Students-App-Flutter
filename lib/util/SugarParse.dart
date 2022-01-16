@@ -10,8 +10,8 @@ class SugarParser {
 
     var userImage =
         document.querySelector("#UserImage")!.attributes.values.elementAt(1);
-    if (name != null) {
-      if (userImage == null) {
+    if (name.length != 0) {
+      if (userImage.length == 0) {
         userImage = kDefaultUserImage;
       }
       return User(

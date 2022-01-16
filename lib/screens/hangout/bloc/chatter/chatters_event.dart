@@ -1,4 +1,4 @@
-import 'package:ipecstudentsapp/data/repo/pings.dart';
+import '../../../../data/repo/pings.dart';
 
 import '../../../../data/base_bloc/base_event.dart';
 

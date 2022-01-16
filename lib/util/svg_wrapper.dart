@@ -7,7 +7,6 @@ class SvgWrapper {
   SvgWrapper(this.rawSvg);
 
   Future<DrawableRoot?> generateLogo() async {
-    assert(rawSvg != null);
     try {
       return await svg.fromSvgString(rawSvg, rawSvg);
     } catch (e) {

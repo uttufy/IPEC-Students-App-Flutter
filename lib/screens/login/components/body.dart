@@ -116,10 +116,7 @@ class _BodyState extends State<Body> {
   }
 
   bool validateInput(String username, String password) {
-    if (username != null &&
-        password != null &&
-        username.length != 0 &&
-        password.length != 0) return true;
+    if (username.length != 0 && password.length != 0) return true;
     return false;
   }
 }

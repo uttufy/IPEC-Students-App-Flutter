@@ -39,14 +39,14 @@ class Pings extends ChangeNotifier {
   Future<void> loadPings(int pageSize) async {
     // First Load Likes
     final snap = await databaseRef2.child('user').child(_hUser!.id!).once();
-    if (snap != null && snap.value != null && snap.value['likes'] != null)
+    if (snap.value != null && snap.value['likes'] != null)
       _hUser!.likes = List<String>.from(snap.value['likes']);
     print("-- Loading posts --");
 
     Query query = databaseRef.orderByChild('postedOn');
     try {
       final snapshot = await query.limitToLast(pageSize).once();
-      if (snapshot != null && snapshot.value != null) {
+      if (snapshot.value != null) {
         var keys = snapshot.value.keys;
         var data = snapshot.value;
 
@@ -102,7 +102,8 @@ class Pings extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> reportComment(String commentId, String id, String? userID) async {
+  Future<void> reportComment(
+      String commentId, String id, String? userID) async {
     final res =
         await databaseRef2.child('c_reports').child(id).child(commentId).once();
     if (res.value != null) {

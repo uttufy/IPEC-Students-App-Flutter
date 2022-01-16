@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:ipecstudentsapp/screens/hangout/chatter_screen.dart';
+import '../chatter_screen.dart';
 import '../../../data/model/hangout/PollModel.dart';
 import '../../../data/model/hangout/post.dart';
 import '../../../theme/style.dart';
@@ -66,7 +66,7 @@ class PingBasicWidget extends StatelessWidget {
                 .copyWith(fontWeight: FontWeight.normal),
           ),
         ),
-        if (item!.isPoll! && item!.pollData != null)
+        if (item!.isPoll!)
           PollView(
             poll: PollModel(
                 creator: item!.author.id,

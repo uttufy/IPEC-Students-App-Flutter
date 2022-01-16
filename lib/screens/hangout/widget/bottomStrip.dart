@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/data/const.dart';
+import '../../../data/const.dart';
 import 'package:provider/provider.dart';
 import 'package:sweetsheet/sweetsheet.dart';
 import '../../../data/repo/pings.dart';

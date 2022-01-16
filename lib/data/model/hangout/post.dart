@@ -1,7 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
-
 import 'PollModel.dart';
 import 'hangUser.dart';
 

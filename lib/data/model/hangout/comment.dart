@@ -1,7 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
-
 import 'hangUser.dart';
 
 class CommentModel {

@@ -3,16 +3,16 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:giphy_picker/giphy_picker.dart';
-import 'package:ipecstudentsapp/data/bad_hindi_words.dart';
-import 'package:ipecstudentsapp/data/model/hangout/comment.dart';
-import 'package:ipecstudentsapp/data/model/hangout/hangUser.dart';
-import 'package:ipecstudentsapp/data/model/hangout/post.dart';
-import 'package:ipecstudentsapp/data/repo/pings.dart';
-import 'package:ipecstudentsapp/screens/hangout/chatters.dart';
-import 'package:ipecstudentsapp/screens/hangout/widget/basic_ping.dart';
-import 'package:ipecstudentsapp/screens/hangout/widget/removeButton.dart';
-import 'package:ipecstudentsapp/theme/colors.dart';
-import 'package:ipecstudentsapp/widgets/simple_appbar.dart';
+import '../../data/bad_hindi_words.dart';
+import '../../data/model/hangout/comment.dart';
+import '../../data/model/hangout/hangUser.dart';
+import '../../data/model/hangout/post.dart';
+import '../../data/repo/pings.dart';
+import 'chatters.dart';
+import 'widget/basic_ping.dart';
+import 'widget/removeButton.dart';
+import '../../theme/colors.dart';
+import '../../widgets/simple_appbar.dart';
 import 'package:profanity_filter/profanity_filter.dart';
 import 'package:provider/provider.dart';
 
@@ -204,7 +204,7 @@ class _ChatterScreenState extends State<ChatterScreen> {
     if (isGif == false) {
       final gif = await GiphyPicker.pickGif(
           context: context, apiKey: 'cXIAL2LDuPM9W8HaqDItOQm3i3guL0bt');
-      if (gif != null && gif.images != null) {
+      if (gif != null) {
         print(gifUrl);
         gifUrl = gif.images.original!.url;
         isGif = true;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/data/repo/session.dart';
-import 'package:ipecstudentsapp/theme/style.dart';
+import '../../data/repo/session.dart';
+import '../../theme/style.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/base_bloc/base_bloc_builder.dart';

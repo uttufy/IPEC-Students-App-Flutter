@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/util/msg_gen.dart';
+import '../../util/msg_gen.dart';
 import 'package:share/share.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
