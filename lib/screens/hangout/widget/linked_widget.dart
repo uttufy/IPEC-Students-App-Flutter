@@ -5,11 +5,11 @@ import 'package:sweetsheet/sweetsheet.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LinkWidget extends StatelessWidget {
-  final String url;
+  final String? url;
 
   LinkWidget(
     this.url, {
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   _launchURL(String url) async {
@@ -39,7 +39,7 @@ class LinkWidget extends StatelessWidget {
             icon: Icons.link,
             positive: SweetSheetAction(
               onPressed: () {
-                _launchURL(url);
+                _launchURL(url!);
                 Navigator.of(context).pop();
               },
               title: 'OPEN IN BROWSER',
@@ -64,7 +64,7 @@ class LinkWidget extends StatelessWidget {
               kMedWidthPadding,
               Expanded(
                   child: Text(
-                url,
+                url!,
                 overflow: TextOverflow.ellipsis,
               )),
             ],

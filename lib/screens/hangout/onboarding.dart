@@ -16,10 +16,10 @@ import 'bloc/onboarding/onboarding_event.dart';
 import 'bloc/onboarding/onboarding_state.dart';
 
 class Onboarding extends StatefulWidget {
-  final Auth auth;
-  final VoidCallback onDone;
+  final Auth? auth;
+  final VoidCallback? onDone;
   const Onboarding({
-    Key key,
+    Key? key,
     this.auth,
     this.onDone,
   }) : super(key: key);
@@ -29,7 +29,7 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> {
-  final _bloc = OnboardingBloc();
+  final _bloc = OnboardingBloc(OnboardingInitState());
 
   @override
   void dispose() {
@@ -98,9 +98,9 @@ class _OnboardingState extends State<Onboarding> {
   }
 
   Widget _getbody(BuildContext context, bool isDark, Huser user) {
-    final gender = user.gender.contains(":")
-        ? user.gender.split(":")[1].trim()
-        : user.gender;
+    final gender = user.gender!.contains(":")
+        ? user.gender!.split(":")[1].trim()
+        : user.gender!;
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
@@ -121,7 +121,7 @@ class _OnboardingState extends State<Onboarding> {
               'Let\'s get you setup,',
               style: Theme.of(context)
                   .textTheme
-                  .bodyText1
+                  .bodyText1!
                   .copyWith(color: isDark ? Colors.white : Colors.black),
             ),
             Row(
@@ -129,9 +129,9 @@ class _OnboardingState extends State<Onboarding> {
               children: [
                 Expanded(
                   child: Text(
-                    widget.auth.user.name,
+                    widget.auth!.user!.name!,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.headline6.copyWith(
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
                         color: isDark ? Colors.white : Colors.black,
                         fontWeight: FontWeight.bold),
                   ),
@@ -139,11 +139,11 @@ class _OnboardingState extends State<Onboarding> {
               ],
             ),
             kLowPadding,
-            _getTexts('Email', user.email, isDark),
-            _getTexts('Phone Number', user.phone, isDark),
-            _getTexts('Class', user.section, isDark),
-            _getTexts('Year', user.yr, isDark),
-            _getTexts('Department', user.depart, isDark),
+            _getTexts('Email', user.email!, isDark),
+            _getTexts('Phone Number', user.phone!, isDark),
+            _getTexts('Class', user.section!, isDark),
+            _getTexts('Year', user.yr!, isDark),
+            _getTexts('Department', user.depart!, isDark),
             _getTexts('Gender', gender, isDark),
           ],
         ),
@@ -159,7 +159,7 @@ class _OnboardingState extends State<Onboarding> {
         children: [
           Text(
             s,
-            style: Theme.of(context).textTheme.bodyText1.copyWith(
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
                   color: isDark ? Colors.white : Colors.black,
                 ),
           ),
@@ -168,7 +168,7 @@ class _OnboardingState extends State<Onboarding> {
             t,
             style: Theme.of(context)
                 .textTheme
-                .headline6
+                .headline6!
                 .copyWith(fontWeight: FontWeight.w700),
           ),
         ],
@@ -212,7 +212,7 @@ class _OnboardingState extends State<Onboarding> {
         onDone: () {
           // When done button is press
 
-          widget.onDone();
+          widget.onDone!();
         },
         next: Text(
           'Next',

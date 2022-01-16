@@ -7,15 +7,15 @@ import '../util/SizeConfig.dart';
 
 class SimpleAppBar extends StatelessWidget {
   final img;
-  final VoidCallback onPic;
+  final VoidCallback? onPic;
   final VoidCallback onBack;
-  final Color bgColor;
-  final String title;
+  final Color? bgColor;
+  final String? title;
   const SimpleAppBar(
-      {Key key,
+      {Key? key,
       this.img,
       this.onPic,
-      @required this.onBack,
+      required this.onBack,
       this.title,
       this.bgColor = Colors.transparent})
       : super(key: key);
@@ -58,8 +58,8 @@ class SimpleAppBar extends StatelessWidget {
                 : Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Text(
-                      title,
-                      style: Theme.of(context).textTheme.headline5.copyWith(
+                      title!,
+                      style: Theme.of(context).textTheme.headline5!.copyWith(
                           color: isDark ? Colors.white : Colors.black,
                           fontWeight: FontWeight.bold),
                     ),

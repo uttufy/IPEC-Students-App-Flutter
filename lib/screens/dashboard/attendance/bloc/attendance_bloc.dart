@@ -11,6 +11,8 @@ import 'attendance_event.dart';
 import 'attendance_state.dart';
 
 class AttendanceBloc extends BaseBloc {
+  AttendanceBloc(BaseState initialState) : super(initialState);
+
   @override
   BaseState get initialState => AttendanceInitState();
 
@@ -22,8 +24,8 @@ class AttendanceBloc extends BaseBloc {
       try {
         GeneralResponse response =
             await event.session.webClientService.getAttendanceToken(
-          event.auth.cred,
-          event.auth.token,
+          event.auth!.cred,
+          event.auth!.token,
         );
         if (response.status) {
           Tokens _tokens = Tokens();
@@ -31,25 +33,25 @@ class AttendanceBloc extends BaseBloc {
           var document = parse(response.data.data);
 
           _tokens.viewState =
-              document.querySelector('#__VIEWSTATE').attributes['value'];
+              document.querySelector('#__VIEWSTATE')!.attributes['value'];
           _tokens.viewStateGenerator = document
-              .querySelector('#__VIEWSTATEGENERATOR')
+              .querySelector('#__VIEWSTATEGENERATOR')!
               .attributes['value'];
           _tokens.eventValidation =
-              document.querySelector('#__EVENTVALIDATION').attributes['value'];
+              document.querySelector('#__EVENTVALIDATION')!.attributes['value'];
           if (_tokens.viewState != null &&
               _tokens.viewStateGenerator != null &&
               _tokens.eventValidation != null) {
-            Map<String, String> body = {
+            Map<String, String?> body = {
               '__VIEWSTATE': _tokens.viewState,
               '__VIEWSTATEGENERATOR': _tokens.viewStateGenerator,
               '__EVENTVALIDATION': _tokens.eventValidation,
               "ctl00\$ContentPlaceHolder1\$txtstudent":
-                  event.auth.cred.username,
+                  event.auth!.cred!.username,
               "ctl00\$ContentPlaceHolder1\$btnview": "view"
             };
             GeneralResponse postResponse = await event.session.webClientService
-                .postAttendance(event.auth.cred, event.auth.token, body);
+                .postAttendance(event.auth!.cred, event.auth!.token, body);
             if (postResponse.status) {
               // parse attendance
 

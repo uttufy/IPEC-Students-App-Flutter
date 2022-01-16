@@ -22,14 +22,14 @@ class BaseBlocListener<B extends BaseBloc, S extends BaseState>
 //  final BlocWidgetListener<S> listener;
 
   /// The [Widget] which will be rendered as a descendant of the [BlocListener].
-  final Widget child;
+  final Widget? child;
 
-  final ProgressDialog pd = null;
+  final ProgressDialog? pd = null;
 
   BaseBlocListener({
-    Key key,
-    @required this.bloc,
-    @required BlocWidgetListener<S> listener,
+    Key? key,
+    required this.bloc,
+    required BlocWidgetListener<S> listener,
     this.child,
   })  : assert((bloc is BaseBloc), "Bloc should be instance of BaseBlock !!"),
         super(

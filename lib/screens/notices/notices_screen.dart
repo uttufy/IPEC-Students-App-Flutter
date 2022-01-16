@@ -26,8 +26,8 @@ class NoticesScreen extends StatefulWidget {
 }
 
 class _NoticesScreenState extends State<NoticesScreen> {
-  final NoticeBloc _bloc = NoticeBloc();
-  Auth _auth;
+  final NoticeBloc _bloc = NoticeBloc(NoticeInitial());
+  Auth? _auth;
   List<Notice> _notices = [];
 
   @override
@@ -134,7 +134,7 @@ class _NoticesScreenState extends State<NoticesScreen> {
   Widget _noticesListView(List<Notice> notices, Session session) {
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: notices?.length ?? 0,
+      itemCount: notices.length,
       physics: BouncingScrollPhysics(),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       itemBuilder: (BuildContext context, int index) {
@@ -159,7 +159,7 @@ class _NoticesScreenState extends State<NoticesScreen> {
           lightSource: LightSource.top,
           shadowDarkColor: isDark ? Colors.black12 : null,
           shadowLightColor: isDark ? Colors.black45 : null,
-          color: notices[index].tp
+          color: notices[index].tp!
               ? isDark
                   ? kOrange
                   : Colors.amberAccent.withOpacity(0.5)
@@ -170,8 +170,8 @@ class _NoticesScreenState extends State<NoticesScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            notices[index].title,
-            style: Theme.of(context).textTheme.bodyText1.copyWith(
+            notices[index].title!,
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
                   color: isDark ? Colors.white : Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
@@ -190,8 +190,8 @@ class _NoticesScreenState extends State<NoticesScreen> {
                           color: isDark ? Colors.white30 : Colors.black26),
                     ),
                     Text(
-                      notices[index].date,
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(),
+                      notices[index].date!,
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(),
                     ),
                   ],
                 ),
@@ -208,10 +208,10 @@ class _NoticesScreenState extends State<NoticesScreen> {
                           color: isDark ? Colors.white30 : Colors.black26),
                     ),
                     Text(
-                      notices[index].credit.toLowerCase().capitalize(),
+                      notices[index].credit!.toLowerCase().capitalize(),
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.right,
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(),
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(),
                     ),
                   ],
                 ),

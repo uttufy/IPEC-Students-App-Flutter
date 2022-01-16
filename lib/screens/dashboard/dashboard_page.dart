@@ -75,7 +75,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               radius: SizeConfig.widthMultiplier * 7,
                               backgroundImage: MemoryImage(
                                 base64Decode(
-                                    auth.user.img.toString().split(',')[1]),
+                                    auth.user!.img.toString().split(',')[1]),
                               ),
                             ),
                             PopupMenuButton(
@@ -85,7 +85,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 icon: ImageIcon(AssetImage(
                                   'assets/icons/menu.png',
                                 )),
-                                onSelected: (value) {
+                                onSelected: (dynamic value) {
                                   switch (value) {
                                     case 0:
                                       setState(() {
@@ -124,13 +124,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         kHighPadding,
                         Text(
                           'Hello,',
-                          style: Theme.of(context).textTheme.headline5.copyWith(
+                          style: Theme.of(context).textTheme.headline5!.copyWith(
                               color: isDark ? Colors.white : Colors.black),
                         ),
                         Text(
-                          auth.user.name,
+                          auth.user!.name!,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.headline5.copyWith(
+                          style: Theme.of(context).textTheme.headline5!.copyWith(
                               color: isDark ? Colors.white : Colors.black,
                               fontWeight: FontWeight.bold),
                         ),
@@ -166,7 +166,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   children: [
                                     optionIcon('assets/icons/conversation.png',
                                         'Cafeteria\nTalks', () {
-                                      if (auth.user.isFirstYear)
+                                      if (auth.user!.isFirstYear)
                                         _showSnackBar(
                                             "Sorry, First year students not allowed!");
                                       else {
@@ -252,7 +252,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget optionIcon(String img, String title, Function onPress) {
     return Flexible(
       child: InkWell(
-        onTap: onPress,
+        onTap: onPress as void Function()?,
         borderRadius: BorderRadius.circular(30),
         highlightColor: kPrimaryLightColor,
         child: Ink(
@@ -278,6 +278,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   void _showSnackBar(String s) {
-    _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(s)));
+    _scaffoldKey.currentState!.showSnackBar(SnackBar(content: Text(s)));
   }
 }

@@ -1,12 +1,14 @@
 import 'package:equatable/equatable.dart';
 
 abstract class BaseState extends Equatable {
- final List props;
+  final List props;
   BaseState([this.props = const []]);
 
   @override
   String toString() => "$runtimeType";
 }
+
+class InitState extends BaseState {}
 
 class ShowSnackBarErrorState extends BaseState {
   final String error;
@@ -16,7 +18,7 @@ class ShowSnackBarErrorState extends BaseState {
 class ShowDialogInfoState extends BaseState {
   final String title;
   final String message;
-  ShowDialogInfoState(this.title,this.message) : super([title,message]);
+  ShowDialogInfoState(this.title, this.message) : super([title, message]);
 }
 
 class ShowDialogErrorState extends BaseState {
@@ -24,15 +26,11 @@ class ShowDialogErrorState extends BaseState {
   ShowDialogErrorState(this.error) : super([error]);
 }
 
-class ShowProgressLoader extends BaseState{
+class ShowProgressLoader extends BaseState {
   final String message;
   ShowProgressLoader(this.message) : super([message]);
 }
 
-class PlaceHolderState extends BaseState {
-}
+class PlaceHolderState extends BaseState {}
 
-
-class LogoutState extends BaseState{
-  
-}
+class LogoutState extends BaseState {}

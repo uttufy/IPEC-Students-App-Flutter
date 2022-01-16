@@ -8,6 +8,8 @@ import 'loading_event.dart';
 import 'loading_state.dart';
 
 class LoadingBloc extends BaseBloc {
+  LoadingBloc(BaseState initialState) : super(initialState);
+
   @override
   BaseState get initialState => LoadingInitState();
 
@@ -19,32 +21,32 @@ class LoadingBloc extends BaseBloc {
     if (event is CheckCredentials) {
       try {
         GeneralResponse response = await event.auth
-            .login(event.auth.cred.username, event.auth.cred.password);
+            .login(event.auth.cred!.username!, event.auth.cred!.password);
         if (response.status) {
           event.auth.user =
-              SugarParser().user(response.data.data, event.auth.cred.username);
+              SugarParser().user(response.data.data, event.auth.cred!.username);
 
           await _localData.saveUserPreference(
-              event.auth.cred.username,
-              event.auth.cred.password,
-              event.auth.user.name,
-              event.auth.user.img);
+              event.auth.cred!.username!,
+              event.auth.cred!.password!,
+              event.auth.user!.name!,
+              event.auth.user!.img);
           await Future.delayed(Duration(milliseconds: 50));
           yield AuthenticatedState();
         } else {
           // Invalid Cred probably so trying again
           await Future.delayed(Duration(seconds: 1));
           GeneralResponse response = await event.auth
-              .login(event.auth.cred.username, event.auth.cred.password);
+              .login(event.auth.cred!.username!, event.auth.cred!.password);
           if (response.status) {
             event.auth.user = SugarParser()
-                .user(response.data.data, event.auth.cred.username);
+                .user(response.data.data, event.auth.cred!.username);
 
             await _localData.saveUserPreference(
-                event.auth.cred.username,
-                event.auth.cred.password,
-                event.auth.user.name,
-                event.auth.user.img);
+                event.auth.cred!.username!,
+                event.auth.cred!.password!,
+                event.auth.user!.name!,
+                event.auth.user!.img);
             await Future.delayed(Duration(milliseconds: 50));
             yield AuthenticatedState();
           } else {
@@ -58,7 +60,7 @@ class LoadingBloc extends BaseBloc {
           // yield CloseLoadingState();
         }
       } on Exception catch (e) {
-        yield ShowDialogErrorState(e?.toString() ?? "Fatal Error");
+        yield ShowDialogErrorState(e.toString());
         yield CloseLoadingState();
       }
     }

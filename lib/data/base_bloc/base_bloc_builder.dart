@@ -23,10 +23,10 @@ class BaseBlocBuilder extends BlocBuilderBase<BaseBloc, BaseState> {
   final BlocBuilderCondition<BaseState> condition;
 
   const BaseBlocBuilder({
-    Key key,
-    @required this.bloc,
-    @required this.builder,
-    @required this.condition,
+    Key? key,
+    required this.bloc,
+    required this.builder,
+    required this.condition,
   }) : super(key: key, bloc: bloc);
 
   @override

@@ -18,9 +18,9 @@ import 'package:provider/provider.dart';
 
 class ChatterScreen extends StatefulWidget {
   static const String ROUTE = "/chatter";
-  final Post post;
+  final Post? post;
 
-  const ChatterScreen({Key key, this.post}) : super(key: key);
+  const ChatterScreen({Key? key, this.post}) : super(key: key);
 
   @override
   _ChatterScreenState createState() => _ChatterScreenState();
@@ -31,7 +31,7 @@ class _ChatterScreenState extends State<ChatterScreen> {
   final filter = ProfanityFilter.filterAdditionally(badwordsHindi);
   bool isLoading = false;
   bool isGif = false;
-  String gifUrl = "";
+  String? gifUrl = "";
 
   Widget additionalWidget = Container();
 
@@ -85,7 +85,7 @@ class _ChatterScreenState extends State<ChatterScreen> {
                                 color: isDark ? kGrey : Colors.white),
                             child: PingBasicWidget(
                               item: widget.post,
-                              userId: pings.hUser.id,
+                              userId: pings.hUser!.id,
                               detailedView: true,
                             ),
                           ),
@@ -93,8 +93,8 @@ class _ChatterScreenState extends State<ChatterScreen> {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 30.0),
                             child: Chatters(
-                              postID: widget.post.id,
-                              currentUserID: pings.hUser.id,
+                              postID: widget.post!.id,
+                              currentUserID: pings.hUser!.id,
                             ),
                           ),
                         ],
@@ -157,7 +157,7 @@ class _ChatterScreenState extends State<ChatterScreen> {
                               controller: textEditingController,
                               onChanged: (text) {
                                 if (filter.hasProfanity(text)) {
-                                  _scaffoldKey.currentState.showSnackBar(SnackBar(
+                                  _scaffoldKey.currentState!.showSnackBar(SnackBar(
                                       content: Text(
                                           'Bad words detected... Beware any bad activity will lead to straight up ban')));
                                   textEditingController.text =
@@ -206,12 +206,12 @@ class _ChatterScreenState extends State<ChatterScreen> {
           context: context, apiKey: 'cXIAL2LDuPM9W8HaqDItOQm3i3guL0bt');
       if (gif != null && gif.images != null) {
         print(gifUrl);
-        gifUrl = gif.images.original.url;
+        gifUrl = gif.images.original!.url;
         isGif = true;
         additionalWidget = Stack(
           children: [
             Image.network(
-              gifUrl,
+              gifUrl!,
               height: 100,
             ),
             removeWidget(onRemoved),
@@ -220,7 +220,7 @@ class _ChatterScreenState extends State<ChatterScreen> {
       }
     } else {
       print("Remove older attachmnet");
-      _scaffoldKey.currentState.showSnackBar(SnackBar(
+      _scaffoldKey.currentState!.showSnackBar(SnackBar(
         content: Text(
             'You have already attached something. Remove the older attachment first'),
       ));
@@ -241,7 +241,7 @@ class _ChatterScreenState extends State<ChatterScreen> {
   ) {
     if (textEditingController.text.isNotEmpty) {
       if (filter.hasProfanity(textEditingController.text)) {
-        _scaffoldKey.currentState.showSnackBar(
+        _scaffoldKey.currentState!.showSnackBar(
             SnackBar(content: Text("Bad language is not allowed!!!")));
         return;
       }
@@ -250,22 +250,22 @@ class _ChatterScreenState extends State<ChatterScreen> {
 
       int epoch = DateTime.now().microsecondsSinceEpoch;
 
-      if (gifUrl.isEmpty) isGif = false;
+      if (gifUrl!.isEmpty) isGif = false;
       final authorUser = Huser(
-          id: pings.hUser.id,
-          name: pings.hUser.name,
+          id: pings.hUser!.id,
+          name: pings.hUser!.name,
           email: "",
           gender: "",
           phone: "",
-          depart: pings.hUser.depart,
-          yr: pings.hUser.yr,
-          section: pings.hUser.section,
+          depart: pings.hUser!.depart,
+          yr: pings.hUser!.yr,
+          section: pings.hUser!.section,
           likes: []);
 
       final res = CommentModel(
-          id: widget.post.id,
+          id: widget.post!.id,
           author: authorUser,
-          authorImage: "https://robohash.org/${pings.hUser.id}",
+          authorImage: "https://robohash.org/${pings.hUser!.id}",
           postedOn: epoch,
           text: textEditingController.text,
           gifUrl: gifUrl,
@@ -277,15 +277,15 @@ class _ChatterScreenState extends State<ChatterScreen> {
             .reference()
             .child('hangout')
             .child('comments')
-            .child('${widget.post.id}');
+            .child('${widget.post!.id}');
         ref.push().set(res.toMap());
 
-        _scaffoldKey.currentState
+        _scaffoldKey.currentState!
             .showSnackBar(SnackBar(content: Text("Chattered!!!")));
 
         textEditingController.text = "";
 
-        pings.addComment(widget.post.id, res);
+        pings.addComment(widget.post!.id, res);
         additionalWidget = SizedBox();
         isGif = false;
         gifUrl = "";
@@ -295,11 +295,11 @@ class _ChatterScreenState extends State<ChatterScreen> {
         isLoading = false;
         setState(() {});
         print(e.toString());
-        _scaffoldKey.currentState
+        _scaffoldKey.currentState!
             .showSnackBar(SnackBar(content: Text("Retry: ${e.toString()}")));
       }
     } else {
-      _scaffoldKey.currentState
+      _scaffoldKey.currentState!
           .showSnackBar(SnackBar(content: Text("Empty is not allowed!!!")));
     }
   }

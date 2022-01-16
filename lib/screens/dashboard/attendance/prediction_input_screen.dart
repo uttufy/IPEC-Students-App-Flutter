@@ -13,9 +13,9 @@ import 'prediction_result_screen.dart';
 
 class PredictionInputScreen extends StatefulWidget {
   static const String ROUTE = "/PredictionInputScreen";
-  final Attendance attendance;
+  final Attendance? attendance;
 
-  const PredictionInputScreen({Key key, this.attendance}) : super(key: key);
+  const PredictionInputScreen({Key? key, this.attendance}) : super(key: key);
 
   @override
   _PredictionInputScreenState createState() => _PredictionInputScreenState();
@@ -27,8 +27,8 @@ class _PredictionInputScreenState extends State<PredictionInputScreen> {
 
   String calculatePercent() {
     // print(widget.attendance.presentLecture);
-    int a = int.parse(widget.attendance.cummulativeTotalLectures);
-    int b = int.parse(widget.attendance.getTotalLectures());
+    int a = int.parse(widget.attendance!.cummulativeTotalLectures!);
+    int b = int.parse(widget.attendance!.getTotalLectures()!);
     double percent = ((a + attend) / (b + total)) * 100;
     return percent.toStringAsFixed(2);
   }
@@ -38,7 +38,7 @@ class _PredictionInputScreenState extends State<PredictionInputScreen> {
     final isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
     return Consumer<Auth>(
       builder: (context, _auth, child) {
-        final img = _auth.user.img.toString().split(',')[1];
+        final img = _auth.user!.img.toString().split(',')[1];
         return Scaffold(
           body: SafeArea(
             child: Column(
@@ -52,7 +52,7 @@ class _PredictionInputScreenState extends State<PredictionInputScreen> {
                 ),
                 kLowPadding,
                 Text('Total Lectures Tommorow ?',
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           color: isDark ? Colors.white : Colors.black,
                         )),
                 kLowPadding,
@@ -72,7 +72,7 @@ class _PredictionInputScreenState extends State<PredictionInputScreen> {
                     kMedWidthPadding,
                     Text(
                       total.toString(),
-                      style: Theme.of(context).textTheme.headline3.copyWith(
+                      style: Theme.of(context).textTheme.headline3!.copyWith(
                           color: isDark ? Colors.white : Colors.black,
                           fontWeight: FontWeight.w700),
                     ),
@@ -92,7 +92,7 @@ class _PredictionInputScreenState extends State<PredictionInputScreen> {
                 ),
                 kHighPadding,
                 Text('How many are you going to attend ?',
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           color: isDark ? Colors.white : Colors.black,
                         )),
                 kLowPadding,
@@ -114,7 +114,7 @@ class _PredictionInputScreenState extends State<PredictionInputScreen> {
                     kMedWidthPadding,
                     Text(
                       attend.toString(),
-                      style: Theme.of(context).textTheme.headline3.copyWith(
+                      style: Theme.of(context).textTheme.headline3!.copyWith(
                           color: isDark ? Colors.white : Colors.black,
                           fontWeight: FontWeight.w700),
                     ),
@@ -149,8 +149,7 @@ class _PredictionInputScreenState extends State<PredictionInputScreen> {
                           });
                     } on Exception catch (e) {
                       GeneralDialog.show(context,
-                          title: "Error",
-                          message: e.toString() ?? "Something went wrong");
+                          title: "Error", message: e.toString());
                     }
                   },
                 ),
@@ -163,11 +162,11 @@ class _PredictionInputScreenState extends State<PredictionInputScreen> {
   }
 
   InkWell _button({
-    Function onPress,
-    Widget child,
+    Function? onPress,
+    Widget? child,
   }) {
     return InkWell(
-      onTap: onPress,
+      onTap: onPress as void Function()?,
       borderRadius: BorderRadius.circular(50),
       child: Ink(
         padding: const EdgeInsets.all(10),

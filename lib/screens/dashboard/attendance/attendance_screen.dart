@@ -22,17 +22,17 @@ import 'prediction_input_screen.dart';
 
 class AttendanceScreen extends StatefulWidget {
   static const String ROUTE = "/Attendance";
-  final ScrollController scrollController;
+  final ScrollController? scrollController;
 
-  const AttendanceScreen({Key key, this.scrollController}) : super(key: key);
+  const AttendanceScreen({Key? key, this.scrollController}) : super(key: key);
 
   @override
   _AttendanceScreenState createState() => _AttendanceScreenState();
 }
 
 class _AttendanceScreenState extends State<AttendanceScreen> {
-  final AttendanceBloc _bloc = AttendanceBloc();
-  Auth _auth;
+  final AttendanceBloc _bloc = AttendanceBloc(AttendanceInitState());
+  Auth? _auth;
   @override
   void initState() {
     super.initState();
@@ -161,7 +161,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SimpleAppBar(
-              img: _auth.user.img.toString().split(',')[1],
+              img: _auth!.user!.img.toString().split(',')[1],
               onPic: () {
                 if (state is AttendanceLoaded) {
                   GeneralDialog.show(
@@ -184,7 +184,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                     'Overview',
                     style: Theme.of(context)
                         .textTheme
-                        .headline6
+                        .headline6!
                         .copyWith(fontWeight: FontWeight.w700),
                   ),
                 ],
@@ -193,7 +193,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             kHighPadding,
             Text(
               'Total Attendance',
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     color: isDark ? Colors.white : Colors.black,
                   ),
             ),
@@ -203,16 +203,16 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                     session.attendance.percent < 0
                         ? "Failed"
                         : session.attendance.percent.toString() + "%",
-                    style: Theme.of(context).textTheme.headline3.copyWith(
+                    style: Theme.of(context).textTheme.headline3!.copyWith(
                         color: isDark ? Colors.white : Colors.black,
                         fontWeight: FontWeight.w700),
                   )
                 : Shimmer.fromColors(
-                    baseColor: Colors.grey[400],
-                    highlightColor: Colors.grey[200],
+                    baseColor: Colors.grey[400]!,
+                    highlightColor: Colors.grey[200]!,
                     child: Text(
                       "00.0%",
-                      style: Theme.of(context).textTheme.headline3.copyWith(
+                      style: Theme.of(context).textTheme.headline3!.copyWith(
                           color: Colors.black, fontWeight: FontWeight.w700),
                     )),
             kLowPadding,
@@ -223,7 +223,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                     child: Shimmer.fromColors(
                         baseColor: isDark ? kDarkBg : Colors.white,
                         highlightColor:
-                            isDark ? Colors.grey[900] : Colors.grey[200],
+                            isDark ? Colors.grey[900]! : Colors.grey[200]!,
                         child: Container(
                           width: SizeConfig.screenWidth,
                           color: isDark ? kDarkBg : Colors.white,
@@ -237,7 +237,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                     child: Shimmer.fromColors(
                         baseColor: isDark ? kDarkBg : Colors.white,
                         highlightColor:
-                            isDark ? Colors.grey[900] : Colors.grey[200],
+                            isDark ? Colors.grey[900]! : Colors.grey[200]!,
                         child: Container(
                           width: SizeConfig.screenWidth,
                           color: isDark ? kDarkBg : Colors.white,
@@ -386,12 +386,12 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
   }
 
   Container _listitem(
-      {@required String main,
-      @required String title,
-      Color iconBg = kPrimaryLightColor,
+      {required String main,
+      required String title,
+      Color? iconBg = kPrimaryLightColor,
       Color cardBg = Colors.white,
-      @required String emoji,
-      @required bool isDark}) {
+      required String emoji,
+      required bool isDark}) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(

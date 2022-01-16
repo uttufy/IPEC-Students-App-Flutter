@@ -10,7 +10,7 @@ enum AttendanceStatus { Init, Loaded, Loading, Error }
 class Session extends ChangeNotifier {
   Attendance _attendance = Attendance();
 
-  String _attendanceBody;
+  String? _attendanceBody;
   WebClientService webClientService = WebClientService();
   List graph = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
   List graphDays = [];
@@ -18,7 +18,7 @@ class Session extends ChangeNotifier {
 
   get attendance => _attendance;
 
-  List parseTable(String tableHtml) {
+  List parseTable(String? tableHtml) {
     List<double> record = [];
     List<String> days = [];
     String element;
@@ -26,7 +26,7 @@ class Session extends ChangeNotifier {
     try {
       var document = parse(tableHtml);
       String changedHtml =
-          document.querySelector("#ContentPlaceHolder1_GridView1").outerHtml;
+          document.querySelector("#ContentPlaceHolder1_GridView1")!.outerHtml;
       if (changedHtml != null) {
         Document table = parse(changedHtml);
         var rows = table.querySelectorAll('tr');
@@ -38,8 +38,8 @@ class Session extends ChangeNotifier {
                 "tbody > tr:nth-child(" + i.toString() + ") > td:nth-child(12)";
             query2 =
                 "tbody > tr:nth-child(" + i.toString() + ") > td:nth-child(1)";
-            element = table.querySelector(query).text.replaceAll('%', '');
-            element2 = table.querySelector(query2).text;
+            element = table.querySelector(query)!.text.replaceAll('%', '');
+            element2 = table.querySelector(query2)!.text;
             record.add((double.parse(element)));
             days.add(element2);
           }
@@ -48,37 +48,37 @@ class Session extends ChangeNotifier {
         }
       }
     } catch (e) {
-      print(e.to);
+      // print(e.to);
       throw Exception(e);
     }
 
     return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   }
 
-  void setAttendance(String body) {
+  void setAttendance(String? body) {
     _attendanceBody = body;
 
     try {
       var document = parse(body);
-      var percent = document.querySelector('#ContentPlaceHolder1_lblper').text;
+      var percent = document.querySelector('#ContentPlaceHolder1_lblper')!.text;
       _attendance.percent =
           double.parse(percent.substring(0, percent.length - 1));
       _attendance.totalLectures =
-          document.querySelector('#ContentPlaceHolder1_lblTotalClasses').text;
+          document.querySelector('#ContentPlaceHolder1_lblTotalClasses')!.text;
       _attendance.presentLecture =
-          document.querySelector('#ContentPlaceHolder1_lblPresentClass').text;
+          document.querySelector('#ContentPlaceHolder1_lblPresentClass')!.text;
       _attendance.sipPresentClasses =
-          document.querySelector('#ContentPlaceHolder1_lblPresentSIP').text;
+          document.querySelector('#ContentPlaceHolder1_lblPresentSIP')!.text;
       _attendance.sipTotalClasses =
-          document.querySelector('#ContentPlaceHolder1_lblSIPClasses').text;
+          document.querySelector('#ContentPlaceHolder1_lblSIPClasses')!.text;
       _attendance.sessionalPresent = document
-          .querySelector('#ContentPlaceHolder1_lblPresentSessional')
+          .querySelector('#ContentPlaceHolder1_lblPresentSessional')!
           .text;
       _attendance.sessionalTotal = document
-          .querySelector('#ContentPlaceHolder1_lblSessionalClasses')
+          .querySelector('#ContentPlaceHolder1_lblSessionalClasses')!
           .text;
       _attendance.extra = document
-          .querySelector('#ContentPlaceHolder1_lblExtraAttendance')
+          .querySelector('#ContentPlaceHolder1_lblExtraAttendance')!
           .text;
       _attendance.setCummulativeAttendance();
     } catch (e) {
@@ -111,7 +111,7 @@ class Session extends ChangeNotifier {
     try {
       var document = parse(_attendanceBody);
       String changedHtml =
-          document.querySelector("#ContentPlaceHolder1_GridView1").outerHtml;
+          document.querySelector("#ContentPlaceHolder1_GridView1")!.outerHtml;
       changedHtml = changedHtml.replaceAll('LightBlue', '#f44336');
       // changedHtml = changedHtml.replaceAll('White', '#1D2C4B');
       // changedHtml = changedHtml.replaceAll('#333333', 'White');

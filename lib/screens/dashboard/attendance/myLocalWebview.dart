@@ -8,7 +8,7 @@ class MyLocalWebView extends StatefulWidget {
   static const String = "/MyLocalWebview";
 
   const MyLocalWebView({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

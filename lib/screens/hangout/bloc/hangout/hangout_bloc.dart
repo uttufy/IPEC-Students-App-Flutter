@@ -10,6 +10,8 @@ import 'hangout_event.dart';
 import 'hangout_state.dart';
 
 class HangoutBloc extends BaseBloc {
+  HangoutBloc(BaseState initialState) : super(initialState);
+
   @override
   BaseState get initialState => HangoutInitState();
 
@@ -18,12 +20,12 @@ class HangoutBloc extends BaseBloc {
     if (event is CheckUserEvent) {
       yield HangoutLoading();
 
-      final res = await checkUserExist(event.auth.user.id);
+      final res = await checkUserExist(event.auth.user!.id);
 
       if (res['exists']) {
         final huser = Huser.fromMap(res['data']);
         print(huser.isBanned);
-        if (huser.isBanned)
+        if (huser.isBanned!)
           yield UserBannedState();
         else
           yield UserExistState(huser);
@@ -34,23 +36,23 @@ class HangoutBloc extends BaseBloc {
             .getMyProfile(event.auth.token.cookies);
         if (response.status) {
           var document = parse(response.data);
-          String depart = document
-              .querySelector("#ContentPlaceHolder1_lblDepartment")
+          String? depart = document
+              .querySelector("#ContentPlaceHolder1_lblDepartment")!
               .attributes["value"];
 
-          String yr = document
-              .querySelector("#ContentPlaceHolder1_lblYear")
+          String? yr = document
+              .querySelector("#ContentPlaceHolder1_lblYear")!
               .attributes["value"];
 
-          String section = document
-              .querySelector("#ContentPlaceHolder1_lblBranch")
+          String? section = document
+              .querySelector("#ContentPlaceHolder1_lblBranch")!
               .attributes["value"];
 
           FirebaseDatabase.instance
               .reference()
               .child('hangout')
               .child('user')
-              .child(event.auth.user.id)
+              .child(event.auth.user!.id)
               .update({"depart": depart, "yr": yr, "section": section});
         }
       } else {

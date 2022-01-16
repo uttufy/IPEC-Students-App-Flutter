@@ -20,7 +20,7 @@ import 'theme/style.dart';
 import 'util/SizeConfig.dart';
 
 class Routes {
-  Routes(AdaptiveThemeMode savedThemeMode) {
+  Routes(AdaptiveThemeMode? savedThemeMode) {
     runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider<Auth>(
@@ -60,7 +60,7 @@ class Routes {
       case LoginScreen.ROUTE:
         return _getMaterialRoute(LoginScreen(), settings);
       case LoadingScreen.ROUTE:
-        Map arg = settings.arguments;
+        Map arg = settings.arguments as Map<dynamic, dynamic>;
         return _getMaterialRoute(
             LoadingScreen(
               isFirstLogin: arg['isFirstLogin'],
@@ -79,21 +79,21 @@ class Routes {
       case HangoutScreen.ROUTE:
         return _getMaterialRoute(HangoutScreen(), settings);
       case CreatePing.ROUTE:
-        Map arg = settings.arguments;
+        Map arg = settings.arguments as Map<dynamic, dynamic>;
         return _getMaterialRoute(
             CreatePing(
               user: arg['user'],
             ),
             settings);
       case PredictionInputScreen.ROUTE:
-        Map arg = settings.arguments;
+        Map arg = settings.arguments as Map<dynamic, dynamic>;
         return _getMaterialRoute(
             PredictionInputScreen(
               attendance: arg['attendance'],
             ),
             settings);
       case PredictionResultScreen.ROUTE:
-        Map arg = settings.arguments;
+        Map arg = settings.arguments as Map<dynamic, dynamic>;
         return _getMaterialRoute(
             PredictionResultScreen(
                 attendance: arg['attendance'],

@@ -16,8 +16,8 @@ class HangoutFeedScreen extends StatefulWidget {
   final Pings pings;
 
   const HangoutFeedScreen({
-    Key key,
-    @required this.pings,
+    Key? key,
+    required this.pings,
   }) : super(key: key);
 
   @override
@@ -98,7 +98,7 @@ class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
             waterDropColor: kPurple,
           ),
           footer: CustomFooter(
-            builder: (BuildContext context, LoadStatus mode) {
+            builder: (BuildContext context, LoadStatus? mode) {
               Widget body;
               if (mode == LoadStatus.idle) {
                 body = Text("Pull up load");
@@ -126,12 +126,12 @@ class _HangoutFeedScreenState extends State<HangoutFeedScreen> {
                 const EdgeInsets.only(top: 10, left: 30, right: 30, bottom: 80),
             itemBuilder: (c, i) {
               final item = pings.postItemsList[i];
-              if (item.reports > 0)
+              if (item.reports! > 0)
                 return SizedBox();
               else
                 return PingBasicWidget(
                   item: item,
-                  userId: pings.hUser.id,
+                  userId: pings.hUser!.id,
                 );
             },
             itemCount: pings.postItemsList.length,

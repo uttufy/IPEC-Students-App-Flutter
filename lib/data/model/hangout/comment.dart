@@ -5,25 +5,25 @@ import 'package:flutter/foundation.dart';
 import 'hangUser.dart';
 
 class CommentModel {
-  String commentId;
-  final String id;
+  String? commentId;
+  final String? id;
   final Huser author;
-  final String authorImage;
-  final int postedOn;
-  final String text;
-  int reports;
-  final bool isGif;
-  final String gifUrl;
+  final String? authorImage;
+  final int? postedOn;
+  final String? text;
+  int? reports;
+  final bool? isGif;
+  final String? gifUrl;
   CommentModel({
     this.commentId = "",
-    @required this.id,
-    @required this.author,
-    @required this.authorImage,
-    @required this.postedOn,
-    @required this.text,
-    @required this.reports,
-    @required this.isGif,
-    @required this.gifUrl,
+    required this.id,
+    required this.author,
+    required this.authorImage,
+    required this.postedOn,
+    required this.text,
+    required this.reports,
+    required this.isGif,
+    required this.gifUrl,
   });
 
   Map<String, dynamic> toMap() {

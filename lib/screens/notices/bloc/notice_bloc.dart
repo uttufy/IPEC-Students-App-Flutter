@@ -13,6 +13,8 @@ import 'notice_event.dart';
 import 'notice_state.dart';
 
 class NoticeBloc extends BaseBloc {
+  NoticeBloc(BaseState initialState) : super(initialState);
+
   @override
   BaseState get initialState => NoticeInitial();
 
@@ -25,12 +27,12 @@ class NoticeBloc extends BaseBloc {
       yield NoticeLoadingState();
       DateFormat format = new DateFormat("dd MMM yyyy HH:mm:ss");
       GeneralResponse response = await event.session.webClientService
-          .getNotices(event.auth.token.cookies);
+          .getNotices(event.auth!.token.cookies);
 
       if (response.status) {
         var document = parse(response.data);
         String element = document
-            .querySelector("#ContentPlaceHolder1_gridViewNotices")
+            .querySelector("#ContentPlaceHolder1_gridViewNotices")!
             .outerHtml;
         if (element == null)
           yield NoticeErrorState("Error: Parsing Notices Failed");
@@ -44,18 +46,18 @@ class NoticeBloc extends BaseBloc {
                 "#ContentPlaceHolder1_gridViewNotices_gridViewNotices_gridlblPostedDate_";
             var query3 =
                 "#ContentPlaceHolder1_gridViewNotices_gridViewNotices_hlpkView_";
-            String link;
+            String? link;
             var date;
             bool tp = false;
 
             List<Notice> notices = [];
             for (int i = 0; i < 10; i++) {
               tp = false;
-              element = table.querySelector(query1 + i.toString()).text;
-              date = table.querySelector(query2 + i.toString()).text;
+              element = table.querySelector(query1 + i.toString())!.text;
+              date = table.querySelector(query2 + i.toString())!.text;
               link =
-                  table.querySelector(query3 + i.toString()).attributes['href'];
-              link = kWebsiteURL + "Students/" + link;
+                  table.querySelector(query3 + i.toString())!.attributes['href'];
+              link = kWebsiteURL + "Students/" + link!;
               if (element.contains('T & P') || element.contains('T&P')) {
                 tp = true;
               }
@@ -64,7 +66,7 @@ class NoticeBloc extends BaseBloc {
                   title: element,
                   date: date,
                   link: link,
-                  credit: event.auth.user.name,
+                  credit: event.auth!.user!.name,
                   tp: tp));
             }
             yield NoticeLoadedState(notices);
@@ -74,8 +76,8 @@ class NoticeBloc extends BaseBloc {
             notices.forEach((element) {
               db
                   .child('Notices')
-                  .child(format.parse(element.date).year.toString())
-                  .child(element.date)
+                  .child(format.parse(element.date!).year.toString())
+                  .child(element.date!)
                   .set(element.toMap());
             });
           }
@@ -104,7 +106,7 @@ class NoticeBloc extends BaseBloc {
         }
       });
       noticeList.sort((a, b) {
-        return format.parse(b.date).compareTo(format.parse(a.date));
+        return format.parse(b.date!).compareTo(format.parse(a.date!));
       });
       yield AllNoticeLoadedState(noticeList);
     }
@@ -113,13 +115,13 @@ class NoticeBloc extends BaseBloc {
       yield NoticeOpeningLoading();
 
       GeneralResponse response = await event.session.webClientService
-          .openNotices(event.auth.token.cookies, event.notice.link);
+          .openNotices(event.auth!.token.cookies, event.notice.link!);
 
       if (response.status) {
         try {
           var document = parse(response.data);
-          var element = document.getElementById("hyperLinkAttachment");
-          String dwnld = element.attributes['href'].substring(2);
+          var element = document.getElementById("hyperLinkAttachment")!;
+          String dwnld = element.attributes['href']!.substring(2);
           dwnld = kWebsiteURL2 + dwnld;
           yield NoticeOpeningLoaded(dwnld, event.notice);
         } catch (e) {

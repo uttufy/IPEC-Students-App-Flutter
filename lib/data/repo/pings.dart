@@ -6,11 +6,11 @@ import 'package:ipecstudentsapp/data/model/hangout/hangUser.dart';
 import '../model/hangout/post.dart';
 
 class Pings extends ChangeNotifier {
-  Huser _hUser;
+  Huser? _hUser;
   // ignore: unnecessary_getters_setters
-  Huser get hUser => _hUser;
+  Huser? get hUser => _hUser;
   // ignore: unnecessary_getters_setters
-  set hUser(Huser u) => _hUser = u;
+  set hUser(Huser? u) => _hUser = u;
 
   final databaseRef =
       FirebaseDatabase.instance.reference().child('hangout').child('pings');
@@ -18,15 +18,15 @@ class Pings extends ChangeNotifier {
 
   List<Post> postItemsList = [];
 
-  Map<String, List<CommentModel>> comments = {};
+  Map<String?, List<CommentModel>> comments = {};
 
   setComments(String postID, List<CommentModel> list) {
     comments[postID] = list;
     notifyListeners();
   }
 
-  addComment(String postID, CommentModel comment) {
-    List<CommentModel> res = comments[postID];
+  addComment(String? postID, CommentModel comment) {
+    List<CommentModel>? res = comments[postID];
     if (res == null) {
       comments[postID] = [comment];
     } else {
@@ -38,9 +38,9 @@ class Pings extends ChangeNotifier {
 
   Future<void> loadPings(int pageSize) async {
     // First Load Likes
-    final snap = await databaseRef2.child('user').child(_hUser.id).once();
+    final snap = await databaseRef2.child('user').child(_hUser!.id!).once();
     if (snap != null && snap.value != null && snap.value['likes'] != null)
-      _hUser.likes = List<String>.from(snap.value['likes']);
+      _hUser!.likes = List<String>.from(snap.value['likes']);
     print("-- Loading posts --");
 
     Query query = databaseRef.orderByChild('postedOn');
@@ -55,7 +55,7 @@ class Pings extends ChangeNotifier {
           if (!(postItemsList.contains(postItem))) postItemsList.add(postItem);
         }
 
-        postItemsList.sort((a, b) => b.postedOn.compareTo(a.postedOn));
+        postItemsList.sort((a, b) => b.postedOn!.compareTo(a.postedOn!));
         notifyListeners();
       }
     } catch (e) {
@@ -82,7 +82,7 @@ class Pings extends ChangeNotifier {
         if (!(postItemsList.contains(postItem))) temp.add(postItem);
       }
       postItemsList.addAll(temp.reversed);
-      postItemsList.sort((a, b) => b.postedOn.compareTo(a.postedOn));
+      postItemsList.sort((a, b) => b.postedOn!.compareTo(a.postedOn!));
       notifyListeners();
     } catch (e) {
       print(e.toString());
@@ -97,12 +97,12 @@ class Pings extends ChangeNotifier {
   }
 
   void removeComment(String commentId, String id) {
-    comments[id].removeWhere((element) => element.commentId == commentId);
+    comments[id]!.removeWhere((element) => element.commentId == commentId);
     databaseRef2.child('/comments').child(id).child(commentId).remove();
     notifyListeners();
   }
 
-  Future<void> reportComment(String commentId, String id, String userID) async {
+  Future<void> reportComment(String commentId, String id, String? userID) async {
     final res =
         await databaseRef2.child('c_reports').child(id).child(commentId).once();
     if (res.value != null) {
@@ -127,7 +127,7 @@ class Pings extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> reportItem(String postId, String userID) async {
+  Future<void> reportItem(String postId, String? userID) async {
     final res = await databaseRef2.child('reports').child(postId).once();
     if (res.value != null) {
       List list = res.value;
@@ -155,29 +155,29 @@ class Pings extends ChangeNotifier {
     String postId,
   ) async {
     var elem = postItemsList.firstWhere((element) => element.id == postId);
-    elem.likes = elem.likes + 1;
+    elem.likes = elem.likes! + 1;
     databaseRef.child(postId).update({'likes': elem.likes});
 
-    _hUser.likes.add(postId);
+    _hUser!.likes.add(postId);
     await databaseRef2
         .child('user')
-        .child(_hUser.id)
-        .update({'likes': _hUser.likes});
+        .child(_hUser!.id!)
+        .update({'likes': _hUser!.likes});
     notifyListeners();
   }
 
   Future<void> removeLike(
-    String postId,
+    String? postId,
   ) async {
     var elem = postItemsList.firstWhere((element) => element.id == postId);
-    if (elem.likes > 0) {
-      elem.likes = elem.likes - 1;
-      databaseRef.child(postId).update({'likes': elem.likes});
-      _hUser.likes.remove(postId);
+    if (elem.likes! > 0) {
+      elem.likes = elem.likes! - 1;
+      databaseRef.child(postId!).update({'likes': elem.likes});
+      _hUser!.likes.remove(postId);
       await databaseRef2
           .child('user')
-          .child(_hUser.id)
-          .update({'likes': _hUser.likes});
+          .child(_hUser!.id!)
+          .update({'likes': _hUser!.likes});
       notifyListeners();
     }
   }

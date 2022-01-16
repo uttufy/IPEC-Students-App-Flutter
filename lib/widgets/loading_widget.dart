@@ -3,7 +3,7 @@ import 'package:lottie/lottie.dart';
 
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget({
-    Key key,
+    Key? key,
     this.text = "Loading",
   }) : super(key: key);
 
@@ -19,7 +19,7 @@ class LoadingWidget extends StatelessWidget {
           textAlign: TextAlign.center,
           style: Theme.of(context)
               .textTheme
-              .headline5
+              .headline5!
               .copyWith(fontWeight: FontWeight.w700),
         ),
         Lottie.asset('assets/anim/loading2.json'),

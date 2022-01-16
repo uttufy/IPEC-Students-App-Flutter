@@ -4,12 +4,12 @@ import '../theme/colors.dart';
 import 'text_field_container.dart';
 
 class RoundedInputField extends StatelessWidget {
-  final String hintText;
+  final String? hintText;
   final IconData icon;
-  final ValueChanged<String> onChanged;
+  final ValueChanged<String>? onChanged;
 
   const RoundedInputField({
-    Key key,
+    Key? key,
     this.hintText,
     this.icon = Icons.person,
     this.onChanged,
@@ -30,7 +30,7 @@ class RoundedInputField extends StatelessWidget {
           hintText: hintText,
           hintStyle: Theme.of(context)
               .textTheme
-              .bodyText1
+              .bodyText1!
               .copyWith(color: Colors.black),
           border: InputBorder.none,
         ),

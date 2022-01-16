@@ -9,14 +9,14 @@ class NoticeEvent extends BaseEvent {
 
 class NoticeLoadEvent extends NoticeEvent {
   final Session session;
-  final Auth auth;
+  final Auth? auth;
 
   NoticeLoadEvent(this.session, this.auth);
 }
 
 class NoticeOpenEvent extends NoticeEvent {
   final Session session;
-  final Auth auth;
+  final Auth? auth;
   final Notice notice;
 
   NoticeOpenEvent(

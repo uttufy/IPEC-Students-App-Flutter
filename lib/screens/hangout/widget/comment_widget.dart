@@ -9,19 +9,19 @@ import 'package:sweetsheet/sweetsheet.dart';
 
 class CommentWidget extends StatelessWidget {
   final CommentModel commentModel;
-  final String currentUserID;
-  final String postID;
+  final String? currentUserID;
+  final String? postID;
   CommentWidget({
-    Key key,
-    @required this.commentModel,
-    @required this.currentUserID,
-    @required this.postID,
+    Key? key,
+    required this.commentModel,
+    required this.currentUserID,
+    required this.postID,
   }) : super(key: key);
 
   final SweetSheet _sweetSheet = SweetSheet();
   @override
   Widget build(BuildContext context) {
-    final date = DateTime.fromMicrosecondsSinceEpoch(commentModel.postedOn);
+    final date = DateTime.fromMicrosecondsSinceEpoch(commentModel.postedOn!);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,14 +35,14 @@ class CommentWidget extends StatelessWidget {
         ),
         kLowPadding,
         Text(
-          commentModel.text,
+          commentModel.text!,
           textAlign: TextAlign.start,
           style: Theme.of(context)
               .textTheme
-              .bodyText1
+              .bodyText1!
               .copyWith(fontWeight: FontWeight.normal, fontSize: 16),
         ),
-        if (commentModel.isGif && commentModel.gifUrl != null)
+        if (commentModel.isGif! && commentModel.gifUrl != null)
           GestureDetector(
             onTap: () {},
             child: Padding(
@@ -50,7 +50,7 @@ class CommentWidget extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(kLowCircleRadius),
                 child: Image.network(
-                  commentModel.gifUrl,
+                  commentModel.gifUrl!,
                   height: 150,
                   width: double.maxFinite,
                   fit: BoxFit.cover,
@@ -107,7 +107,7 @@ class CommentWidget extends StatelessWidget {
       icon: Icons.remove_circle_outline,
       positive: SweetSheetAction(
         onPressed: () {
-          pingProvider.removeComment(commentModel.commentId, postID);
+          pingProvider.removeComment(commentModel.commentId!, postID!);
           Navigator.of(context).pop();
         },
         title: 'DELETE',
@@ -133,7 +133,7 @@ class CommentWidget extends StatelessWidget {
       positive: SweetSheetAction(
           onPressed: () {
             pingProvider.reportComment(
-                commentModel.commentId, postID, currentUserID);
+                commentModel.commentId!, postID!, currentUserID);
             Navigator.of(context).pop();
           },
           title: 'REPORT',

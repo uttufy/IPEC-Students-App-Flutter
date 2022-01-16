@@ -7,20 +7,20 @@ import '../../../theme/colors.dart';
 import '../../../theme/style.dart';
 
 class BottomStrip extends StatefulWidget {
-  final String currentUserId;
-  final String postId;
-  final String authorId;
+  final String? currentUserId;
+  final String? postId;
+  final String? authorId;
   final VoidCallback onChatter;
-  final int postedOn;
+  final int? postedOn;
   final bool isDetailed;
   const BottomStrip({
-    Key key,
-    @required this.currentUserId,
-    @required this.authorId,
-    @required this.postId,
-    @required this.onChatter,
+    Key? key,
+    required this.currentUserId,
+    required this.authorId,
+    required this.postId,
+    required this.onChatter,
     this.isDetailed = false,
-    @required this.postedOn,
+    required this.postedOn,
   }) : super(key: key);
 
   @override
@@ -38,11 +38,11 @@ class _BottomStripState extends State<BottomStrip> {
 
   @override
   Widget build(BuildContext context) {
-    final date = DateTime.fromMicrosecondsSinceEpoch(widget.postedOn);
+    final date = DateTime.fromMicrosecondsSinceEpoch(widget.postedOn!);
 
     return Consumer<Pings>(
       builder: (context, pingProvider, child) {
-        isSamosa = pingProvider.hUser.likes.contains(widget.postId);
+        isSamosa = pingProvider.hUser!.likes.contains(widget.postId);
         final item = pingProvider.postItemsList
             .firstWhere((element) => element.id == widget.postId);
 
@@ -55,7 +55,7 @@ class _BottomStripState extends State<BottomStrip> {
                   if (isSamosa) {
                     pingProvider.removeLike(widget.postId);
                   } else {
-                    pingProvider.addLike(widget.postId);
+                    pingProvider.addLike(widget.postId!);
                   }
                 });
               },
@@ -78,7 +78,7 @@ class _BottomStripState extends State<BottomStrip> {
                     kLowWidthPadding,
                     Text(
                       item.likes == 0 ? 'Samosa' : item.likes.toString(),
-                      style: Theme.of(context).textTheme.bodyText2.copyWith(
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
                             color: kLightGrey,
                           ),
                     ),
@@ -108,7 +108,7 @@ class _BottomStripState extends State<BottomStrip> {
                         item.comments == 0
                             ? 'Chatter'
                             : item.comments.toString(),
-                        style: Theme.of(context).textTheme.bodyText2.copyWith(
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
                               color: kLightGrey,
                             ),
                       ),
@@ -132,7 +132,7 @@ class _BottomStripState extends State<BottomStrip> {
                 if (widget.authorId == widget.currentUserId)
                   _onDelete(context, pingProvider);
                 else
-                  _onReport(context, pingProvider, pingProvider.hUser.id);
+                  _onReport(context, pingProvider, pingProvider.hUser!.id);
               },
               borderRadius: BorderRadius.circular(20),
               child: Ink(
@@ -182,7 +182,7 @@ class _BottomStripState extends State<BottomStrip> {
     );
   }
 
-  void _onReport(BuildContext context, Pings pingProvider, String id) {
+  void _onReport(BuildContext context, Pings pingProvider, String? id) {
     _sweetSheet.show(
       context: context,
       title: Text("Report"),
@@ -193,7 +193,7 @@ class _BottomStripState extends State<BottomStrip> {
       positive: SweetSheetAction(
           onPressed: () {
             if (widget.postId != kDefaultPOst)
-              pingProvider.reportItem(widget.postId, id);
+              pingProvider.reportItem(widget.postId!, id);
             Navigator.of(context).pop();
           },
           title: 'REPORT',

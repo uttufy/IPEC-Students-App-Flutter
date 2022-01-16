@@ -7,6 +7,8 @@ import 'splash_event.dart';
 import 'splash_state.dart';
 
 class SplashScreenBloc extends BaseBloc {
+  SplashScreenBloc(BaseState initialState) : super(initialState);
+
   @override
   BaseState get initialState => SplashInitState();
 
@@ -15,14 +17,14 @@ class SplashScreenBloc extends BaseBloc {
     LocalData _localData = LocalData();
     if (event is CheckUserAuth) {
       await Future.delayed(Duration(seconds: 1));
-      bool isLogin = await _localData.getLoginStatus();
+      bool? isLogin = await _localData.getLoginStatus();
 
       if (isLogin != null && isLogin) {
-        String username = await _localData.getUsername();
-        String password = await _localData.getPassword();
-        bool loginStatus = await _localData.getLoginStatus();
+        String? username = await _localData.getUsername();
+        String? password = await _localData.getPassword();
+        bool? loginStatus = await _localData.getLoginStatus();
 
-        if (username != null && password != null && loginStatus) {
+        if (username != null && password != null && loginStatus!) {
           //  Username and Password Exist
           event.auth.cred = Cred(username: username, password: password);
           yield OpenDashboardScreen();

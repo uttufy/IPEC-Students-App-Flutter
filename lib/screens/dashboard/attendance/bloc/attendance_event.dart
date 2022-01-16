@@ -7,7 +7,7 @@ class AttendanceEvent extends BaseEvent {
 }
 
 class LoadAttendance extends AttendanceEvent {
-  final Auth auth;
+  final Auth? auth;
   final Session session;
   LoadAttendance(this.auth, this.session);
 }

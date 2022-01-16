@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -42,24 +44,24 @@ class LocalData {
     prefs.setBool(kLoginStatus, loginStatus);
   }
 
-  Future<String> getUsername() async {
+  Future<String?> getUsername() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.get(kUsername);
+    return prefs.get(kUsername) as FutureOr<String?>;
   }
 
-  Future<String> getPassword() async {
+  Future<String?> getPassword() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.get(kPassword);
+    return prefs.get(kPassword) as FutureOr<String?>;
   }
 
-  Future<String> getImagePreference() async {
+  Future<String?> getImagePreference() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.get(kImage);
+    return prefs.get(kImage) as FutureOr<String?>;
   }
 
-  Future<String> getNamePreference() async {
+  Future<String?> getNamePreference() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.get(kName);
+    return prefs.get(kName) as FutureOr<String?>;
   }
 
   Future<void> setLogout() async {
@@ -72,13 +74,13 @@ class LocalData {
     prefs.setString(kCookie, cookie);
   }
 
-  Future<String> getCookie() async {
+  Future<String?> getCookie() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.get(kCookie);
+    return prefs.get(kCookie) as FutureOr<String?>;
   }
 
-  Future<bool> getLoginStatus() async {
+  Future<bool?> getLoginStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.get(kLoginStatus);
+    return prefs.get(kLoginStatus) as FutureOr<bool?>;
   }
 }

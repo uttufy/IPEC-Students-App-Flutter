@@ -3,26 +3,26 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 class Huser {
-  String id;
-  String name;
-  String email;
-  String gender;
-  String phone;
-  String depart;
-  String yr;
-  String section;
-  bool isBanned;
+  String? id;
+  String? name;
+  String? email;
+  String? gender;
+  String? phone;
+  String? depart;
+  String? yr;
+  String? section;
+  bool? isBanned;
   List<String> likes = [];
   Huser(
-      {@required this.id,
-      @required this.name,
-      @required this.email,
-      @required this.gender,
-      @required this.phone,
-      @required this.depart,
-      @required this.yr,
-      @required this.section,
-      @required this.likes,
+      {required this.id,
+      required this.name,
+      required this.email,
+      required this.gender,
+      required this.phone,
+      required this.depart,
+      required this.yr,
+      required this.section,
+      required this.likes,
       this.isBanned = false});
 
   Map<String, dynamic> toMap() {

@@ -42,7 +42,7 @@ class AboutScreen extends StatelessWidget {
                       Text(
                         "Team",
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.headline6.copyWith(
+                        style: Theme.of(context).textTheme.headline6!.copyWith(
                               color: isDark ? Colors.white : Colors.black,
                             ),
                       ),
@@ -81,7 +81,7 @@ class AboutScreen extends StatelessWidget {
                       Text(
                         "Message for future students",
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.headline6.copyWith(
+                        style: Theme.of(context).textTheme.headline6!.copyWith(
                             color: isDark ? Colors.white : Colors.black,
                             fontWeight: FontWeight.bold),
                       ),
@@ -100,7 +100,7 @@ On an island full of engineers you'll have light, whereas on an island full of b
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context)
                             .textTheme
-                            .headline6
+                            .headline6!
                             .copyWith(fontWeight: FontWeight.bold),
                       ),
                       kMedPadding,
@@ -150,21 +150,21 @@ On an island full of engineers you'll have light, whereas on an island full of b
               Text(
                 name,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.headline6.copyWith(
+                style: Theme.of(context).textTheme.headline6!.copyWith(
                     color: isDark ? Colors.white : Colors.black,
                     fontWeight: FontWeight.bold),
               ),
               Text(
                 "Batch\n2019-2022",
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       color: isDark ? Colors.white : Colors.black,
                     ),
               ),
               Text(
                 "I.T",
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       color: isDark ? Colors.white : Colors.black,
                     ),
               ),

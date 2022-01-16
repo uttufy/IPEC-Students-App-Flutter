@@ -9,7 +9,7 @@ class PdfScreen extends StatefulWidget {
   final String url;
   final Notice notice;
 
-  const PdfScreen({Key key, @required this.url, @required this.notice})
+  const PdfScreen({Key? key, required this.url, required this.notice})
       : super(key: key);
   @override
   _PdfScreenState createState() => _PdfScreenState();
@@ -22,7 +22,7 @@ class _PdfScreenState extends State<PdfScreen> {
     // Widgets
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.notice.title),
+        title: Text(widget.notice.title!),
         elevation: 0,
         actions: [
           Padding(

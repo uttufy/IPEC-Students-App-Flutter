@@ -7,12 +7,12 @@ import '../theme/style.dart';
 class BasicButton extends StatefulWidget {
   BasicButton(
       {this.onPress,
-      @required this.title,
+      required this.title,
       this.buttonColor = kOrange,
       this.textColor = Colors.white});
 
   final String title;
-  final VoidCallback onPress;
+  final VoidCallback? onPress;
   final Color buttonColor;
   final Color textColor;
 

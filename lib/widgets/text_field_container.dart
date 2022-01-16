@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 
 class TextFieldContainer extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
   const TextFieldContainer({
-    Key key,
+    Key? key,
     this.child,
   }) : super(key: key);
 

@@ -10,13 +10,13 @@ import '../../../widgets/simple_appbar.dart';
 
 class PredictionResultScreen extends StatefulWidget {
   static const String ROUTE = "/PredictionResultScreen";
-  final Attendance attendance;
-  final String attend;
-  final String total;
+  final Attendance? attendance;
+  final String? attend;
+  final String? total;
 
-  final String result;
+  final String? result;
   const PredictionResultScreen(
-      {Key key, this.attendance, this.result, this.attend, this.total})
+      {Key? key, this.attendance, this.result, this.attend, this.total})
       : super(key: key);
 
   @override
@@ -29,7 +29,7 @@ class _PredictionResultScreenState extends State<PredictionResultScreen> {
     final isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
     return Consumer<Auth>(
       builder: (context, _auth, child) {
-        final img = _auth.user.img.toString().split(',')[1];
+        final img = _auth.user!.img.toString().split(',')[1];
         return Scaffold(
           body: SafeArea(
             child: Column(
@@ -44,13 +44,13 @@ class _PredictionResultScreenState extends State<PredictionResultScreen> {
                 kLowPadding,
                 Text('Your Result',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           color: isDark ? Colors.white : Colors.black,
                         )),
                 kLowPadding,
                 Text(
                   '${widget.result}%',
-                  style: Theme.of(context).textTheme.headline3.copyWith(
+                  style: Theme.of(context).textTheme.headline3!.copyWith(
                       color: isDark ? Colors.white : Colors.black,
                       fontWeight: FontWeight.w700),
                 ),
@@ -59,7 +59,7 @@ class _PredictionResultScreenState extends State<PredictionResultScreen> {
                     'If you attend ${widget.attend} more lecture\n'
                     'out of ${widget.total} lectures.',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           color: isDark ? Colors.white : Colors.black,
                         )),
                 kHighPadding,

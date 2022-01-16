@@ -19,16 +19,16 @@ import 'bloc/loading_state.dart';
 class LoadingScreen extends StatefulWidget {
   static const String ROUTE = "/Loading";
 
-  final bool isFirstLogin;
+  final bool? isFirstLogin;
 
-  const LoadingScreen({Key key, this.isFirstLogin}) : super(key: key);
+  const LoadingScreen({Key? key, this.isFirstLogin}) : super(key: key);
 
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  final LoadingBloc _bloc = LoadingBloc();
+  final LoadingBloc _bloc = LoadingBloc(LoadingInitState());
   String mantra = Mantras().getMantra();
 
   @override
@@ -46,7 +46,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
         listener: (BuildContext context, BaseState state) {
           print("$runtimeType BlocListener - ${state.toString()}");
           if (state is CloseLoadingState) {
-            if (widget.isFirstLogin)
+            if (widget.isFirstLogin!)
               Navigator.pop(context);
             else
               Navigator.pushReplacementNamed(context, LoginScreen.ROUTE);
@@ -85,7 +85,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           Text(
             state is LoginFailState ? 'Please Try Again' : 'Loading',
             textAlign: TextAlign.center,
-            style: Theme.of(context).primaryTextTheme.headline5.copyWith(
+            style: Theme.of(context).primaryTextTheme.headline5!.copyWith(
                 color: isDark ? Colors.white : Colors.black,
                 fontWeight: FontWeight.w700),
           ),
@@ -99,7 +99,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                 "Mantra : " + mantra,
                 overflow: TextOverflow.clip,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).primaryTextTheme.bodyText1.copyWith(
+                style: Theme.of(context).primaryTextTheme.bodyText1!.copyWith(
                       color: kGrey,
                     ),
               ),

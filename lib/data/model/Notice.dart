@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 class Notice {
-  String title;
-  String date;
-  String link;
-  String credit;
-  bool tp;
+  String? title;
+  String? date;
+  String? link;
+  String? credit;
+  bool? tp;
   Notice({
     this.title,
     this.date,
@@ -24,8 +24,8 @@ class Notice {
     };
   }
 
-  factory Notice.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
+  factory Notice.fromMap(Map<String, dynamic>? map) {
+    if (map == null) throw "Something went wrong";
 
     return Notice(
       title: map['title'],

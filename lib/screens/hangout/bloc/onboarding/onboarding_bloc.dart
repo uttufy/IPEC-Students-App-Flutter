@@ -12,6 +12,8 @@ import 'onboarding_event.dart';
 import 'onboarding_state.dart';
 
 class OnboardingBloc extends BaseBloc {
+  OnboardingBloc(BaseState initialState) : super(initialState);
+
   @override
   BaseState get initialState => OnboardingInitState();
 
@@ -20,40 +22,40 @@ class OnboardingBloc extends BaseBloc {
     if (event is LoadStudentData) {
       yield OnboardingLoading();
       GeneralResponse response = await event.session.webClientService
-          .getMyProfile(event.auth.token.cookies);
+          .getMyProfile(event.auth!.token.cookies);
       if (response.status) {
         var document = parse(response.data);
 
-        String email = document
-            .querySelector("#ContentPlaceHolder1_lblStudentEMail")
+        String? email = document
+            .querySelector("#ContentPlaceHolder1_lblStudentEMail")!
             .attributes["value"];
 
-        String gender = document
-            .querySelector("#ContentPlaceHolder1_lblGender")
+        String? gender = document
+            .querySelector("#ContentPlaceHolder1_lblGender")!
             .attributes["value"];
 
-        String phone = document
-            .querySelector("#ContentPlaceHolder1_lblStudentMoileNo")
+        String? phone = document
+            .querySelector("#ContentPlaceHolder1_lblStudentMoileNo")!
             .attributes["value"];
 
-        String depart = document
-            .querySelector("#ContentPlaceHolder1_lblDepartment")
+        String? depart = document
+            .querySelector("#ContentPlaceHolder1_lblDepartment")!
             .attributes["value"];
 
-        String yr = document
-            .querySelector("#ContentPlaceHolder1_lblYear")
+        String? yr = document
+            .querySelector("#ContentPlaceHolder1_lblYear")!
             .attributes["value"];
 
-        String section = document
-            .querySelector("#ContentPlaceHolder1_lblBranch")
+        String? section = document
+            .querySelector("#ContentPlaceHolder1_lblBranch")!
             .attributes["value"];
 
         Huser user = Huser(
             depart: depart,
             email: email,
             gender: gender,
-            id: event.auth.user.id,
-            name: event.auth.user.name,
+            id: event.auth!.user!.id,
+            name: event.auth!.user!.name,
             phone: phone,
             section: section,
             yr: yr,
@@ -80,13 +82,13 @@ class OnboardingBloc extends BaseBloc {
     if (event is SaveStudentDataEvent) {
       try {
         FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: event.user.email, password: event.user.id);
+            email: event.user.email!, password: event.user.id!);
 
         FirebaseDatabase.instance
             .reference()
             .child('hangout')
             .child('user')
-            .child(event.user.id)
+            .child(event.user.id!)
             .set(event.user.toMap());
 
         yield SavedUserState(event.user);

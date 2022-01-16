@@ -8,6 +8,8 @@ import 'chatters_state.dart';
 import 'chatters_event.dart';
 
 class ChattersBloc extends BaseBloc {
+  ChattersBloc(BaseState initialState) : super(initialState);
+
   @override
   BaseState get initialState => ChattersInitialState();
 
@@ -19,7 +21,7 @@ class ChattersBloc extends BaseBloc {
       yield ChattersLoadingState();
 
       try {
-        final res = await firebaseRef.child(event.postID).once();
+        final res = await firebaseRef.child(event.postID!).once();
 
         List<CommentModel> _list = [];
         if (res != null && res.value != null && res.value.keys != null) {

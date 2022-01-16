@@ -6,39 +6,39 @@ import 'PollModel.dart';
 import 'hangUser.dart';
 
 class Post {
-  final String id;
+  final String? id;
   final Huser author;
-  final String authorImage;
-  final int postedOn;
-  final String text;
-  int likes;
-  int comments;
-  int reports;
-  final bool isLinkAttached;
-  final String link;
-  final bool isImage;
-  final String imageUrl;
-  final bool isPoll;
+  final String? authorImage;
+  final int? postedOn;
+  final String? text;
+  int? likes;
+  int? comments;
+  int? reports;
+  final bool? isLinkAttached;
+  final String? link;
+  final bool? isImage;
+  final String? imageUrl;
+  final bool? isPoll;
   final PollModel pollData;
-  final bool isGif;
-  final String gifUrl;
+  final bool? isGif;
+  final String? gifUrl;
   Post({
-    @required this.id,
-    @required this.author,
-    @required this.authorImage,
-    @required this.postedOn,
-    @required this.text,
+    required this.id,
+    required this.author,
+    required this.authorImage,
+    required this.postedOn,
+    required this.text,
     this.likes = 0,
     this.comments = 0,
     this.reports = 0,
     this.isLinkAttached = false,
-    @required this.link,
+    required this.link,
     this.isImage = false,
-    @required this.imageUrl,
+    required this.imageUrl,
     this.isPoll = false,
-    @required this.pollData,
+    required this.pollData,
     this.isGif = false,
-    @required this.gifUrl,
+    required this.gifUrl,
   });
 
   Map<String, dynamic> toMap() {

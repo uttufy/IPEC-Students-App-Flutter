@@ -11,13 +11,13 @@ import 'userStrip.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class PingBasicWidget extends StatelessWidget {
-  final Post item;
-  final String userId;
+  final Post? item;
+  final String? userId;
   final bool detailedView;
   const PingBasicWidget({
-    Key key,
-    @required this.userId,
-    @required this.item,
+    Key? key,
+    required this.userId,
+    required this.item,
     this.detailedView = false,
   }) : super(key: key);
 
@@ -28,21 +28,21 @@ class PingBasicWidget extends StatelessWidget {
       children: [
         kLowPadding,
         UserStripWidget(
-            name: item.author.name,
-            section: item.author.section,
-            yr: item.author.yr,
-            id: item.author.id),
+            name: item!.author.name,
+            section: item!.author.section,
+            yr: item!.author.yr,
+            id: item!.author.id),
         kLowPadding,
         buildMainBody(context),
         BottomStrip(
           isDetailed: detailedView,
-          postId: item.id,
+          postId: item!.id,
           currentUserId: userId,
-          authorId: item.author.id,
+          authorId: item!.author.id,
           onChatter: () {
             _openDetailed(context);
           },
-          postedOn: item.postedOn,
+          postedOn: item!.postedOn,
         ),
         Visibility(visible: !detailedView, child: Divider())
       ],
@@ -58,26 +58,26 @@ class PingBasicWidget extends StatelessWidget {
             _openDetailed(context);
           },
           child: Text(
-            item.text,
+            item!.text!,
             textAlign: TextAlign.start,
             style: Theme.of(context)
                 .textTheme
-                .headline6
+                .headline6!
                 .copyWith(fontWeight: FontWeight.normal),
           ),
         ),
-        if (item.isPoll && item.pollData != null)
+        if (item!.isPoll! && item!.pollData != null)
           PollView(
             poll: PollModel(
-                creator: item.author.id,
-                numberOfVotes: item.pollData.numberOfVotes,
-                optionLabel: item.pollData.optionLabel,
-                userWhoVoted: item.pollData.userWhoVoted),
+                creator: item!.author.id,
+                numberOfVotes: item!.pollData.numberOfVotes,
+                optionLabel: item!.pollData.optionLabel,
+                userWhoVoted: item!.pollData.userWhoVoted),
             user: userId,
-            postId: item.id,
+            postId: item!.id,
           ),
-        if (item.isLinkAttached && item.link != null) LinkWidget(item.link),
-        if (item.isImage && item.imageUrl != null)
+        if (item!.isLinkAttached! && item!.link != null) LinkWidget(item!.link),
+        if (item!.isImage! && item!.imageUrl != null)
           GestureDetector(
             onTap: () {
               _openDetailed(context);
@@ -87,7 +87,7 @@ class PingBasicWidget extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(kLowCircleRadius),
                 child: CachedNetworkImage(
-                  imageUrl: item.imageUrl,
+                  imageUrl: item!.imageUrl!,
                   // height: 180,
                   width: double.maxFinite,
                   fit: BoxFit.cover,
@@ -101,7 +101,7 @@ class PingBasicWidget extends StatelessWidget {
               ),
             ),
           ),
-        if (item.isGif && item.gifUrl != null)
+        if (item!.isGif! && item!.gifUrl != null)
           GestureDetector(
             onTap: () {
               _openDetailed(context);
@@ -111,7 +111,7 @@ class PingBasicWidget extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(kLowCircleRadius),
                 child: Image.network(
-                  item.gifUrl,
+                  item!.gifUrl!,
                   height: 180,
                   width: double.maxFinite,
                   fit: BoxFit.cover,

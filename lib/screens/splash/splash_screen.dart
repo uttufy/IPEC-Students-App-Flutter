@@ -21,7 +21,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  final SplashScreenBloc _bloc = SplashScreenBloc();
+  final SplashScreenBloc _bloc = SplashScreenBloc(SplashInitState());
 
   @override
   void initState() {

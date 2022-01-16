@@ -3,16 +3,16 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 class PollModel {
-  final String creator;
-  Map<dynamic, dynamic> userWhoVoted;
-  List<double> numberOfVotes;
+  final String? creator;
+  Map<dynamic, dynamic>? userWhoVoted;
+  List<double?> numberOfVotes;
   List<String> optionLabel;
 
   PollModel(
-      {@required this.creator,
+      {required this.creator,
       this.userWhoVoted = const {},
       this.numberOfVotes = const [0.0, 0.0],
-      @required this.optionLabel});
+      required this.optionLabel});
 
   Map<String, dynamic> toMap() {
     return {
@@ -24,13 +24,13 @@ class PollModel {
   }
 
   factory PollModel.fromMap(Map<dynamic, dynamic> map) {
-    List<double> temp = [];
+    List<double?> temp = [];
     (map['numberOfVotes'] as List).forEach((element) {
       temp.add(element.toDouble());
     });
     return PollModel(
       creator: map['creator'],
-      userWhoVoted: map['userWhoVoted'] as Map<dynamic, dynamic>,
+      userWhoVoted: map['userWhoVoted'] as Map<dynamic, dynamic>?,
       numberOfVotes: temp,
       optionLabel: List<String>.from(map['optionLabel']),
     );

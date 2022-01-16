@@ -7,7 +7,10 @@ import 'base_state.dart';
 
 abstract class BaseBloc<E extends BaseEvent, S extends BaseState>
     extends Bloc<BaseEvent, BaseState> {
-  @override
+  BaseBloc(BaseState initialState) : super(initialState);
+
+  get initialState => initialState;
+
   Stream<BaseState> mapEventToState(BaseEvent event) async* {
     print(">>>>>>>>>>>>> BaseBloc Event ${event.toString()}");
 
@@ -28,14 +31,14 @@ abstract class BaseBloc<E extends BaseEvent, S extends BaseState>
     }
 
     if (event is InitStateEvent) {
-      yield initialState;
+      yield InitState();
     }
 
     if (event is LogoutEvent) {
       yield LogoutState();
     }
 
-    yield* mapBaseEventToBaseState(event);
+    yield* mapBaseEventToBaseState(event as E);
   }
 
   Stream<S> mapBaseEventToBaseState(E event);
@@ -55,7 +58,7 @@ abstract class BaseBloc<E extends BaseEvent, S extends BaseState>
     if (error is DioError) {
       errorHandlerEvent(error);
     } else {
-      String errorMessage;
+      String? errorMessage;
       if (error is PlatformException) {
         errorMessage = error.message;
       }

@@ -14,7 +14,7 @@ import '../../loading/loading_screen.dart';
 
 class Body extends StatefulWidget {
   const Body({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -27,7 +27,7 @@ class _BodyState extends State<Body> {
   String _username = "";
   String _password = "";
   void showInSnackBar(String value) {
-    _scaffoldKey.currentState
+    _scaffoldKey.currentState!
         // ignore: deprecated_member_use
         .showSnackBar(new SnackBar(content: new Text(value)));
   }

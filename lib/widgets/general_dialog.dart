@@ -7,15 +7,15 @@ import 'rounded_button.dart';
 
 class GeneralDialog extends StatefulWidget {
   static Future show(BuildContext context,
-      {GlobalKey key,
-      String title,
-      Widget titleWidget,
-      String message,
-      Widget child,
-      String positiveButtonLabel,
-      Function onPositiveTap,
-      String negativeButtonLabel,
-      Function onNegativeTap,
+      {GlobalKey? key,
+      String? title,
+      Widget? titleWidget,
+      String? message,
+      Widget? child,
+      String? positiveButtonLabel,
+      Function? onPositiveTap,
+      String? negativeButtonLabel,
+      Function? onNegativeTap,
       bool closeOnAction = true}) async {
     return showDialog(
       context: context,
@@ -37,18 +37,18 @@ class GeneralDialog extends StatefulWidget {
     );
   }
 
-  final String title;
-  final Widget titleWidget;
-  final String message;
-  final Widget child;
-  final Function onPositiveTap;
-  final String positiveButtonLabel;
-  final String negativeButtonLabel;
-  final Function onNegativeTap;
-  final bool closeOnAction;
+  final String? title;
+  final Widget? titleWidget;
+  final String? message;
+  final Widget? child;
+  final Function? onPositiveTap;
+  final String? positiveButtonLabel;
+  final String? negativeButtonLabel;
+  final Function? onNegativeTap;
+  final bool? closeOnAction;
 
   GeneralDialog(
-      {GlobalKey key,
+      {GlobalKey? key,
       this.title,
       this.titleWidget,
       this.message,
@@ -76,17 +76,17 @@ class GeneralDialog extends StatefulWidget {
 }
 
 class _GeneralDialogState extends State {
-  final String title;
-  final Widget titleWidget;
-  final String message;
-  final Widget child;
-  final Function onPositiveTap;
-  final String positiveButtonLabel;
-  final String negativeButtonLabel;
-  final Function onNegativeTap;
-  final bool closeOnAction;
+  final String? title;
+  final Widget? titleWidget;
+  final String? message;
+  final Widget? child;
+  final Function? onPositiveTap;
+  final String? positiveButtonLabel;
+  final String? negativeButtonLabel;
+  final Function? onNegativeTap;
+  final bool? closeOnAction;
 
-  ThemeData _themeData;
+  late ThemeData _themeData;
 
   _GeneralDialogState(
       {this.title,
@@ -137,10 +137,10 @@ class _GeneralDialogState extends State {
                             children: <Widget>[
                               titleWidget ??
                                   Text(
-                                    title.toUpperCase(),
+                                    title!.toUpperCase(),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline6
+                                        .headline6!
                                         .copyWith(
                                           color: Colors.black,
                                         ),
@@ -148,7 +148,7 @@ class _GeneralDialogState extends State {
                               kMedPadding,
                               child ??
                                   Text(
-                                    message,
+                                    message!,
                                     textAlign: TextAlign.center,
                                   ),
                               kHighPadding,
@@ -164,10 +164,10 @@ class _GeneralDialogState extends State {
                                               child: RaisedButton(
                                                 color: Colors.white,
                                                 child:
-                                                    Text(negativeButtonLabel),
+                                                    Text(negativeButtonLabel!),
                                                 onPressed: () {
                                                   if (onPositiveTap != null) {
-                                                    onNegativeTap();
+                                                    onNegativeTap!();
                                                   } else {
                                                     Navigator.pop(context);
                                                   }
@@ -180,9 +180,9 @@ class _GeneralDialogState extends State {
                                       child: RoundedButton(
                                         press: () {
                                           if (onPositiveTap != null) {
-                                            if (closeOnAction)
+                                            if (closeOnAction!)
                                               Navigator.pop(context);
-                                            onPositiveTap();
+                                            onPositiveTap!();
                                           } else {
                                             Navigator.pop(context);
                                           }

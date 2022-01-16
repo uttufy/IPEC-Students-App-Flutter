@@ -4,10 +4,10 @@ import '../theme/colors.dart';
 import 'text_field_container.dart';
 
 class RoundedPasswordField extends StatefulWidget {
-  final ValueChanged<String> onChanged;
+  final ValueChanged<String>? onChanged;
 
   const RoundedPasswordField({
-    Key key,
+    Key? key,
     this.onChanged,
   }) : super(key: key);
 
@@ -44,7 +44,7 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
           border: InputBorder.none,
           hintStyle: Theme.of(context)
               .textTheme
-              .bodyText1
+              .bodyText1!
               .copyWith(color: Colors.black),
         ),
       ),

@@ -12,7 +12,7 @@ class HangoutEvent extends BaseEvent {
 class LoadPingsEvent extends HangoutEvent {}
 
 class OnboardFinishEvent extends HangoutEvent {
-  final Huser huser;
+  final Huser? huser;
 
   OnboardFinishEvent(this.huser);
 }

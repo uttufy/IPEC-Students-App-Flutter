@@ -23,7 +23,7 @@ class HangoutScreen extends StatefulWidget {
 }
 
 class _HangoutScreenState extends State<HangoutScreen> {
-  final _bloc = HangoutBloc();
+  final _bloc = HangoutBloc(HangoutInitState());
   @override
   void dispose() {
     _bloc.close();

@@ -1,15 +1,15 @@
 class Attendance {
-  double presentPercent;
-  String totalLectures;
-  String presentLecture;
-  String sipPresentClasses;
-  String sipTotalClasses;
-  String sessionalPresent;
-  String sessionalTotal;
-  String extra;
-  String cummulativeTotalLectures;
+  double? presentPercent;
+  String? totalLectures;
+  String? presentLecture;
+  String? sipPresentClasses;
+  String? sipTotalClasses;
+  String? sessionalPresent;
+  String? sessionalTotal;
+  String? extra;
+  String? cummulativeTotalLectures;
 
-  double percent;
+  double? percent;
   Attendance(
       {this.percent,
       this.presentPercent,
@@ -22,27 +22,27 @@ class Attendance {
       this.cummulativeTotalLectures,
       this.extra});
 
-  double getPresentPercent() => presentPercent;
-  double getAbsentPercent() => (100 - percent);
-  String getTotalLectures() {
+  double? getPresentPercent() => presentPercent;
+  double getAbsentPercent() => (100 - percent!);
+  String? getTotalLectures() {
     return totalLectures;
   }
 
   String getPresentLectures() {
-    if (presentLecture.toLowerCase().contains('extra'))
-      return presentLecture.split('=')[1].split(':')[1].replaceAll(")", "");
+    if (presentLecture!.toLowerCase().contains('extra'))
+      return presentLecture!.split('=')[1].split(':')[1].replaceAll(")", "");
     else
-      return presentLecture.split(":")[1].replaceAll(")", "");
+      return presentLecture!.split(":")[1].replaceAll(")", "");
   }
 
   void setCummulativeAttendance() {
-    int ex = (int.tryParse(extra) ?? 0);
-    int pl = (int.tryParse(presentLecture) ?? 0);
+    int ex = (int.tryParse(extra!) ?? 0);
+    int pl = (int.tryParse(presentLecture!) ?? 0);
     cummulativeTotalLectures = (ex + pl).toString();
   }
 
   String getAttendanceMessage() {
-    double attendance = percent;
+    double attendance = percent!;
     if (attendance > 100) {
       return "This feels like illegal :)";
     }

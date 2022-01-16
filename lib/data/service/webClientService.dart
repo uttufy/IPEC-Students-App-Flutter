@@ -29,7 +29,7 @@ class WebClientService {
       receiveTimeout: 30000,
       followRedirects: false,
       validateStatus: (status) {
-        return status < 500;
+        return status! < 500;
       },
     ),
   )..interceptors.add(dio.LogInterceptor(
@@ -71,7 +71,7 @@ class WebClientService {
   }
 
   Future<GeneralResponse> postLogin(
-      Map<String, String> body, String cookie) async {
+      Map<String, String?> body, String? cookie) async {
     _dio.options.headers['Cookie'] = cookie;
     _dio.options.headers['Referer'] = kWebsiteURL + kLoginURL;
     try {
@@ -90,7 +90,7 @@ class WebClientService {
     }
   }
 
-  Future<GeneralResponse> getAttendanceToken(Cred cred, Tokens tokens) async {
+  Future<GeneralResponse> getAttendanceToken(Cred? cred, Tokens tokens) async {
     _dio.options.headers['Cookie'] = tokens.cookies;
     _dio.options.headers['Referer'] = kWebsiteURL + kHomeURL;
     _dio.options.headers['Connection'] = 'keep-alive';
@@ -111,7 +111,7 @@ class WebClientService {
   }
 
   Future<GeneralResponse> postAttendance(
-      Cred cred, Tokens tokens, Map body) async {
+      Cred? cred, Tokens tokens, Map body) async {
     _dio.options.headers['Cookie'] = tokens.cookies;
     _dio.options.headers['Referer'] = kWebsiteURL + kHomeURL;
     _dio.options.headers['Connection'] = 'keep-alive';
@@ -131,7 +131,7 @@ class WebClientService {
     }
   }
 
-  Future<GeneralResponse> getNotices(String cookie) async {
+  Future<GeneralResponse> getNotices(String? cookie) async {
     _dio.options.headers['Cookie'] = cookie;
     _dio.options.headers['Referer'] = kWebsiteURL + kHomeURL;
     _dio.options.headers['Connection'] = 'keep-alive';
@@ -152,7 +152,7 @@ class WebClientService {
     }
   }
 
-  Future<GeneralResponse> openNotices(String cookie, String url) async {
+  Future<GeneralResponse> openNotices(String? cookie, String url) async {
     _dio.options.headers['Cookie'] = cookie;
     _dio.options.headers['Referer'] = kWebsiteURL + kHomeURL;
     _dio.options.headers['Connection'] = 'keep-alive';
@@ -173,7 +173,7 @@ class WebClientService {
     }
   }
 
-  Future<GeneralResponse> getMyProfile(String cookie) async {
+  Future<GeneralResponse> getMyProfile(String? cookie) async {
     _dio.options.headers['Cookie'] = cookie;
     _dio.options.headers['Referer'] = kWebsiteURL + kHomeURL;
     _dio.options.headers['Connection'] = 'keep-alive';
@@ -191,7 +191,7 @@ class WebClientService {
     } catch (error) {
       if (error is DioError) {
         //handle DioError here by error type or by error code
-        if (error.response.statusCode == 500) {
+        if (error.response!.statusCode == 500) {
           return GeneralResponse(
               error: "IPEC Session Expired! Please Restart the app to fix it",
               status: false);

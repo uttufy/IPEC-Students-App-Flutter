@@ -6,18 +6,18 @@ import '../../../util/SizeConfig.dart';
 
 class UserStripWidget extends StatelessWidget {
   const UserStripWidget({
-    Key key,
-    @required this.name,
-    @required this.section,
-    @required this.yr,
-    @required this.id,
+    Key? key,
+    required this.name,
+    required this.section,
+    required this.yr,
+    required this.id,
     this.isCompact = false,
   }) : super(key: key);
   final bool isCompact;
-  final String id;
-  final String name;
-  final String section;
-  final String yr;
+  final String? id;
+  final String? name;
+  final String? section;
+  final String? yr;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class UserStripWidget extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    name,
+                    name!,
                     style: TextStyle(
                       fontSize: 12,
                     ),
@@ -36,12 +36,12 @@ class UserStripWidget extends StatelessWidget {
                 ),
                 kLowWidthPadding,
                 Text(
-                  yr + " year, ",
+                  yr! + " year, ",
                   style: TextStyle(fontSize: 12),
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                  section,
+                  section!,
                   style: TextStyle(fontSize: 12),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -53,7 +53,7 @@ class UserStripWidget extends StatelessWidget {
               children: [
                 Flexible(
                   child: Text(
-                    name,
+                    name!,
                     style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -73,12 +73,12 @@ class UserStripWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  yr + " year, ",
+                  yr! + " year, ",
                   style: TextStyle(fontSize: 12),
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                  section,
+                  section!,
                   style: TextStyle(fontSize: 12),
                   overflow: TextOverflow.ellipsis,
                 ),

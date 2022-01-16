@@ -4,12 +4,12 @@ import '../../../theme/colors.dart';
 import '../../../theme/style.dart';
 
 class BottomCompose extends StatelessWidget {
-  final String title;
-  final IconData icon;
-  final VoidCallback onPress;
+  final String? title;
+  final IconData? icon;
+  final VoidCallback? onPress;
 
   const BottomCompose({
-    Key key,
+    Key? key,
     this.title,
     this.icon,
     this.onPress,
@@ -19,7 +19,7 @@ class BottomCompose extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        onPress();
+        onPress!();
       },
       borderRadius: BorderRadius.circular(20),
       child: Container(
@@ -38,7 +38,7 @@ class BottomCompose extends StatelessWidget {
             ),
             kLowWidthPadding,
             Text(
-              title,
+              title!,
               style: TextStyle(color: Colors.black),
             ),
           ],

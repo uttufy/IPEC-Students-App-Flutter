@@ -1,4 +1,4 @@
-String genShareMessage(String title, String date, String url, String credit) =>
+String genShareMessage(String? title, String? date, String url, String? credit) =>
     """IPEC Notice
 ----
 Title : $title

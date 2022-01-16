@@ -13,23 +13,23 @@ class Auth extends ChangeNotifier {
 
   Tokens _tokens = Tokens();
 
-  User _user;
+  User? _user;
 
-  Cred _cred;
+  Cred? _cred;
   // ignore: unnecessary_getters_setters
-  User get user => _user;
+  User? get user => _user;
   // ignore: unnecessary_getters_setters
-  set user(User u) => _user = u;
+  set user(User? u) => _user = u;
   // ignore: unnecessary_getters_setters
-  Cred get cred => _cred;
+  Cred? get cred => _cred;
   // ignore: unnecessary_getters_setters
-  set cred(Cred u) => _cred = u;
+  set cred(Cred? u) => _cred = u;
 
   Tokens get token => _tokens;
 
   //  Handle Login
   //  Step 1: Get Cookies
-  Future<GeneralResponse> login(String username, String password) async {
+  Future<GeneralResponse> login(String username, String? password) async {
     GeneralResponse response = await _webClient.getLoginToken();
 
     username = username.trim();
@@ -37,20 +37,20 @@ class Auth extends ChangeNotifier {
     print(response.status);
     if (response.status) {
       _tokens.cookies =
-          response?.data?.headers?.map['set-cookie']?.elementAt(0) ?? "";
+          response.data?.headers?.map['set-cookie']?.elementAt(0) ?? "";
 
       //  Step 2: Prepare formData for Login
       var document = parse(response.data.data);
 
       _tokens.viewState =
-          document.querySelector('#__VIEWSTATE').attributes['value'];
+          document.querySelector('#__VIEWSTATE')!.attributes['value'];
       _tokens.viewStateGenerator =
-          document.querySelector('#__VIEWSTATEGENERATOR').attributes['value'];
+          document.querySelector('#__VIEWSTATEGENERATOR')!.attributes['value'];
       _tokens.eventValidation =
-          document.querySelector('#__EVENTVALIDATION').attributes['value'];
+          document.querySelector('#__EVENTVALIDATION')!.attributes['value'];
       String btnTarget = document.getElementsByTagName('button')[0].id;
       // Form Data for POST
-      Map<String, String> formData = {
+      Map<String, String?> formData = {
         '__LASTFOCUS': '',
         '__EVENTTARGET': btnTarget,
         '__EVENTARGUMENT': '',

@@ -7,7 +7,7 @@ class ChattersEvent extends BaseEvent {
 }
 
 class LoadChattersEvent extends ChattersEvent {
-  final String postID;
+  final String? postID;
   final Pings pings;
 
   LoadChattersEvent(this.postID, this.pings);

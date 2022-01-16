@@ -22,8 +22,8 @@ import 'widget/pollsWidget.dart';
 
 class CreatePing extends StatefulWidget {
   static const String ROUTE = "/createPing";
-  final Huser user;
-  const CreatePing({key, @required this.user}) : super(key: key);
+  final Huser? user;
+  const CreatePing({key, required this.user}) : super(key: key);
 
   @override
   _CreatePingState createState() => _CreatePingState();
@@ -43,17 +43,17 @@ class _CreatePingState extends State<CreatePing> {
   bool isPoll = false;
   bool isGif = false;
   // String imageUrl = "";
-  String gifUrl = "";
+  String? gifUrl = "";
   String link = "";
   String option1 = "";
   String option2 = "";
 
   bool isLoading = false;
 
-  File _image;
+  late File _image;
   final picker = ImagePicker();
 
-  PollModel pollModel;
+  PollModel? pollModel;
 
   Future getImage() async {
     final pickedFile = await picker.pickImage(
@@ -196,7 +196,7 @@ class _CreatePingState extends State<CreatePing> {
                                     });
                                   } else {
                                     print("Remove older attachmnet");
-                                    _scaffoldKey.currentState
+                                    _scaffoldKey.currentState!
                                         .showSnackBar(SnackBar(
                                       content: Text(
                                           'You have already attached something. Remove the older attachment first'),
@@ -218,7 +218,7 @@ class _CreatePingState extends State<CreatePing> {
                                   _showLinkDialog();
                                 } else {
                                   print("Remove older attachmnet");
-                                  _scaffoldKey.currentState
+                                  _scaffoldKey.currentState!
                                       .showSnackBar(SnackBar(
                                     content: Text(
                                         'You have already attached something. Remove the older attachment first'),
@@ -234,7 +234,7 @@ class _CreatePingState extends State<CreatePing> {
                                     _showPollDialog();
                                   } else {
                                     print("Remove older attachmnet");
-                                    _scaffoldKey.currentState
+                                    _scaffoldKey.currentState!
                                         .showSnackBar(SnackBar(
                                       content: Text(
                                           'You have already attached something. Remove the older attachment first'),
@@ -259,12 +259,12 @@ class _CreatePingState extends State<CreatePing> {
           context: context, apiKey: 'cXIAL2LDuPM9W8HaqDItOQm3i3guL0bt');
       if (gif != null && gif.images != null) {
         print(gifUrl);
-        gifUrl = gif.images.original.url;
+        gifUrl = gif.images.original!.url;
         isGif = true;
         addtionalChildren.add(Stack(
           children: [
             Image.network(
-              gifUrl,
+              gifUrl!,
             ),
             removeWidget(onRemove),
           ],
@@ -272,7 +272,7 @@ class _CreatePingState extends State<CreatePing> {
       }
     } else {
       print("Remove older attachmnet");
-      _scaffoldKey.currentState.showSnackBar(SnackBar(
+      _scaffoldKey.currentState!.showSnackBar(SnackBar(
         content: Text(
             'You have already attached something. Remove the older attachment first'),
       ));
@@ -301,7 +301,7 @@ class _CreatePingState extends State<CreatePing> {
         controller: textEditingController,
         onChanged: (text) {
           if (filter.hasProfanity(text)) {
-            _scaffoldKey.currentState.showSnackBar(SnackBar(
+            _scaffoldKey.currentState!.showSnackBar(SnackBar(
                 content: Text(
                     'Bad words detected... Beware any bad activity will lead to straight up ban')));
             textEditingController.text = filter.censor(text);
@@ -312,7 +312,7 @@ class _CreatePingState extends State<CreatePing> {
         focusNode: focusNode,
         style: Theme.of(context)
             .textTheme
-            .headline6
+            .headline6!
             .copyWith(fontWeight: FontWeight.normal),
         decoration: InputDecoration(
             border: InputBorder.none,
@@ -431,13 +431,13 @@ class _CreatePingState extends State<CreatePing> {
                       option2.isNotEmpty) {
                     isPoll = true;
                     pollModel = PollModel(
-                        creator: widget.user.id,
+                        creator: widget.user!.id,
                         optionLabel: [option1, option2]);
                     addtionalChildren.add(Stack(
                       children: [
                         PollView(
                           poll: pollModel,
-                          user: widget.user.id,
+                          user: widget.user!.id,
                           isCreate: true,
                         ),
                         Align(
@@ -463,32 +463,32 @@ class _CreatePingState extends State<CreatePing> {
     int epoch = DateTime.now().microsecondsSinceEpoch;
 
     PollModel _poll =
-        PollModel(creator: widget.user.id, optionLabel: [option1, option2]);
+        PollModel(creator: widget.user!.id, optionLabel: [option1, option2]);
     try {
       if (isImage) {
         var snapshot = await FirebaseStorage.instance
             .ref()
-            .child('images/${widget.user.id + "_" + generateRandomString(5)}')
+            .child('images/${widget.user!.id! + "_" + generateRandomString(5)}')
             .putFile(_image);
         _imageUrl = await snapshot.ref.getDownloadURL();
       }
-      if (gifUrl.isEmpty) isGif = false;
+      if (gifUrl!.isEmpty) isGif = false;
       if (_imageUrl.isEmpty) isImage = false;
       if (link.isEmpty) isLink = false;
       final authorUser = Huser(
-          id: widget.user.id,
-          name: widget.user.name,
+          id: widget.user!.id,
+          name: widget.user!.name,
           email: "",
           gender: "",
           phone: "",
-          depart: widget.user.depart,
-          yr: widget.user.yr,
-          section: widget.user.section,
+          depart: widget.user!.depart,
+          yr: widget.user!.yr,
+          section: widget.user!.section,
           likes: []);
       final res = Post(
-          id: widget.user.id + "_" + epoch.toString(),
+          id: widget.user!.id! + "_" + epoch.toString(),
           author: authorUser,
-          authorImage: "https://robohash.org/${widget.user.id}",
+          authorImage: "https://robohash.org/${widget.user!.id}",
           postedOn: epoch,
           text: textEditingController.text,
           link: link,
@@ -505,9 +505,9 @@ class _CreatePingState extends State<CreatePing> {
           .child('hangout')
           .child('pings')
           // .push()
-          .child('${widget.user.id + "_" + epoch.toString()}')
+          .child('${widget.user!.id! + "_" + epoch.toString()}')
           .set(res.toMap());
-      _scaffoldKey.currentState
+      _scaffoldKey.currentState!
           .showSnackBar(SnackBar(content: Text("Pinged!!!")));
       Provider.of<Pings>(context, listen: false).addPost(res);
       Future.delayed(Duration(seconds: 2))
@@ -516,7 +516,7 @@ class _CreatePingState extends State<CreatePing> {
       isLoading = false;
       setState(() {});
       print(e.toString());
-      _scaffoldKey.currentState
+      _scaffoldKey.currentState!
           .showSnackBar(SnackBar(content: Text("Retry: ${e.toString()}")));
     }
   }

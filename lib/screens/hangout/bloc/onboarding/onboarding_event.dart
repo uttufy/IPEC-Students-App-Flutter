@@ -8,7 +8,7 @@ class OnboardingEvent extends BaseEvent {
 }
 
 class LoadStudentData extends OnboardingEvent {
-  final Auth auth;
+  final Auth? auth;
   final Session session;
   LoadStudentData(this.auth, this.session);
 }

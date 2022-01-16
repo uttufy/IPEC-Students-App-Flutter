@@ -22,7 +22,7 @@ class SavedUserState extends HangoutState {
 }
 
 class UserExistState extends HangoutState {
-  final Huser huser;
+  final Huser? huser;
 
   UserExistState(this.huser);
 }

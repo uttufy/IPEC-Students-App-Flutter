@@ -13,9 +13,9 @@ import 'bloc/chatter/chatters_event.dart';
 import 'bloc/chatter/chatters_state.dart';
 
 class Chatters extends StatefulWidget {
-  final String postID;
-  final String currentUserID;
-  const Chatters({Key key, @required this.postID, @required this.currentUserID})
+  final String? postID;
+  final String? currentUserID;
+  const Chatters({Key? key, required this.postID, required this.currentUserID})
       : super(key: key);
 
   @override
@@ -23,7 +23,7 @@ class Chatters extends StatefulWidget {
 }
 
 class _ChattersState extends State<Chatters> {
-  final _bloc = ChattersBloc();
+  final _bloc = ChattersBloc(ChattersInitialState());
 
   @override
   void dispose() {
@@ -71,7 +71,7 @@ class _ChattersState extends State<Chatters> {
     );
   }
 
-  Widget _getBody(List<CommentModel> comments) {
+  Widget _getBody(List<CommentModel>? comments) {
     if (comments == null || comments.length == 0)
       return Container(
         padding: const EdgeInsets.all(20),
@@ -90,9 +90,9 @@ class _ChattersState extends State<Chatters> {
           ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
-            itemCount: comments.length ?? 0,
+            itemCount: comments.length,
             itemBuilder: (context, index) {
-              if (comments[index].reports > 0) {
+              if (comments[index].reports! > 0) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(

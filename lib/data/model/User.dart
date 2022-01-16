@@ -1,9 +1,9 @@
 class User {
-  final String name;
+  final String? name;
   final String id;
   String img;
-  bool isFirstYear;
-  User({this.name, this.id, this.img}) {
+  late bool isFirstYear;
+  User({this.name, required this.id, required this.img}) {
     if (double.parse(id.substring(0, 1)) == DateTime.now().year) {
       this.isFirstYear = true;
     } else {

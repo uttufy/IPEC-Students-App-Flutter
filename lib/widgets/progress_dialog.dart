@@ -12,14 +12,14 @@ class ProgressDialog {
   ProgressDialog._internal();
 
   bool isShowing = false;
-  BuildContext context;
+  BuildContext? context;
 
-  void hide({BuildContext context}) {
+  void hide({BuildContext? context}) {
     if (isShowing) {
       isShowing = false;
-      if (Navigator.of(this.context ?? context).mounted &&
-          Navigator.of(this.context ?? context).canPop()) {
-        Navigator.of(this.context ?? context).pop();
+      if (Navigator.of(this.context ?? context!).mounted &&
+          Navigator.of(this.context ?? context!).canPop()) {
+        Navigator.of(this.context ?? context!).pop();
         print('ProgressDialog dismissed');
       }
     }
