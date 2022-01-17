@@ -34,7 +34,8 @@ class LinkWidget extends StatelessWidget {
           _sweetSheet.show(
             context: context,
             title: Text("Warning!"),
-            description: Text('Do you really want open link ? '),
+            description: Text(
+                "Do you really want open link ?  If 'yes' then press 'Open in browser' "),
             color: SweetSheetColor.NICE,
             icon: Icons.link,
             positive: SweetSheetAction(

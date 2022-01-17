@@ -239,7 +239,8 @@ class _ChatterScreenState extends State<ChatterScreen> {
   void _onSubmit(
     Pings pings,
   ) {
-    if (textEditingController.text.isNotEmpty) {
+    FocusManager.instance.primaryFocus?.unfocus();
+    if (textEditingController.text.trim().isNotEmpty || isGif) {
       if (filter.hasProfanity(textEditingController.text)) {
         _scaffoldKey.currentState!.showSnackBar(
             SnackBar(content: Text("Bad language is not allowed!!!")));
@@ -267,7 +268,7 @@ class _ChatterScreenState extends State<ChatterScreen> {
           author: authorUser,
           authorImage: "https://robohash.org/${pings.hUser!.id}",
           postedOn: epoch,
-          text: textEditingController.text,
+          text: textEditingController.text.trim(),
           gifUrl: gifUrl,
           isGif: isGif,
           reports: 0);
