@@ -86,17 +86,22 @@ class PingBasicWidget extends StatelessWidget {
               padding: const EdgeInsets.only(top: 10.0),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(kLowCircleRadius),
-                child: CachedNetworkImage(
-                  imageUrl: item!.imageUrl!,
-                  // height: 180,
-                  width: double.maxFinite,
-                  fit: BoxFit.cover,
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      Center(
-                    child: CircularProgressIndicator(
-                        value: downloadProgress.progress),
+                child: ConstrainedBox(
+                  constraints: new BoxConstraints(
+                    minHeight: 100.0,
+                    maxHeight: 400.0,
                   ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  child: CachedNetworkImage(
+                    imageUrl: item!.imageUrl!,
+                    width: double.maxFinite,
+                    fit: BoxFit.cover,
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) => Center(
+                      child: CircularProgressIndicator(
+                          value: downloadProgress.progress),
+                    ),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
                 ),
               ),
             ),
@@ -110,8 +115,8 @@ class PingBasicWidget extends StatelessWidget {
               padding: const EdgeInsets.only(top: 10.0),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(kLowCircleRadius),
-                child: Image.network(
-                  item!.gifUrl!,
+                child: CachedNetworkImage(
+                  imageUrl: item!.gifUrl!,
                   height: 180,
                   width: double.maxFinite,
                   fit: BoxFit.cover,

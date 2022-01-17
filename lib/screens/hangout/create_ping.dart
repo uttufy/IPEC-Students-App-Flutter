@@ -487,7 +487,7 @@ class _CreatePingState extends State<CreatePing> {
           author: authorUser,
           authorImage: "https://robohash.org/${widget.user!.id}",
           postedOn: epoch,
-          text: textEditingController.text,
+          text: textEditingController.text.trim(),
           link: link,
           imageUrl: _imageUrl,
           isImage: isImage,

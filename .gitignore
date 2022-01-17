@@ -47,3 +47,4 @@ ios/GoogleService-Info.plist
 android/keystore.jks
 ios/Runner/GoogleService-Info.plist
 pubspec.yaml
+macos/GoogleService-Info.plist
