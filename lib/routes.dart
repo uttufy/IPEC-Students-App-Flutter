@@ -1,5 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:ipecstudentsapp/screens/sessional/sessional_screen.dart';
 import 'package:provider/provider.dart';
 import 'data/repo/auth.dart';
 import 'data/repo/pings.dart';
@@ -68,6 +69,8 @@ class Routes {
             settings);
       case DashboardScreen.ROUTE:
         return _getMaterialRoute(DashboardScreen(), settings);
+      case SessionalMarksScreen.ROUTE:
+        return _getMaterialRoute(SessionalMarksScreen(), settings);
       case AttendanceScreen.ROUTE:
         return _getMaterialRoute(AttendanceScreen(), settings);
       case AttendancePage.ROUTE:

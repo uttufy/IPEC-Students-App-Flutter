@@ -205,4 +205,25 @@ class WebClientService {
             status: false);
     }
   }
+
+  Future<GeneralResponse> getSessional(String? cookie) async {
+    _dio.options.headers['Cookie'] = cookie;
+    _dio.options.headers['Referer'] = kWebsiteURL + kHomeURL;
+    _dio.options.headers['Connection'] = 'keep-alive';
+
+    try {
+      final response = await _dio.get(
+        kSessionalMarksURL,
+      );
+      if (response.statusCode == 200)
+        return GeneralResponse(data: response.data, status: true);
+      else
+        return GeneralResponse(
+            error: "Failed to open sessional marks. Error at first get.",
+            status: false);
+    } catch (error) {
+      return GeneralResponse(
+          error: "Failed to get marks : " + error.toString(), status: false);
+    }
+  }
 }

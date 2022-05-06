@@ -17,7 +17,7 @@ class MyLocalWebView extends StatefulWidget {
 
 class _MyLocalWebViewState extends State<MyLocalWebView> {
   String html =
-      "<h1 style=\"text-align: center; \"><strong>Something went wrong😞</strong></h1>";
+      "<h1 style=\"text-align: center; \"><strong>Something went wrong😞!<br>If issue persists please reach out to @uttufy on instagram</strong></h1>";
 
   @override
   void initState() {

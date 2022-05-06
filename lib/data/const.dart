@@ -8,6 +8,7 @@ const kHomeURL = "Students/plain.aspx";
 const kAttendanceURL = "Students/StudentWiseAttendance.aspx";
 
 const kNoticesURL = "Students/ViewNotice.aspx";
+const kSessionalMarksURL = "Students/SessionalMarksView.aspx";
 const kMyPorfileURL = "Students/StudentProfile.aspx";
 
 const kDefaultUserImage =

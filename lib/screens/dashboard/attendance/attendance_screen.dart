@@ -85,6 +85,12 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
       children: [
         Padding(
           padding: const EdgeInsets.all(30.0),
+          child: Text(
+              "Please restart app incase of session expired (session expired time is 30 min)",
+              textAlign: TextAlign.center),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(30.0),
           child: InkWell(
             onTap: () {
               _bloc.add(LoadAttendance(_auth, session));

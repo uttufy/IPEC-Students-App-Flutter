@@ -5,10 +5,12 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_share/flutter_share.dart';
+import 'package:in_app_review/in_app_review.dart';
+import 'package:ipecstudentsapp/screens/sessional/sessional_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:is_first_run/is_first_run.dart';
 import '../../data/repo/auth.dart';
 import '../../theme/colors.dart';
 import '../../theme/style.dart';
@@ -41,11 +43,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
   }
 
+  final InAppReview inAppReview = InAppReview.instance;
+
   @override
   void initState() {
     super.initState();
     FirebaseAuth auth = FirebaseAuth.instance;
     auth.signInAnonymously();
+    reviewCheck();
   }
 
   @override
@@ -124,15 +129,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         kHighPadding,
                         Text(
                           'Hello,',
-                          style: Theme.of(context).textTheme.headline5!.copyWith(
-                              color: isDark ? Colors.white : Colors.black),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5!
+                              .copyWith(
+                                  color: isDark ? Colors.white : Colors.black),
                         ),
                         Text(
                           auth.user!.name!,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.headline5!.copyWith(
-                              color: isDark ? Colors.white : Colors.black,
-                              fontWeight: FontWeight.bold),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5!
+                              .copyWith(
+                                  color: isDark ? Colors.white : Colors.black,
+                                  fontWeight: FontWeight.bold),
                         ),
                         Expanded(
                           child: SingleChildScrollView(
@@ -176,16 +187,40 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       }
                                     }),
                                     optionIcon(
-                                        'assets/icons/Compass.png', 'About',
+                                        'assets/icons/Compass.png', 'Marks',
                                         () {
                                       Navigator.pushNamed(
-                                          context, AboutScreen.ROUTE);
+                                          context, SessionalMarksScreen.ROUTE);
                                     }),
                                   ],
                                 ),
                               ],
                             ),
                           ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            InkWell(
+                              onTap: () => Navigator.pushNamed(
+                                  context, AboutScreen.ROUTE),
+                              borderRadius: BorderRadius.circular(30),
+                              highlightColor: kPrimaryLightColor,
+                              child: Ink(
+                                padding: const EdgeInsets.all(20),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.info_outline),
+                                    kLowWidthPadding,
+                                    Text(
+                                      "Made by IPECians ❤️",
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -279,5 +314,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   void _showSnackBar(String s) {
     _scaffoldKey.currentState!.showSnackBar(SnackBar(content: Text(s)));
+  }
+
+  Future<void> reviewCheck() async {
+    bool firstRun = await IsFirstRun.isFirstRun();
+    if (firstRun) if (await inAppReview.isAvailable()) {
+      inAppReview.requestReview();
+    }
   }
 }
