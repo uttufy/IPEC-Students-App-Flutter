@@ -1,5 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:ipecstudentsapp/data/model/Attendance.dart';
 import 'package:ipecstudentsapp/screens/sessional/sessional_screen.dart';
 import 'package:provider/provider.dart';
 import 'data/repo/auth.dart';

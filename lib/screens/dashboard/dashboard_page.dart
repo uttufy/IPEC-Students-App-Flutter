@@ -8,6 +8,7 @@ import 'package:flutter_share/flutter_share.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:ipecstudentsapp/screens/sessional/sessional_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:rainbow_color/rainbow_color.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:is_first_run/is_first_run.dart';
@@ -28,7 +29,11 @@ class DashboardScreen extends StatefulWidget {
   _DashboardScreenState createState() => _DashboardScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class _DashboardScreenState extends State<DashboardScreen>
+    with SingleTickerProviderStateMixin {
+  late Animation<double> animation;
+  late AnimationController controller;
+
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
       new GlobalKey<ScaffoldMessengerState>();
   final appLink = Platform.isIOS
@@ -45,12 +50,45 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   final InAppReview inAppReview = InAppReview.instance;
 
+  final Rainbow _rb = Rainbow(spectrum: const [
+    kBlue, kGrey, kBlue
+    // Colors.red,
+    // Colors.orange,
+    // Colors.yellow,
+    // Colors.green,
+    // Colors.blue,
+    // Colors.indigo,
+    // Colors.purple,
+    // Colors.red,
+  ], rangeStart: 0.0, rangeEnd: 10.0);
+
   @override
   void initState() {
     super.initState();
     FirebaseAuth auth = FirebaseAuth.instance;
     auth.signInAnonymously();
     reviewCheck();
+    controller =
+        AnimationController(duration: const Duration(seconds: 5), vsync: this);
+
+    animation = Tween<double>(
+            begin: _rb.rangeStart.toDouble(), end: _rb.rangeEnd.toDouble())
+        .animate(controller)
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          controller.reset();
+          controller.forward();
+        } else if (status == AnimationStatus.dismissed) {
+          controller.forward();
+        }
+      });
+    controller.forward();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -198,30 +236,46 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             ),
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            InkWell(
-                              onTap: () => Navigator.pushNamed(
-                                  context, AboutScreen.ROUTE),
-                              borderRadius: BorderRadius.circular(30),
-                              highlightColor: kPrimaryLightColor,
-                              child: Ink(
-                                padding: const EdgeInsets.all(20),
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.info_outline),
-                                    kLowWidthPadding,
-                                    Text(
-                                      "Made by IPECians ❤️",
-                                      overflow: TextOverflow.ellipsis,
+                        AnimatedBuilder(
+                            animation: animation,
+                            builder: (BuildContext context, _) {
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  InkWell(
+                                    onTap: () => Navigator.pushNamed(
+                                        context, AboutScreen.ROUTE),
+                                    borderRadius: BorderRadius.circular(30),
+                                    highlightColor: kPrimaryLightColor,
+                                    child: Ink(
+                                      padding: const EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                            colors: [
+                                              _rb[animation.value],
+                                              _rb[(50.0 + animation.value) %
+                                                  _rb.rangeEnd]
+                                            ]),
+                                        borderRadius: BorderRadius.circular(
+                                            kMedCircleRadius),
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Icon(Icons.info_outline),
+                                          kLowWidthPadding,
+                                          Text(
+                                            "Made by IPECians ❤️",
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                                  ),
+                                ],
+                              );
+                            }),
                       ],
                     ),
                   ),

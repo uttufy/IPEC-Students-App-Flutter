@@ -1,6 +1,8 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
+import 'package:ipecstudentsapp/theme/colors.dart';
+import 'package:ipecstudentsapp/util/SizeConfig.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../theme/style.dart';
@@ -37,21 +39,14 @@ class AboutScreen extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text(
-                        "Team",
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
-                              color: isDark ? Colors.white : Colors.black,
-                            ),
-                      ),
                       kMedPadding,
                       _aboutWidget(
                           context,
                           'https://avatars.githubusercontent.com/u/16814257?v=4',
                           'UTTU',
-                          'Utkarsh\nSharma', () {
+                          'Utkarsh Sharma', () {
                         _launchURL('https://www.instagram.com/uttufy');
                       }, () {
                         _launchURL('https://github.com/uttusharma');
@@ -61,7 +56,7 @@ class AboutScreen extends StatelessWidget {
                           context,
                           'https://avatars.githubusercontent.com/u/60356611?v=4',
                           'Raks',
-                          'Rakshit Raj\nSingh', () {
+                          'Rakshit Raj Singh', () {
                         _launchURL(
                             'https://www.instagram.com/rakshit.raj.singh/');
                       }, () {
@@ -72,12 +67,62 @@ class AboutScreen extends StatelessWidget {
                           context,
                           'https://avatars.githubusercontent.com/u/82357006?v=4',
                           'Ridhi',
-                          'Ridhi\nRawat', () {
+                          'Ridhi Rawat', () {
                         _launchURL('https://www.instagram.com/ri_aina2411');
                       }, () {
                         _launchURL('https://github.com/ridhi-7029hash');
                       }, isDark),
                       kHighPadding,
+                      Text(
+                        "Tap image to connect on instagram and name to connect on github",
+                        overflow: TextOverflow.clip,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                              color: isDark ? Colors.white : Colors.black,
+                            ),
+                      ),
+                      kMedPadding,
+                      Text(
+                        "Support this project",
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6!
+                            .copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      kMedPadding,
+                      Text(
+                          """This project is open-source make a pull request to improve this app."""),
+                      kMedPadding,
+                      InkWell(
+                        onTap: () {
+                          _launchURL(
+                              'https://github.com/uttusharma/IPEC-Students-App-Flutter');
+                        },
+                        borderRadius: BorderRadius.circular(30),
+                        highlightColor: kPrimaryLightColor,
+                        child: Ink(
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                              color: kBlue,
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.link),
+                              kLowWidthPadding,
+                              Text(
+                                "Github",
+                                textAlign: TextAlign.center,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      kMedPadding,
                       Text(
                         "Message for future students",
                         overflow: TextOverflow.ellipsis,
@@ -92,29 +137,8 @@ We have developed this app for the students that is why this app will always be 
 We hope this app works flawlessly in future too. 
 
 On an island full of engineers you'll have light, whereas on an island full of businessmen you won't.
-- 2021
                           """),
-                      kMedPadding,
-                      Text(
-                        "Our Mantras",
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline6!
-                            .copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      kMedPadding,
-                      Text(
-                          """"You must have chaos within you to give birth to a dancing star.”
-- Utkarsh"""),
-                      kMedPadding,
-                      Text("""
-"I wish I could,but I don't want to 😌"
-- Rakshit"""),
-                      kMedPadding,
-                      Text(""""The way you think is the way you get”
-- Ridhi"""),
-                      kMedPadding,
+                      kHighPadding,
                     ],
                   ),
                 ),
@@ -126,7 +150,7 @@ On an island full of engineers you'll have light, whereas on an island full of b
     );
   }
 
-  Row _aboutWidget(
+  Column _aboutWidget(
     BuildContext context,
     String url,
     String intial,
@@ -135,17 +159,17 @@ On an island full of engineers you'll have light, whereas on an island full of b
     Function onTap2,
     bool isDark,
   ) {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         _profileImage(url, intial, ontap),
-        kMedWidthPadding,
-        Expanded(
-            child: GestureDetector(
+        kMedPadding,
+        GestureDetector(
           onTap: () {
             onTap2();
           },
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 name,
@@ -155,14 +179,7 @@ On an island full of engineers you'll have light, whereas on an island full of b
                     fontWeight: FontWeight.bold),
               ),
               Text(
-                "Batch\n2019-2022",
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      color: isDark ? Colors.white : Colors.black,
-                    ),
-              ),
-              Text(
-                "I.T",
+                "I.T Batch 2019-2022",
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       color: isDark ? Colors.white : Colors.black,
@@ -170,7 +187,7 @@ On an island full of engineers you'll have light, whereas on an island full of b
               ),
             ],
           ),
-        )),
+        ),
       ],
     );
   }
@@ -178,10 +195,10 @@ On an island full of engineers you'll have light, whereas on an island full of b
   Widget _profileImage(String image, String intial, Function onTap) {
     return CircularProfileAvatar(
       image, //sets image path, it should be a URL string. default value is empty string, if path is empty it will display only initials
-      radius: 70, // sets radius, default 50.0
+      radius: 100, // sets radius, default 50.0
       backgroundColor:
           Colors.blue, // sets background color, default Colors.white
-      borderWidth: 10, // sets border, default 0.0
+      borderWidth: 2, // sets border, default 0.0
       initialsText: Text(
         intial,
         style: TextStyle(fontSize: 40, color: Colors.white),
