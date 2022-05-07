@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:in_app_review/in_app_review.dart';
-import 'package:ipecstudentsapp/screens/sessional/sessional_screen.dart';
+import '../sessional/sessional_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:rainbow_color/rainbow_color.dart';
 import 'package:upgrader/upgrader.dart';

@@ -1,5 +1,5 @@
-import 'package:ipecstudentsapp/data/model/GeneralResponse.dart';
-import 'package:ipecstudentsapp/theme/colors.dart';
+import '../../../data/model/GeneralResponse.dart';
+import '../../../theme/colors.dart';
 
 import '../../../data/base_bloc/base_bloc.dart';
 import '../../../data/base_bloc/base_event.dart';

@@ -1,8 +1,8 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
-import 'package:ipecstudentsapp/theme/colors.dart';
-import 'package:ipecstudentsapp/util/SizeConfig.dart';
+import '../../theme/colors.dart';
+import '../../util/SizeConfig.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../theme/style.dart';
