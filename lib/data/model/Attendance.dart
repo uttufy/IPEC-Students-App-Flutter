@@ -72,4 +72,9 @@ class Attendance {
     }
     return "Attendance Loaded :)";
   }
+
+  @override
+  String toString() {
+    return 'Attendance(presentPercent: $presentPercent, totalLectures: $totalLectures, presentLecture: $presentLecture, sipPresentClasses: $sipPresentClasses, sipTotalClasses: $sipTotalClasses, sessionalPresent: $sessionalPresent, sessionalTotal: $sessionalTotal, extra: $extra, cummulativeTotalLectures: $cummulativeTotalLectures, percent: $percent)';
+  }
 }

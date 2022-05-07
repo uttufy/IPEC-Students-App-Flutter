@@ -23,14 +23,24 @@ class PredictionInputScreen extends StatefulWidget {
 
 class _PredictionInputScreenState extends State<PredictionInputScreen> {
   int total = 8;
-  int attend = 0;
+  int attend = 8;
 
-  String calculatePercent() {
-    // print(widget.attendance.presentLecture);
+  double calculatePercent() {
+    print(widget.attendance!.toString());
     int a = int.parse(widget.attendance!.cummulativeTotalLectures!);
     int b = int.parse(widget.attendance!.getTotalLectures()!);
-    double percent = ((a + attend) / (b + total)) * 100;
-    return percent.toStringAsFixed(2);
+
+    int sessionalPresent = int.parse(widget.attendance!.sessionalPresent!);
+    int sessionalTotal = int.parse(widget.attendance!.sessionalTotal!);
+
+    int sipPresent = int.parse(widget.attendance!.sipPresentClasses!);
+    int sipTotal = int.parse(widget.attendance!.sessionalTotal!);
+
+    double percent =
+        ((a + sessionalPresent + attend) / (b + sessionalTotal + total)) * 100;
+    // print("Percent  >>>   " + percent.toString());
+
+    return percent;
   }
 
   @override
@@ -139,10 +149,11 @@ class _PredictionInputScreenState extends State<PredictionInputScreen> {
                   text: 'Calculate',
                   press: () {
                     try {
-                      String res = calculatePercent();
+                      double res = calculatePercent();
+                      double attendance = widget.attendance!.percent ?? -1;
                       Navigator.pushNamed(context, PredictionResultScreen.ROUTE,
                           arguments: {
-                            'attendance': widget.attendance,
+                            'attendance': attendance,
                             'result': res,
                             'attend': attend.toString(),
                             'total': total.toString()
@@ -153,6 +164,7 @@ class _PredictionInputScreenState extends State<PredictionInputScreen> {
                     }
                   },
                 ),
+                kMedPadding,
               ],
             ),
           ),

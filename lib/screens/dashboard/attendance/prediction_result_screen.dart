@@ -1,22 +1,25 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:ipecstudentsapp/theme/colors.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-
-import '../../../data/model/Attendance.dart';
 import '../../../data/repo/auth.dart';
 import '../../../theme/style.dart';
 import '../../../widgets/simple_appbar.dart';
 
 class PredictionResultScreen extends StatefulWidget {
   static const String ROUTE = "/PredictionResultScreen";
-  final Attendance? attendance;
+  final double attendance;
   final String? attend;
   final String? total;
 
-  final String? result;
+  final double result;
   const PredictionResultScreen(
-      {Key? key, this.attendance, this.result, this.attend, this.total})
+      {Key? key,
+      required this.attendance,
+      required this.result,
+      this.attend,
+      this.total})
       : super(key: key);
 
   @override
@@ -24,15 +27,33 @@ class PredictionResultScreen extends StatefulWidget {
 }
 
 class _PredictionResultScreenState extends State<PredictionResultScreen> {
+  int state = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.attendance < widget.result)
+      state = 1;
+    else if (widget.attendance > widget.result) state = -1;
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
     return Consumer<Auth>(
       builder: (context, _auth, child) {
         final img = _auth.user!.img.toString().split(',')[1];
+        final textColor = state == 1
+            ? kGreen
+            : state == -1
+                ? kOrange
+                : isDark
+                    ? Colors.white
+                    : Colors.black;
         return Scaffold(
           body: SafeArea(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SimpleAppBar(
                   img: img,
@@ -49,10 +70,11 @@ class _PredictionResultScreenState extends State<PredictionResultScreen> {
                         )),
                 kLowPadding,
                 Text(
-                  '${widget.result}%',
-                  style: Theme.of(context).textTheme.headline3!.copyWith(
-                      color: isDark ? Colors.white : Colors.black,
-                      fontWeight: FontWeight.w700),
+                  '${widget.result.toStringAsFixed(2)}%',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline3!
+                      .copyWith(color: textColor, fontWeight: FontWeight.w700),
                 ),
                 kLowPadding,
                 Text(
@@ -62,6 +84,29 @@ class _PredictionResultScreenState extends State<PredictionResultScreen> {
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           color: isDark ? Colors.white : Colors.black,
                         )),
+                kMedPadding,
+                Visibility(
+                  visible: state != 0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        state == 1
+                            ? Icons.arrow_drop_up
+                            : Icons.arrow_drop_down,
+                        color: textColor,
+                        size: 30,
+                      ),
+                      Text(
+                        ((state > 0 ? "+" : "-") +
+                            (widget.attendance - widget.result)
+                                .abs()
+                                .toStringAsFixed(2)),
+                        style: TextStyle(color: textColor),
+                      ),
+                    ],
+                  ),
+                ),
                 kHighPadding,
                 Expanded(
                   child: Padding(
