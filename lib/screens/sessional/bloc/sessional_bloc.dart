@@ -1,13 +1,11 @@
-import '../../../data/model/GeneralResponse.dart';
-import '../../../theme/colors.dart';
+import 'package:html/parser.dart';
 
 import '../../../data/base_bloc/base_bloc.dart';
 import '../../../data/base_bloc/base_event.dart';
 import '../../../data/base_bloc/base_state.dart';
+import '../../../data/model/GeneralResponse.dart';
 import 'sessional_event.dart';
 import 'sessional_state.dart';
-import 'package:html/dom.dart';
-import 'package:html/parser.dart';
 
 class SessionalBloc extends BaseBloc {
   SessionalBloc(BaseState initialState) : super(initialState);

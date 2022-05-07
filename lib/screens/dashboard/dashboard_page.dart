@@ -3,15 +3,16 @@ import 'dart:io';
 
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:in_app_review/in_app_review.dart';
-import '../sessional/sessional_screen.dart';
+import 'package:is_first_run/is_first_run.dart';
 import 'package:provider/provider.dart';
 import 'package:rainbow_color/rainbow_color.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:is_first_run/is_first_run.dart';
+
 import '../../data/repo/auth.dart';
 import '../../theme/colors.dart';
 import '../../theme/style.dart';
@@ -20,6 +21,7 @@ import '../../widgets/background.dart';
 import '../about/about.dart';
 import '../hangout/hangout_screen.dart';
 import '../notices/notices_screen.dart';
+import '../sessional/sessional_screen.dart';
 import '../splash/splash_screen.dart';
 import 'attendance/attendance_page.dart';
 
@@ -152,6 +154,16 @@ class _DashboardScreenState extends State<DashboardScreen>
                                           chooserTitle: 'IPEC');
                                       break;
                                     case 3:
+                                      FirebaseMessaging.instance
+                                          .subscribeToTopic(
+                                              "hangoutNotification");
+                                      break;
+                                    case 4:
+                                      FirebaseMessaging.instance
+                                          .unsubscribeFromTopic(
+                                              "hangoutNotification");
+                                      break;
+                                    case 5:
                                       auth.logout().then((value) =>
                                           Navigator.pushReplacementNamed(
                                             context,
@@ -326,6 +338,28 @@ class _DashboardScreenState extends State<DashboardScreen>
           )),
       PopupMenuItem(
           value: 3,
+          child: Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
+                child: Icon(Icons.notifications),
+              ),
+              Text('Turn on cafe.. notification')
+            ],
+          )),
+      PopupMenuItem(
+          value: 4,
+          child: Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
+                child: Icon(Icons.notifications_off),
+              ),
+              Text('Turn off cafe.. notification')
+            ],
+          )),
+      PopupMenuItem(
+          value: 5,
           child: Row(
             children: <Widget>[
               Padding(

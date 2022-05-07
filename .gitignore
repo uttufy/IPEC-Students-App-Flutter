@@ -48,3 +48,4 @@ android/keystore.jks
 ios/Runner/GoogleService-Info.plist
 pubspec.yaml
 macos/GoogleService-Info.plist
+lib/data/local/saver_keys.dart

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../../data/model/hangout/comment.dart';
-import '../../../data/repo/pings.dart';
-import 'userStrip.dart';
-import '../../../theme/colors.dart';
-import '../../../theme/style.dart';
 import 'package:provider/provider.dart';
 import 'package:sweetsheet/sweetsheet.dart';
+
+import '../../../data/model/hangout/comment.dart';
+import '../../../data/repo/pings.dart';
+import '../../../theme/colors.dart';
+import '../../../theme/style.dart';
+import 'userStrip.dart';
 
 class CommentWidget extends StatelessWidget {
   final CommentModel commentModel;

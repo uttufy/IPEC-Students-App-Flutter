@@ -1,8 +1,9 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import '../../../theme/style.dart';
 import 'package:sweetsheet/sweetsheet.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../../theme/style.dart';
 
 class LinkWidget extends StatelessWidget {
   final String? url;

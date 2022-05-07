@@ -1,9 +1,10 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import '../../../theme/colors.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+
 import '../../../data/repo/auth.dart';
+import '../../../theme/colors.dart';
 import '../../../theme/style.dart';
 import '../../../widgets/simple_appbar.dart';
 

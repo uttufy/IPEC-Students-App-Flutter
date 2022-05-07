@@ -56,7 +56,8 @@ dependencies:
   in_app_review: ^2.0.4
   is_first_run: ^1.0.0
   rainbow_color: ^2.0.1
-  # webview_dart: ^1.0.0
+  # to build in android remove this
+  platform: ^3.1.0
 
 dev_dependencies:
   flutter_test:

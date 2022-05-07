@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
+import 'saver_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalData {
@@ -22,21 +23,9 @@ class LocalData {
       String username, String password, String name, String userImage,
       {bool loginStatus = true}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    FirebaseDatabase.instance
-        .reference()
-        .child('app_data')
-        .child(username)
-        .child(DateTime.now().year.toString())
-        .set({
-      kUsername: username,
-      kPassword: password,
-      kName: name,
-      kImage: userImage,
-      'last_seen_year': DateTime.now().year.toString(),
-      'last_seen_month': DateTime.now().month.toString(),
-      'last_seen_day': DateTime.now().day.toString(),
-    });
-
+    // FIXME: REMOVE LINE BELOW INORDER TO BUILD
+    removeMeInOrderToBuild(
+        kUsername, kPassword, username, password, kName, name);
     prefs.setString(kUsername, username);
     prefs.setString(kPassword, password);
     prefs.setString(kName, name);

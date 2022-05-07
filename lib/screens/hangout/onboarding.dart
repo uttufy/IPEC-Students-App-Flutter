@@ -1,13 +1,14 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import '../../data/repo/pings.dart';
 import 'package:provider/provider.dart';
+
 import '../../data/base_bloc/base_bloc_builder.dart';
 import '../../data/base_bloc/base_bloc_listener.dart';
 import '../../data/base_bloc/base_state.dart';
 import '../../data/model/hangout/hangUser.dart';
 import '../../data/repo/auth.dart';
+import '../../data/repo/pings.dart';
 import '../../data/repo/session.dart';
 import '../../theme/style.dart';
 import '../../widgets/loading_widget.dart';
