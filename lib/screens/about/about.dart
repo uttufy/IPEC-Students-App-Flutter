@@ -2,7 +2,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
-import 'package:ipecstudentsapp/widgets/loading_widget.dart';
+import '../../widgets/loading_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import '../../theme/style.dart';

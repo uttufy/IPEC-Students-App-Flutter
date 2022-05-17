@@ -1,7 +1,7 @@
-import '../../../../data/repo/auth.dart';
-import '../../../../data/repo/session.dart';
 import '../../../../data/base_bloc/base_event.dart';
 import '../../../../data/model/hangout/hangUser.dart';
+import '../../../../data/repo/auth.dart';
+import '../../../../data/repo/session.dart';
 
 class HangoutEvent extends BaseEvent {
   HangoutEvent([List props = const []]) : super(props);
