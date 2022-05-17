@@ -31,7 +31,7 @@ dependencies:
   flutter_bloc: ^7.1.0
   flutter_share: ^2.0.0
   flutter_svg: ^0.22.0
-  # flutter_webview_plugin: ^0.4.0
+  flutter_markdown: ^0.6.10
   html: ^0.15.0
   intl: ^0.17.0
   lottie: ^1.0.1
