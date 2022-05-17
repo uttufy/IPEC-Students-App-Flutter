@@ -1,5 +1,5 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 
@@ -29,6 +29,7 @@ class _NoticesScreenState extends State<NoticesScreen> {
   final NoticeBloc _bloc = NoticeBloc(NoticeInitial());
   Auth? _auth;
   List<Notice> _notices = [];
+  List<Notice> _duplicateNotices = [];
 
   @override
   void initState() {
@@ -52,7 +53,15 @@ class _NoticesScreenState extends State<NoticesScreen> {
               bloc: _bloc,
               listener: (BuildContext context, BaseState state) {
                 print("$runtimeType BlocListener - ${state.toString()}");
-
+                if (state is NoticeLoadedState) {
+                  _notices = state.notices;
+                  _duplicateNotices.addAll(state.notices);
+                }
+                if (state is AllNoticeLoadedState) {
+                  _notices = state.notices;
+                  _duplicateNotices.clear();
+                  _duplicateNotices.addAll(state.notices);
+                }
                 if (state is NoticeOpenFailedState) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -110,15 +119,15 @@ class _NoticesScreenState extends State<NoticesScreen> {
 
   Widget _getBody(Session session, BuildContext context, BaseState state) {
     if (state is NoticeLoadedState) {
-      _notices = state.notices;
-      return _noticesListView(_notices, session);
+      // _notices = state.notices;
+
+      return _noticesListView(session);
     }
     if (state is NoticeErrorState) return Center(child: Text(state.msg));
     if (state is NoticeInitial) return Center(child: Text("Intializing"));
 
     if (state is AllNoticeLoadedState) {
-      _notices = state.notices;
-      return _noticesListView(_notices, session);
+      return _noticesListView(session);
     }
 
     if (state is NoticeLoadingState ||
@@ -126,23 +135,66 @@ class _NoticesScreenState extends State<NoticesScreen> {
         state is NoticeOpeningLoading)
       return LoadingWidget();
     else if (state is NoticeOpenFailedState)
-      return _noticesListView(_notices, session);
+      return _noticesListView(session);
     else
       return Center(child: Text("Something Went Wrong! Try Again"));
   }
 
-  Widget _noticesListView(List<Notice> notices, Session session) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: notices.length,
-      physics: BouncingScrollPhysics(),
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      itemBuilder: (BuildContext context, int index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0),
-          child: _noticeItem(notices, index, session),
-        );
-      },
+  void filterSearchResults(String query) {
+    List<Notice> dummySearchList = [];
+    dummySearchList.addAll(_notices);
+    if (query.isNotEmpty) {
+      List<Notice> dummyListData = [];
+
+      dummySearchList.forEach((item) {
+        if (item.title!.contains(query)) {
+          dummyListData.add(item);
+        }
+      });
+      setState(() {
+        _duplicateNotices.clear();
+        _duplicateNotices.addAll(dummyListData);
+      });
+      return;
+    } else {
+      setState(() {
+        _duplicateNotices.clear();
+        _duplicateNotices.addAll(_notices);
+      });
+    }
+  }
+
+  Widget _noticesListView(Session session) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+          child: CupertinoSearchTextField(
+            style: Theme.of(context).textTheme.bodyLarge,
+            onChanged: (String value) {
+              print('The text has changed to: $value');
+              filterSearchResults(value);
+            },
+            // onSubmitted: (String value) {
+            //   print('Submitted text: $value');
+            // },
+          ),
+        ),
+        Expanded(
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: _duplicateNotices.length,
+            physics: BouncingScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            itemBuilder: (BuildContext context, int index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: _noticeItem(_duplicateNotices, index, session),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 
