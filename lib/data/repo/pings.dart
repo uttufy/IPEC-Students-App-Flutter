@@ -41,7 +41,7 @@ class Pings extends ChangeNotifier {
     final snap = await databaseRef2.child('user').child(_hUser!.id!).once();
     if (snap.value != null && snap.value['likes'] != null)
       _hUser!.likes = List<String>.from(snap.value['likes']);
-    print("-- Loading posts --");
+    // print("-- Loading posts --");
 
     Query query = databaseRef.orderByChild('postedOn');
     try {
@@ -65,7 +65,7 @@ class Pings extends ChangeNotifier {
   }
 
   Future<void> fetchMorePings() async {
-    print("--Fetching posts--");
+    // print("--Fetching posts--");
 
     List<Post> temp = [];
     var query = databaseRef
