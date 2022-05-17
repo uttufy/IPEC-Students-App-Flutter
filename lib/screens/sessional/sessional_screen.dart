@@ -1,19 +1,20 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+
 import '../../data/base_bloc/base_bloc_builder.dart';
 import '../../data/base_bloc/base_bloc_listener.dart';
 import '../../data/base_bloc/base_state.dart';
 import '../../data/repo/auth.dart';
 import '../../data/repo/session.dart';
-import 'bloc/sessional_bloc.dart';
-import 'bloc/sessional_event.dart';
-import 'bloc/sessional_state.dart';
 import '../../theme/style.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/simple_appbar.dart';
-import 'package:provider/provider.dart';
-import 'dart:io' show Platform;
-
-import 'package:webview_flutter/webview_flutter.dart';
+import 'bloc/sessional_bloc.dart';
+import 'bloc/sessional_event.dart';
+import 'bloc/sessional_state.dart';
 
 class SessionalMarksScreen extends StatefulWidget {
   static const String ROUTE = "/sessional";

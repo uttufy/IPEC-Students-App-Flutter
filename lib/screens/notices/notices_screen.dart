@@ -119,8 +119,6 @@ class _NoticesScreenState extends State<NoticesScreen> {
 
   Widget _getBody(Session session, BuildContext context, BaseState state) {
     if (state is NoticeLoadedState) {
-      // _notices = state.notices;
-
       return _noticesListView(session);
     }
     if (state is NoticeErrorState) return Center(child: Text(state.msg));
@@ -172,12 +170,9 @@ class _NoticesScreenState extends State<NoticesScreen> {
           child: CupertinoSearchTextField(
             style: Theme.of(context).textTheme.bodyLarge,
             onChanged: (String value) {
-              print('The text has changed to: $value');
+              // print('The text has changed to: $value');
               filterSearchResults(value);
             },
-            // onSubmitted: (String value) {
-            //   print('Submitted text: $value');
-            // },
           ),
         ),
         Expanded(

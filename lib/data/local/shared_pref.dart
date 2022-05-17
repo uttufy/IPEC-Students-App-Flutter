@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:firebase_database/firebase_database.dart';
-import 'saver_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'saver_keys.dart';
 
 class LocalData {
   static final LocalData _singleton = LocalData._internal();

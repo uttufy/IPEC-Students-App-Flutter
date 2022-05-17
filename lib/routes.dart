@@ -1,8 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'data/model/Attendance.dart';
-import 'screens/sessional/sessional_screen.dart';
 import 'package:provider/provider.dart';
+
 import 'data/repo/auth.dart';
 import 'data/repo/pings.dart';
 import 'data/repo/session.dart';
@@ -17,6 +16,7 @@ import 'screens/hangout/hangout_screen.dart';
 import 'screens/loading/loading_screen.dart';
 import 'screens/login/login_screen.dart';
 import 'screens/notices/notices_screen.dart';
+import 'screens/sessional/sessional_screen.dart';
 import 'screens/splash/splash_screen.dart';
 import 'theme/style.dart';
 import 'util/SizeConfig.dart';

@@ -1,10 +1,9 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
-import '../../theme/colors.dart';
-import '../../util/SizeConfig.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../theme/colors.dart';
 import '../../theme/style.dart';
 import '../../widgets/simple_appbar.dart';
 

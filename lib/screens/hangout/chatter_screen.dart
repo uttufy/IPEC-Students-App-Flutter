@@ -3,18 +3,19 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:giphy_picker/giphy_picker.dart';
+import 'package:profanity_filter/profanity_filter.dart';
+import 'package:provider/provider.dart';
+
 import '../../data/bad_hindi_words.dart';
 import '../../data/model/hangout/comment.dart';
 import '../../data/model/hangout/hangUser.dart';
 import '../../data/model/hangout/post.dart';
 import '../../data/repo/pings.dart';
+import '../../theme/colors.dart';
+import '../../widgets/simple_appbar.dart';
 import 'chatters.dart';
 import 'widget/basic_ping.dart';
 import 'widget/removeButton.dart';
-import '../../theme/colors.dart';
-import '../../widgets/simple_appbar.dart';
-import 'package:profanity_filter/profanity_filter.dart';
-import 'package:provider/provider.dart';
 
 class ChatterScreen extends StatefulWidget {
   static const String ROUTE = "/chatter";
