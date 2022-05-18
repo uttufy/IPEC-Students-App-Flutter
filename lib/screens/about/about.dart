@@ -1,8 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-
-import '../../widgets/loading_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import '../../theme/style.dart';
@@ -39,47 +37,67 @@ class AboutScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    kMedPadding,
-                    aboutWidget(
-                        context,
-                        'https://avatars.githubusercontent.com/u/16814257?v=4',
-                        'UTTU',
-                        'Utkarsh Sharma', () {
-                      _launchURL('https://www.instagram.com/uttufy');
-                    }, () {
-                      _launchURL('https://github.com/uttusharma');
-                    }, isDark),
-                    kMedPadding,
-                    aboutWidget(
-                        context,
-                        'https://avatars.githubusercontent.com/u/60356611?v=4',
-                        'Raks',
-                        'Rakshit Raj Singh', () {
-                      _launchURL(
-                          'https://www.instagram.com/rakshit.raj.singh/');
-                    }, () {
-                      _launchURL('https://github.com/RakshitRajSingh17');
-                    }, isDark),
-                    kMedPadding,
-                    aboutWidget(
-                        context,
-                        'https://avatars.githubusercontent.com/u/82357006?v=4',
-                        'Ridhi',
-                        'Ridhi Rawat', () {
-                      _launchURL('https://www.instagram.com/ri_aina2411');
-                    }, () {
-                      _launchURL('https://github.com/ridhi-7029hash');
-                    }, isDark),
-                    kHighPadding,
-                    Text(
-                      "Tap image to connect on instagram and name to connect on github",
-                      overflow: TextOverflow.clip,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            color: isDark ? Colors.white : Colors.black,
-                          ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30.0, vertical: 30),
+                      child: Text(
+                        '🔨 Developers',
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
                     ),
-                    kMedPadding,
+                    SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          kHighWidthPadding,
+                          aboutWidget(
+                              context,
+                              'https://avatars.githubusercontent.com/u/16814257?v=4',
+                              'UTTU',
+                              'Utkarsh Sharma', () {
+                            _launchURL('https://www.instagram.com/uttufy');
+                          }, () {
+                            _launchURL('https://github.com/uttusharma');
+                          }, isDark),
+                          kHighWidthPadding,
+                          aboutWidget(
+                              context,
+                              'https://avatars.githubusercontent.com/u/60356611?v=4',
+                              'Raks',
+                              'Rakshit Raj Singh', () {
+                            _launchURL(
+                                'https://www.instagram.com/rakshit.raj.singh/');
+                          }, () {
+                            _launchURL('https://github.com/RakshitRajSingh17');
+                          }, isDark),
+                          kHighWidthPadding,
+                          aboutWidget(
+                              context,
+                              'https://avatars.githubusercontent.com/u/82357006?v=4',
+                              'Ridhi',
+                              'Ridhi Rawat', () {
+                            _launchURL('https://www.instagram.com/ri_aina2411');
+                          }, () {
+                            _launchURL('https://github.com/ridhi-7029hash');
+                          }, isDark),
+                          kHighWidthPadding,
+                        ],
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Text(
+                        "Tap image to connect on instagram and name to connect on github",
+                        overflow: TextOverflow.clip,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                              color: isDark ? Colors.grey : Colors.grey,
+                            ),
+                      ),
+                    ),
+                    // kMedPadding,
                     _loadMdFile(),
                   ],
                 ),
@@ -101,7 +119,7 @@ class AboutScreen extends StatelessWidget {
           // print(snapshot.hasError);
           if (snapshot.hasData)
             return Markdown(
-              padding: const EdgeInsets.all(40),
+              padding: const EdgeInsets.all(30),
               shrinkWrap: true,
               data: snapshot.data!,
               selectable: true,

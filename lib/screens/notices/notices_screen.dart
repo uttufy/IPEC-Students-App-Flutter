@@ -145,7 +145,7 @@ class _NoticesScreenState extends State<NoticesScreen> {
       List<Notice> dummyListData = [];
 
       dummySearchList.forEach((item) {
-        if (item.title!.contains(query)) {
+        if (item.title!.toLowerCase().contains(query.toLowerCase())) {
           dummyListData.add(item);
         }
       });

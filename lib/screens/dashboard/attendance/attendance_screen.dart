@@ -282,14 +282,14 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
               child: Ink(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: isDark ? kGreen : Colors.black),
+                  borderRadius: BorderRadius.circular(30),
+                  color: isDark ? kGreen : Colors.black,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Lottie.asset('assets/anim/bulb.json',
-                        width: SizeConfig.widthMultiplier * 20),
+                    Lottie.asset('assets/anim/bulb.json', width: 120),
                     kMedPadding,
                     Text(
                       'Predict Attendance',
