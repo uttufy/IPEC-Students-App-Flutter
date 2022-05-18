@@ -1,6 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:ipecstudentsapp/widgets/loading_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import '../../theme/style.dart';
@@ -141,8 +142,8 @@ class AboutScreen extends StatelessWidget {
         } else {
           return Center(
             child: SizedBox(
-                width: 200,
-                height: 200,
+                width: 50,
+                height: 50,
                 child: const CircularProgressIndicator()),
           );
         }
