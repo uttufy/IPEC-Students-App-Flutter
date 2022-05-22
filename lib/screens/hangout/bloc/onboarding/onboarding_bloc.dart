@@ -60,6 +60,7 @@ class OnboardingBloc extends BaseBloc {
             section: section,
             yr: yr,
             likes: [kDefaultPOst]);
+        print(user.toJson());
         final ref = FirebaseDatabase.instance
             .reference()
             .child('hangout/pings/$kDefaultPOst');
@@ -67,9 +68,9 @@ class OnboardingBloc extends BaseBloc {
         if (res.value != null && res.value['likes'] != null)
           ref.update({'likes': res.value['likes'] + 1});
         if (depart == null ||
-            email == null ||
+            // email == null ||
             gender == null ||
-            phone == null ||
+            // phone == null ||
             section == null ||
             yr == null)
           yield OnboardingFailed();
@@ -82,7 +83,7 @@ class OnboardingBloc extends BaseBloc {
     if (event is SaveStudentDataEvent) {
       try {
         FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: event.user.email!, password: event.user.id!);
+            email: event.user.email ?? "N/A", password: event.user.id!);
 
         FirebaseDatabase.instance
             .reference()
