@@ -32,6 +32,7 @@
 /build/
 
 # Web related
+#As it is Important
 lib/generated_plugin_registrant.dart
 
 # Symbolication related
